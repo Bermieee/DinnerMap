@@ -1,0 +1,6708 @@
+[
+  {
+    "id": "us-01",
+    "name": "Easy Meatloaf",
+    "area": "American",
+    "category": "Beef",
+    "type": "favorite",
+    "original": "https://www.allrecipes.com/recipe/16354/easy-meatloaf/",
+    "ingredients": [
+      {
+        "measure": "1 \u00bd pounds",
+        "name": "ground beef"
+      },
+      {
+        "measure": "1 large",
+        "name": "egg"
+      },
+      {
+        "measure": "1",
+        "name": "onion, chopped"
+      },
+      {
+        "measure": "1 cup",
+        "name": "milk"
+      },
+      {
+        "measure": "1 cup",
+        "name": "dried bread crumbs"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt and pepper"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "ketchup"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "prepared mustard"
+      }
+    ]
+  },
+  {
+    "id": "us-02",
+    "name": "Chicken Pot Pie",
+    "area": "American",
+    "category": "Chicken",
+    "type": "favorite",
+    "original": "https://www.allrecipes.com/recipe/26317/chicken-pot-pie-ix/",
+    "ingredients": [
+      {
+        "measure": "1 pound",
+        "name": "boneless chicken breasts, cubed"
+      },
+      {
+        "measure": "1 cup",
+        "name": "sliced carrots"
+      },
+      {
+        "measure": "1 cup",
+        "name": "frozen green peas"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "sliced celery"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "butter"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "chopped onion"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "salt"
+      },
+      {
+        "measure": "\u00bc teaspoon",
+        "name": "black pepper"
+      },
+      {
+        "measure": "\u00bc teaspoon",
+        "name": "celery seeds"
+      },
+      {
+        "measure": "1 \u00be cups",
+        "name": "chicken broth"
+      },
+      {
+        "measure": "\u2154 cup",
+        "name": "milk"
+      },
+      {
+        "measure": "2 (9-inch)",
+        "name": "unbaked pie crusts"
+      }
+    ]
+  },
+  {
+    "id": "us-03",
+    "name": "Slow Cooker Texas Pulled Pork",
+    "area": "American",
+    "category": "Pork",
+    "type": "smoked",
+    "original": "https://www.allrecipes.com/recipe/92462/slow-cooker-texas-pulled-pork/",
+    "ingredients": [
+      {
+        "measure": "1 teaspoon",
+        "name": "vegetable oil"
+      },
+      {
+        "measure": "1 (4 pound)",
+        "name": "pork shoulder roast"
+      },
+      {
+        "measure": "1 cup",
+        "name": "barbecue sauce"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "apple cider vinegar"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "chicken broth"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "light brown sugar"
+      },
+      {
+        "measure": "1 tablespoon",
+        "name": "yellow mustard"
+      },
+      {
+        "measure": "1 tablespoon",
+        "name": "Worcestershire sauce"
+      },
+      {
+        "measure": "1 tablespoon",
+        "name": "chili powder"
+      },
+      {
+        "measure": "1 extra large",
+        "name": "onion, chopped"
+      },
+      {
+        "measure": "2 large cloves",
+        "name": "garlic, crushed"
+      },
+      {
+        "measure": "1 \u00bd teaspoons",
+        "name": "dried thyme"
+      },
+      {
+        "measure": "8",
+        "name": "hamburger buns"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "butter"
+      }
+    ]
+  },
+  {
+    "id": "us-04",
+    "name": "Slow Cooker Pot Roast",
+    "area": "American",
+    "category": "Beef",
+    "type": "smoked",
+    "original": "https://www.allrecipes.com/recipe/16346/maries-easy-slow-cooker-pot-roast/",
+    "ingredients": [
+      {
+        "measure": "4 pounds",
+        "name": "chuck roast"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt and pepper"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "olive oil"
+      },
+      {
+        "measure": "1 packet",
+        "name": "dry onion soup mix"
+      },
+      {
+        "measure": "1 cup",
+        "name": "water"
+      },
+      {
+        "measure": "3",
+        "name": "carrots, chopped"
+      },
+      {
+        "measure": "3",
+        "name": "potatoes, peeled and cubed"
+      },
+      {
+        "measure": "1",
+        "name": "onion, chopped"
+      }
+    ]
+  },
+  {
+    "id": "us-05",
+    "name": "Juicy Hamburgers",
+    "area": "American",
+    "category": "Beef",
+    "type": "quick",
+    "original": "https://www.allrecipes.com/recipe/49404/juiciest-hamburgers-ever/",
+    "ingredients": [
+      {
+        "measure": "2 pounds",
+        "name": "ground beef"
+      },
+      {
+        "measure": "\u00be cup",
+        "name": "dry bread crumbs"
+      },
+      {
+        "measure": "3 tablespoons",
+        "name": "evaporated milk"
+      },
+      {
+        "measure": "1",
+        "name": "egg, beaten"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "Worcestershire sauce"
+      },
+      {
+        "measure": "\u215b teaspoon",
+        "name": "cayenne pepper"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic, minced"
+      }
+    ]
+  },
+  {
+    "id": "us-06",
+    "name": "Homemade Sloppy Joes",
+    "area": "American",
+    "category": "Beef",
+    "type": "quick",
+    "original": "https://www.allrecipes.com/recipe/24264/sloppy-joes-ii/",
+    "ingredients": [
+      {
+        "measure": "1 pound",
+        "name": "lean ground beef"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "chopped onion"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "chopped green bell pepper"
+      },
+      {
+        "measure": "\u00be cup",
+        "name": "ketchup"
+      },
+      {
+        "measure": "1 tablespoon",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "1 teaspoon",
+        "name": "yellow mustard"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "garlic powder"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt and ground black pepper"
+      },
+      {
+        "measure": "6",
+        "name": "hamburger buns"
+      }
+    ]
+  },
+  {
+    "id": "us-07",
+    "name": "Tater Tot Casserole",
+    "area": "American",
+    "category": "Beef",
+    "type": "favorite",
+    "original": "https://www.allrecipes.com/recipe/222037/tater-tots-r-casserole/",
+    "ingredients": [
+      {
+        "measure": "1 pound",
+        "name": "ground beef"
+      },
+      {
+        "measure": "1 (10.5 ounce) can",
+        "name": "condensed cream of mushroom soup"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt and black pepper"
+      },
+      {
+        "measure": "1 (16 ounce) package",
+        "name": "frozen tater tots"
+      },
+      {
+        "measure": "2 cups",
+        "name": "shredded cheddar cheese"
+      }
+    ]
+  },
+  {
+    "id": "us-08",
+    "name": "Baked Macaroni and Cheese",
+    "area": "American",
+    "category": "Pasta",
+    "type": "favorite",
+    "original": "https://www.allrecipes.com/recipe/14140/baked-macaroni-and-cheese/",
+    "ingredients": [
+      {
+        "measure": "12 ounces",
+        "name": "elbow macaroni"
+      },
+      {
+        "measure": "2 cups",
+        "name": "whole milk"
+      },
+      {
+        "measure": "1 large",
+        "name": "egg"
+      },
+      {
+        "measure": "2 \u00bd cups",
+        "name": "shredded cheddar cheese"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "butter, melted"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt and pepper"
+      }
+    ]
+  },
+  {
+    "id": "us-09",
+    "name": "Chicken and Dumplings",
+    "area": "American",
+    "category": "Chicken",
+    "type": "quick",
+    "original": "https://www.allrecipes.com/recipe/218562/super-easy-chicken-and-dumplings/",
+    "ingredients": [
+      {
+        "measure": "2 (10.5 ounce) cans",
+        "name": "condensed cream of chicken soup"
+      },
+      {
+        "measure": "3 (14 ounce) cans",
+        "name": "chicken broth"
+      },
+      {
+        "measure": "3 cups",
+        "name": "shredded cooked chicken meat"
+      },
+      {
+        "measure": "2 (10 ounce) cans",
+        "name": "refrigerated biscuit dough"
+      }
+    ]
+  },
+  {
+    "id": "us-10",
+    "name": "Slow Cooker Chicken and Dumplings",
+    "area": "American",
+    "category": "Chicken",
+    "type": "smoked",
+    "original": "https://www.allrecipes.com/recipe/8941/slow-cooker-chicken-and-dumplings/",
+    "ingredients": [
+      {
+        "measure": "4",
+        "name": "boneless skinless chicken breast halves"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "butter"
+      },
+      {
+        "measure": "2 (10.5 ounce) cans",
+        "name": "condensed cream of chicken soup"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion, finely diced"
+      },
+      {
+        "measure": "1 (10 ounce) package",
+        "name": "refrigerated biscuit dough"
+      }
+    ]
+  },
+  {
+    "id": "us-11",
+    "name": "Salisbury Steak and Gravy",
+    "area": "American",
+    "category": "Beef",
+    "type": "favorite",
+    "original": "https://www.allrecipes.com/recipe/14595/salisbury-steak/",
+    "ingredients": [
+      {
+        "measure": "1 \u00bd pounds",
+        "name": "ground beef"
+      },
+      {
+        "measure": "1 (10.5 ounce) can",
+        "name": "condensed French onion soup"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "dry bread crumbs"
+      },
+      {
+        "measure": "1 large",
+        "name": "egg"
+      },
+      {
+        "measure": "\u00bc teaspoon",
+        "name": "salt"
+      },
+      {
+        "measure": "\u215b teaspoon",
+        "name": "ground black pepper"
+      },
+      {
+        "measure": "1 tablespoon",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "ketchup"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "water"
+      },
+      {
+        "measure": "1 tablespoon",
+        "name": "Worcestershire sauce"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "mustard powder"
+      }
+    ]
+  },
+  {
+    "id": "us-12",
+    "name": "Oven-Fried Chicken",
+    "area": "American",
+    "category": "Chicken",
+    "type": "favorite",
+    "original": "https://www.allrecipes.com/recipe/8841/oven-fried-chicken-ii/",
+    "ingredients": [
+      {
+        "measure": "12",
+        "name": "chicken thighs"
+      },
+      {
+        "measure": "1 cup",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt and pepper"
+      },
+      {
+        "measure": "1 cup",
+        "name": "Italian seasoned bread crumbs"
+      },
+      {
+        "measure": "3",
+        "name": "eggs"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "vegetable oil"
+      },
+      {
+        "measure": "1 teaspoon",
+        "name": "paprika"
+      }
+    ]
+  },
+  {
+    "id": "us-13",
+    "name": "Buffalo Chicken Wings",
+    "area": "American",
+    "category": "Chicken",
+    "type": "favorite",
+    "original": "https://www.allrecipes.com/recipe/24087/restaurant-style-buffalo-chicken-wings/",
+    "ingredients": [
+      {
+        "measure": "\u00bd cup",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "\u00bc teaspoon",
+        "name": "paprika"
+      },
+      {
+        "measure": "\u00bc teaspoon",
+        "name": "cayenne pepper"
+      },
+      {
+        "measure": "\u00bc teaspoon",
+        "name": "salt"
+      },
+      {
+        "measure": "10",
+        "name": "chicken wings"
+      },
+      {
+        "measure": "2 cups",
+        "name": "vegetable oil for frying"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "butter"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "hot sauce"
+      }
+    ]
+  },
+  {
+    "id": "us-14",
+    "name": "Homemade Beef Chili",
+    "area": "American",
+    "category": "Beef",
+    "type": "quick",
+    "original": "https://www.allrecipes.com/recipe/16248/easy-homemade-chili/",
+    "ingredients": [
+      {
+        "measure": "1 pound",
+        "name": "ground beef"
+      },
+      {
+        "measure": "1",
+        "name": "onion, chopped"
+      },
+      {
+        "measure": "1 (15 ounce) can",
+        "name": "tomato sauce"
+      },
+      {
+        "measure": "1 (15 ounce) can",
+        "name": "kidney beans"
+      },
+      {
+        "measure": "1 (14.5 ounce) can",
+        "name": "stewed tomatoes"
+      },
+      {
+        "measure": "1 \u00bd cups, optional",
+        "name": "water"
+      },
+      {
+        "measure": "1 teaspoon",
+        "name": "chili powder"
+      },
+      {
+        "measure": "1 pinch",
+        "name": "garlic powder"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt and pepper"
+      }
+    ]
+  },
+  {
+    "id": "us-15",
+    "name": "Philly Cheesesteak Sandwiches",
+    "area": "American",
+    "category": "Beef",
+    "type": "quick",
+    "original": "https://www.allrecipes.com/recipe/36621/philly-steak-sandwich/",
+    "ingredients": [
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "salt"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "black pepper"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "paprika"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "chili powder"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "onion powder"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "garlic powder"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "dried thyme"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "dried marjoram"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "dried basil"
+      },
+      {
+        "measure": "1 pound",
+        "name": "beef sirloin, thin strips"
+      },
+      {
+        "measure": "3 tablespoons",
+        "name": "vegetable oil"
+      },
+      {
+        "measure": "1",
+        "name": "onion, sliced"
+      },
+      {
+        "measure": "1",
+        "name": "green bell pepper, julienned"
+      },
+      {
+        "measure": "3 ounces",
+        "name": "Swiss cheese"
+      },
+      {
+        "measure": "4",
+        "name": "hoagie rolls"
+      }
+    ]
+  },
+  {
+    "id": "us-16",
+    "name": "Chicken Fried Steak with Gravy",
+    "area": "American",
+    "category": "Beef",
+    "type": "favorite",
+    "original": "https://www.allrecipes.com/recipe/150306/the-best-chicken-fried-steak/",
+    "ingredients": [
+      {
+        "measure": "4 (8 ounce)",
+        "name": "beef cube steaks"
+      },
+      {
+        "measure": "2 \u00bc cups",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "2 teaspoons",
+        "name": "baking powder"
+      },
+      {
+        "measure": "1 teaspoon",
+        "name": "baking soda"
+      },
+      {
+        "measure": "1 teaspoon",
+        "name": "black pepper"
+      },
+      {
+        "measure": "\u00be teaspoon",
+        "name": "salt"
+      },
+      {
+        "measure": "1 \u00bd cups",
+        "name": "buttermilk"
+      },
+      {
+        "measure": "1 large",
+        "name": "egg"
+      },
+      {
+        "measure": "1 tablespoon",
+        "name": "hot pepper sauce"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic, minced"
+      },
+      {
+        "measure": "3 cups",
+        "name": "vegetable shortening for frying"
+      },
+      {
+        "measure": "4 cups",
+        "name": "milk"
+      },
+      {
+        "measure": "to taste",
+        "name": "kosher salt and black pepper"
+      }
+    ]
+  },
+  {
+    "id": "us-17",
+    "name": "Roasted Pork Chops",
+    "area": "American",
+    "category": "Pork",
+    "type": "quick",
+    "original": "https://www.allrecipes.com/recipe/266162/perfect-simple-roasted-pork-chops/",
+    "ingredients": [
+      {
+        "measure": "4",
+        "name": "boneless center-cut pork chops"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "dried thyme"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt and ground black pepper"
+      }
+    ]
+  },
+  {
+    "id": "us-18",
+    "name": "Smoked Baby Back Ribs",
+    "area": "American",
+    "category": "Pork",
+    "type": "smoked",
+    "original": "https://www.allrecipes.com/recipe/281564/smoked-baby-back-ribs/",
+    "ingredients": [
+      {
+        "measure": "2 (3 pound) racks",
+        "name": "pork spareribs"
+      },
+      {
+        "measure": "2 teaspoons",
+        "name": "salt"
+      },
+      {
+        "measure": "6 tablespoons",
+        "name": "yellow mustard"
+      },
+      {
+        "measure": "1 cup",
+        "name": "BBQ rub"
+      },
+      {
+        "measure": "2 cups",
+        "name": "apple juice"
+      },
+      {
+        "measure": "1 (12 fluid ounce) bottle",
+        "name": "light beer"
+      },
+      {
+        "measure": "as needed",
+        "name": "hickory and apple wood chips"
+      }
+    ]
+  },
+  {
+    "id": "us-19",
+    "name": "Simple Smoked Pork Butt",
+    "area": "American",
+    "category": "Pork",
+    "type": "smoked",
+    "original": "https://www.allrecipes.com/recipe/274564/simple-smoked-pork-butt/",
+    "ingredients": [
+      {
+        "measure": "1 (8 pound)",
+        "name": "bone-in pork butt"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "yellow mustard"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "BBQ rub"
+      },
+      {
+        "measure": "as needed",
+        "name": "wood chips"
+      }
+    ]
+  },
+  {
+    "id": "us-20",
+    "name": "Grilled Barbecue Chicken",
+    "area": "American",
+    "category": "Chicken",
+    "type": "smoked",
+    "original": "https://www.allrecipes.com/recipe/236990/chef-johns-barbecue-chicken/",
+    "ingredients": [
+      {
+        "measure": "1 whole",
+        "name": "chicken, halved"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "rice vinegar"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "barbecue sauce for marinade"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic, crushed"
+      },
+      {
+        "measure": "1 tablespoon",
+        "name": "salt"
+      },
+      {
+        "measure": "1 teaspoon",
+        "name": "ground black pepper"
+      },
+      {
+        "measure": "1 teaspoon",
+        "name": "paprika"
+      },
+      {
+        "measure": "1 teaspoon",
+        "name": "onion powder"
+      },
+      {
+        "measure": "\u00bd teaspoon",
+        "name": "cayenne pepper"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "barbecue sauce for basting"
+      }
+    ]
+  },
+  {
+    "id": "us-21",
+    "name": "Cheeseburger Casserole",
+    "area": "American",
+    "category": "Beef",
+    "type": "favorite",
+    "original": "https://www.allrecipes.com/recipe/279270/cheeseburger-casserole/",
+    "ingredients": [
+      {
+        "measure": "as needed",
+        "name": "cooking spray"
+      },
+      {
+        "measure": "\u00bd pound",
+        "name": "ground beef"
+      },
+      {
+        "measure": "2 medium",
+        "name": "onions, chopped"
+      },
+      {
+        "measure": "1 (28 ounce) can",
+        "name": "diced tomatoes with herbs"
+      },
+      {
+        "measure": "\u00bd cup, optional",
+        "name": "water"
+      },
+      {
+        "measure": "2 cups",
+        "name": "elbow macaroni"
+      },
+      {
+        "measure": "1 cup",
+        "name": "frozen corn"
+      },
+      {
+        "measure": "1",
+        "name": "green bell pepper, chopped"
+      },
+      {
+        "measure": "2 tablespoons",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "1 tablespoon",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1 tablespoon",
+        "name": "chili powder"
+      },
+      {
+        "measure": "1 teaspoon",
+        "name": "Italian seasoning"
+      },
+      {
+        "measure": "to taste",
+        "name": "black pepper"
+      },
+      {
+        "measure": "2 cups",
+        "name": "shredded Mexican cheese blend"
+      }
+    ]
+  },
+  {
+    "id": "mx-01",
+    "name": "Ground Beef Tacos",
+    "area": "Mexican",
+    "category": "Beef",
+    "type": "quick",
+    "original": "https://www.isabeleats.com/easy-ground-beef-tacos/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "1\u00bd tsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "1 lb",
+        "name": "ground beef"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "tomato paste"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "water or beef broth"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "chili powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "garlic powder"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "onion powder"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "dried oregano"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "lime juice"
+      },
+      {
+        "measure": "12",
+        "name": "corn tortillas"
+      },
+      {
+        "measure": "some",
+        "name": "oil for frying"
+      },
+      {
+        "measure": "optional",
+        "name": "shredded lettuce"
+      },
+      {
+        "measure": "optional",
+        "name": "shredded cheese"
+      },
+      {
+        "measure": "optional",
+        "name": "diced tomatoes"
+      },
+      {
+        "measure": "optional",
+        "name": "sour cream"
+      }
+    ]
+  },
+  {
+    "id": "mx-02",
+    "name": "Slow Cooker Pork Carnitas",
+    "area": "Mexican",
+    "category": "Pork",
+    "type": "smoked",
+    "original": "https://www.isabeleats.com/mexican-slow-cooker-pork-carnitas-tacos/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "4\u20135 lb",
+        "name": "pork shoulder"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "4 tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "chili powder"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "garlic powder"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "dried oregano"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "onion powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "4 Tbsp",
+        "name": "orange juice"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "lime juice"
+      }
+    ]
+  },
+  {
+    "id": "mx-03",
+    "name": "Chicken Tinga Tacos",
+    "area": "Mexican",
+    "category": "Chicken",
+    "type": "favorite",
+    "original": "https://www.isabeleats.com/chicken-tinga/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "1\u00bd\u20132 lb",
+        "name": "boneless skinless chicken"
+      },
+      {
+        "measure": "\u00bc large",
+        "name": "onion for poaching"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic for poaching"
+      },
+      {
+        "measure": "1",
+        "name": "bay leaf"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt for chicken"
+      },
+      {
+        "measure": "as needed",
+        "name": "water"
+      },
+      {
+        "measure": "4 large",
+        "name": "Roma tomatoes"
+      },
+      {
+        "measure": "1 large",
+        "name": "white onion for sauce"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "chipotle peppers in adobo"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic for sauce"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "Mexican oregano"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt for sauce"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "for serving",
+        "name": "warm corn tortillas"
+      },
+      {
+        "measure": "for serving",
+        "name": "cotija cheese"
+      },
+      {
+        "measure": "for serving",
+        "name": "chopped cilantro"
+      },
+      {
+        "measure": "for serving",
+        "name": "diced avocado"
+      }
+    ]
+  },
+  {
+    "id": "mx-04",
+    "name": "Crispy Chicken Taquitos",
+    "area": "Mexican",
+    "category": "Chicken",
+    "type": "favorite",
+    "original": "https://www.isabeleats.com/chicken-taquitos/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "2\u00bd cups",
+        "name": "cooked shredded chicken"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "chili powder"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "garlic powder"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "onion powder"
+      },
+      {
+        "measure": "to taste",
+        "name": "sea salt"
+      },
+      {
+        "measure": "1\u00bd cups",
+        "name": "shredded cheese"
+      },
+      {
+        "measure": "18",
+        "name": "corn tortillas"
+      },
+      {
+        "measure": "2 cups for frying or 1\u20132 Tbsp for baking",
+        "name": "vegetable oil"
+      },
+      {
+        "measure": "optional",
+        "name": "lettuce and sour cream"
+      },
+      {
+        "measure": "optional",
+        "name": "pico de gallo and guacamole"
+      }
+    ]
+  },
+  {
+    "id": "mx-05",
+    "name": "Easy Beef Enchiladas",
+    "area": "Mexican",
+    "category": "Beef",
+    "type": "favorite",
+    "original": "https://www.isabeleats.com/beef-enchiladas/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "1 Tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion"
+      },
+      {
+        "measure": "1",
+        "name": "jalape\u00f1o"
+      },
+      {
+        "measure": "1 lb",
+        "name": "lean ground beef"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "1\u00be cups",
+        "name": "enchilada sauce"
+      },
+      {
+        "measure": "8 large",
+        "name": "flour tortillas"
+      },
+      {
+        "measure": "2 cups",
+        "name": "Mexican cheese blend"
+      },
+      {
+        "measure": "optional",
+        "name": "diced onions and cilantro"
+      },
+      {
+        "measure": "optional",
+        "name": "sour cream and lettuce"
+      }
+    ]
+  },
+  {
+    "id": "mx-06",
+    "name": "Chicken Enchilada Casserole",
+    "area": "Mexican",
+    "category": "Chicken",
+    "type": "favorite",
+    "original": "https://www.isabeleats.com/chicken-enchilada-casserole/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "2 Tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion"
+      },
+      {
+        "measure": "1",
+        "name": "bell pepper"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 cup",
+        "name": "cooked black beans"
+      },
+      {
+        "measure": "1 cup",
+        "name": "corn"
+      },
+      {
+        "measure": "3 cups",
+        "name": "cooked shredded chicken"
+      },
+      {
+        "measure": "1 (4 oz) can",
+        "name": "diced green chiles"
+      },
+      {
+        "measure": "2\u00bc cups",
+        "name": "red enchilada sauce"
+      },
+      {
+        "measure": "15",
+        "name": "corn tortillas"
+      },
+      {
+        "measure": "3\u00bd cups",
+        "name": "shredded cheese"
+      },
+      {
+        "measure": "optional",
+        "name": "sour cream"
+      },
+      {
+        "measure": "optional",
+        "name": "cilantro and avocado"
+      }
+    ]
+  },
+  {
+    "id": "mx-07",
+    "name": "Steak Fajitas",
+    "area": "Mexican",
+    "category": "Beef",
+    "type": "favorite",
+    "original": "https://www.isabeleats.com/easy-steak-fajitas/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "\u00bc cup",
+        "name": "olive oil for marinade"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "orange juice"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "lime juice"
+      },
+      {
+        "measure": "3 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "chili powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "dried oregano"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "smoked paprika"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "chopped cilantro"
+      },
+      {
+        "measure": "2 lb",
+        "name": "flank or skirt steak"
+      },
+      {
+        "measure": "to taste",
+        "name": "kosher salt and black pepper"
+      },
+      {
+        "measure": "2\u00bd Tbsp",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "2 medium",
+        "name": "white onions"
+      },
+      {
+        "measure": "1 large",
+        "name": "poblano pepper"
+      },
+      {
+        "measure": "3 large",
+        "name": "bell peppers"
+      }
+    ]
+  },
+  {
+    "id": "mx-08",
+    "name": "Sheet Pan Chicken Fajitas",
+    "area": "Mexican",
+    "category": "Chicken",
+    "type": "quick",
+    "original": "https://www.isabeleats.com/sheet-pan-chicken-fajitas/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "3 Tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "1\u00bd lb",
+        "name": "boneless skinless chicken breast"
+      },
+      {
+        "measure": "3",
+        "name": "bell peppers"
+      },
+      {
+        "measure": "1",
+        "name": "red onion"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "white wine vinegar"
+      },
+      {
+        "measure": "4 tsp",
+        "name": "chili powder"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "onion powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "garlic powder"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "smoked paprika"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "lime juice"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "chopped cilantro (optional)"
+      }
+    ]
+  },
+  {
+    "id": "mx-09",
+    "name": "Carne Asada",
+    "area": "Mexican",
+    "category": "Beef",
+    "type": "smoked",
+    "original": "https://www.isabeleats.com/carne-asada-recipe/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "\u00bd cup",
+        "name": "chopped cilantro"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "olive oil"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "orange juice"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "lime juice"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "white wine vinegar"
+      },
+      {
+        "measure": "4 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1",
+        "name": "jalape\u00f1o"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "chili powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "Mexican oregano"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "ancho chili powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "ground black pepper"
+      },
+      {
+        "measure": "2 lb",
+        "name": "skirt or flank steak"
+      }
+    ]
+  },
+  {
+    "id": "mx-10",
+    "name": "Pozole Rojo (Pork & Hominy Stew)",
+    "area": "Mexican",
+    "category": "Pork",
+    "type": "smoked",
+    "original": "https://www.isabeleats.com/red-posole-recipe/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "4 cups",
+        "name": "water"
+      },
+      {
+        "measure": "6",
+        "name": "dried guajillo chiles"
+      },
+      {
+        "measure": "4",
+        "name": "dried ancho chiles"
+      },
+      {
+        "measure": "2",
+        "name": "dried \u00e1rbol chiles"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "chili powder"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "1\u00bd tsp",
+        "name": "kosher salt for chile sauce"
+      },
+      {
+        "measure": "4 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "8 g",
+        "name": "Mexican chocolate (optional)"
+      },
+      {
+        "measure": "2\u00bd lb",
+        "name": "pork shoulder"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "kosher salt for pork"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "oil"
+      },
+      {
+        "measure": "6 cups",
+        "name": "broth"
+      },
+      {
+        "measure": "3 (15 oz) cans",
+        "name": "white hominy"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "Mexican oregano"
+      },
+      {
+        "measure": "optional",
+        "name": "cabbage, cilantro, radishes and lime wedges"
+      }
+    ]
+  },
+  {
+    "id": "mx-11",
+    "name": "Grilled Shrimp Tacos with Slaw",
+    "area": "Mexican",
+    "category": "Seafood",
+    "type": "quick",
+    "original": "https://www.isabeleats.com/grilled-shrimp-tacos-with-creamy-slaw/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "1 lb",
+        "name": "raw shrimp"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "tequila"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "3 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "lime juice for shrimp"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt for shrimp"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "ancho chili powder"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "paprika"
+      },
+      {
+        "measure": "4 cups",
+        "name": "shredded cabbage"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "cilantro for slaw"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "mayonnaise"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "sour cream"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "lime juice for slaw"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "salt for slaw"
+      },
+      {
+        "measure": "2 ears",
+        "name": "corn"
+      },
+      {
+        "measure": "some",
+        "name": "corn tortillas"
+      }
+    ]
+  },
+  {
+    "id": "mx-12",
+    "name": "Chile Rellenos",
+    "area": "Mexican",
+    "category": "Vegetarian",
+    "type": "favorite",
+    "original": "https://www.isabeleats.com/chile-relleno-recipe/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "6 large",
+        "name": "poblano peppers"
+      },
+      {
+        "measure": "8 oz",
+        "name": "Monterey Jack cheese"
+      },
+      {
+        "measure": "4 cups",
+        "name": "frying oil"
+      },
+      {
+        "measure": "3 large",
+        "name": "eggs"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "fine salt"
+      },
+      {
+        "measure": "6",
+        "name": "Roma tomatoes for salsa"
+      },
+      {
+        "measure": "\u00bd small",
+        "name": "onion for salsa"
+      },
+      {
+        "measure": "3 cloves",
+        "name": "garlic for salsa"
+      },
+      {
+        "measure": "1",
+        "name": "jalape\u00f1o for salsa (optional)"
+      },
+      {
+        "measure": "5 sprigs",
+        "name": "cilantro for salsa"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt for salsa"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "olive oil for salsa"
+      }
+    ]
+  },
+  {
+    "id": "mx-13",
+    "name": "Baked Chile Rellenos",
+    "area": "Mexican",
+    "category": "Vegetarian",
+    "type": "favorite",
+    "original": "https://www.isabeleats.com/baked-vegetarian-chile-rellenos/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "6",
+        "name": "poblano peppers"
+      },
+      {
+        "measure": "2 (4 oz) cans",
+        "name": "diced green chiles"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "yellow corn"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "1 batch",
+        "name": "ranchero sauce (optional)"
+      },
+      {
+        "measure": "1\u00bd cups",
+        "name": "shredded Chihuahua cheese"
+      }
+    ]
+  },
+  {
+    "id": "mx-14",
+    "name": "Chicken Enchilada Skillet",
+    "area": "Mexican",
+    "category": "Chicken",
+    "type": "quick",
+    "original": "https://www.isabeleats.com/chicken-enchilada-skillet/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "2 Tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "1",
+        "name": "white onion"
+      },
+      {
+        "measure": "1",
+        "name": "green bell pepper"
+      },
+      {
+        "measure": "4 cups",
+        "name": "cooked shredded chicken"
+      },
+      {
+        "measure": "3 cups",
+        "name": "enchilada sauce"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "taco seasoning"
+      },
+      {
+        "measure": "8",
+        "name": "corn tortillas"
+      },
+      {
+        "measure": "2 cups",
+        "name": "Mexican cheese blend"
+      },
+      {
+        "measure": "optional",
+        "name": "cilantro, sour cream and guacamole"
+      }
+    ]
+  },
+  {
+    "id": "mx-15",
+    "name": "Carne Asada Burritos",
+    "area": "Mexican",
+    "category": "Beef",
+    "type": "favorite",
+    "original": "https://www.isabeleats.com/carne-asada-burrito/",
+    "source": "Isabel Eats",
+    "ingredients": [
+      {
+        "measure": "\u00bd cup",
+        "name": "cilantro"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "olive oil"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "orange juice"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "lime juice"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "white wine vinegar"
+      },
+      {
+        "measure": "4 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1",
+        "name": "jalape\u00f1o"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "chili powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "Mexican oregano"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "ancho chili powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "2 lb",
+        "name": "skirt or flank steak"
+      },
+      {
+        "measure": "4",
+        "name": "poblano peppers"
+      },
+      {
+        "measure": "4 extra-large",
+        "name": "flour tortillas"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "shredded melting cheese"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "refried beans"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "pico de gallo"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "guacamole"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "salted butter"
+      }
+    ]
+  },
+  {
+    "id": "kr-01",
+    "name": "Beef Bulgogi",
+    "area": "South Korean",
+    "category": "Beef",
+    "type": "favorite",
+    "original": "https://mykoreankitchen.com/bulgogi-korean-bbq-beef/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "800 g",
+        "name": "ribeye or top sirloin beef"
+      },
+      {
+        "measure": "1",
+        "name": "onion, thinly sliced (optional)"
+      },
+      {
+        "measure": "2 stalks",
+        "name": "green onion (optional)"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "carrot (optional)"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "toasted sesame oil"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "toasted sesame seeds"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "6 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "rice wine (mirin)"
+      },
+      {
+        "measure": "1",
+        "name": "Asian pear or red apple"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "onion for marinade"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "minced ginger"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "ground black pepper"
+      }
+    ]
+  },
+  {
+    "id": "kr-02",
+    "name": "Chicken Bulgogi",
+    "area": "South Korean",
+    "category": "Chicken",
+    "type": "quick",
+    "original": "https://mykoreankitchen.com/chicken-bulgogi/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "450 g",
+        "name": "boneless chicken thighs"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1\u00bd Tbsp",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "rice wine"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "Sprite or lemon-lime soda"
+      },
+      {
+        "measure": "\u00bd Tbsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "minced ginger"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "to taste",
+        "name": "ground black pepper"
+      }
+    ]
+  },
+  {
+    "id": "kr-03",
+    "name": "Spicy Pork Stir-Fry (Jeyuk Bokkeum)",
+    "area": "South Korean",
+    "category": "Pork",
+    "type": "quick",
+    "original": "https://mykoreankitchen.com/jeyuk-bokkeum-korean-spicy-pork-stir-fry/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "800 g",
+        "name": "pork belly slices"
+      },
+      {
+        "measure": "4 Tbsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "2\u00bd Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1\u00bd Tbsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "minced ginger"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "rice wine"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "gochugaru"
+      },
+      {
+        "measure": "60 g",
+        "name": "red apple"
+      },
+      {
+        "measure": "60 g",
+        "name": "onion for marinade"
+      },
+      {
+        "measure": "4 sprinkles",
+        "name": "ground black pepper"
+      },
+      {
+        "measure": "10",
+        "name": "perilla leaves"
+      },
+      {
+        "measure": "90 g",
+        "name": "onion, sliced"
+      },
+      {
+        "measure": "100 g",
+        "name": "carrot, sliced"
+      },
+      {
+        "measure": "180 g",
+        "name": "cabbage, sliced"
+      },
+      {
+        "measure": "110 g",
+        "name": "Korean rice cakes"
+      },
+      {
+        "measure": "some",
+        "name": "cooking oil"
+      }
+    ]
+  },
+  {
+    "id": "kr-04",
+    "name": "Dakgalbi (Spicy Korean Chicken)",
+    "area": "South Korean",
+    "category": "Chicken",
+    "type": "favorite",
+    "original": "https://mykoreankitchen.com/dak-galbi/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "500 g",
+        "name": "chicken thighs"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "sweet potato (180 g)"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "carrot (60 g)"
+      },
+      {
+        "measure": "\u00bc",
+        "name": "cabbage (320 g)"
+      },
+      {
+        "measure": "10",
+        "name": "perilla leaves"
+      },
+      {
+        "measure": "18 pieces",
+        "name": "Korean rice cakes (175 g)"
+      },
+      {
+        "measure": "2\u20133 Tbsp",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "rice wine"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "gochugaru"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "raw sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "minced ginger"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "Korean curry powder"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "small onion for marinade"
+      },
+      {
+        "measure": "a few sprinkles",
+        "name": "ground black pepper"
+      }
+    ]
+  },
+  {
+    "id": "kr-05",
+    "name": "Kimchi Fried Rice",
+    "area": "South Korean",
+    "category": "Pork",
+    "type": "quick",
+    "original": "https://mykoreankitchen.com/kimchi-fried-rice/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "1 cup",
+        "name": "kimchi"
+      },
+      {
+        "measure": "150 g",
+        "name": "bacon"
+      },
+      {
+        "measure": "1 pack",
+        "name": "enoki mushrooms (optional)"
+      },
+      {
+        "measure": "3 cups",
+        "name": "cooked short-grain rice"
+      },
+      {
+        "measure": "4",
+        "name": "eggs"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "kimchi juice"
+      },
+      {
+        "measure": "\u00bd Tbsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "toasted sesame seeds"
+      },
+      {
+        "measure": "\u00bd stalk",
+        "name": "green onion (optional)"
+      },
+      {
+        "measure": "some",
+        "name": "roasted seaweed (optional)"
+      }
+    ]
+  },
+  {
+    "id": "kr-06",
+    "name": "Kimchi Tuna Fried Rice",
+    "area": "South Korean",
+    "category": "Seafood",
+    "type": "quick",
+    "original": "https://mykoreankitchen.com/kimchi-tuna-fried-rice/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "some",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "1 cup",
+        "name": "kimchi"
+      },
+      {
+        "measure": "185 g",
+        "name": "canned tuna, drained"
+      },
+      {
+        "measure": "2 cups",
+        "name": "cooked rice"
+      },
+      {
+        "measure": "50 g",
+        "name": "canned corn (optional)"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "kimchi juice"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "\u00bd Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "\u00bd Tbsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "optional",
+        "name": "green onions"
+      },
+      {
+        "measure": "optional",
+        "name": "sesame seeds"
+      },
+      {
+        "measure": "optional",
+        "name": "seaweed strips"
+      },
+      {
+        "measure": "optional",
+        "name": "fried eggs"
+      }
+    ]
+  },
+  {
+    "id": "kr-07",
+    "name": "Kimchi Jjigae (Kimchi Stew)",
+    "area": "South Korean",
+    "category": "Pork",
+    "type": "favorite",
+    "original": "https://mykoreankitchen.com/kimchi-jjigae/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "180 g",
+        "name": "pork belly"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "rice wine"
+      },
+      {
+        "measure": "3 sprinkles",
+        "name": "ground black pepper for pork"
+      },
+      {
+        "measure": "\u00be cup",
+        "name": "aged kimchi"
+      },
+      {
+        "measure": "\u00bc",
+        "name": "small brown onion"
+      },
+      {
+        "measure": "\u00bd stalk",
+        "name": "green onion"
+      },
+      {
+        "measure": "2",
+        "name": "shiitake mushrooms"
+      },
+      {
+        "measure": "150 g",
+        "name": "firm tofu"
+      },
+      {
+        "measure": "1 cup",
+        "name": "water"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "gochugaru"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "3 sprinkles",
+        "name": "ground black pepper for broth"
+      }
+    ]
+  },
+  {
+    "id": "kr-08",
+    "name": "Japchae (Glass Noodle Stir-Fry)",
+    "area": "South Korean",
+    "category": "Pasta",
+    "type": "favorite",
+    "original": "https://mykoreankitchen.com/korean-glass-noodle-stir-fry-japchae/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "250 g",
+        "name": "Korean sweet potato glass noodles"
+      },
+      {
+        "measure": "100 g",
+        "name": "ribeye beef strips"
+      },
+      {
+        "measure": "1",
+        "name": "carrot (120 g)"
+      },
+      {
+        "measure": "110 g",
+        "name": "baby spinach"
+      },
+      {
+        "measure": "\u00bc",
+        "name": "red bell pepper"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "yellow onion"
+      },
+      {
+        "measure": "100 g",
+        "name": "shiitake mushrooms"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "sea salt for spinach"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "minced garlic for spinach"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sesame oil for spinach"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce for beef"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "rice wine"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "minced garlic for beef"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "black pepper for beef"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sesame oil for beef"
+      },
+      {
+        "measure": "4 Tbsp",
+        "name": "soy sauce for noodles"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "honey"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sesame oil for noodles"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "ground black pepper"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "toasted sesame seeds"
+      },
+      {
+        "measure": "1",
+        "name": "egg for garnish (optional)"
+      },
+      {
+        "measure": "some",
+        "name": "cooking oil"
+      }
+    ]
+  },
+  {
+    "id": "kr-09",
+    "name": "Bibimbap Rice Bowls",
+    "area": "South Korean",
+    "category": "Beef",
+    "type": "favorite",
+    "original": "https://mykoreankitchen.com/bibimbap-korean-mixed-rice-with-meat-and-assorted-vegetables/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "100 g",
+        "name": "ground beef"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sesame oil for beef"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "minced garlic for beef"
+      },
+      {
+        "measure": "250 g",
+        "name": "seasoned spinach"
+      },
+      {
+        "measure": "350 g",
+        "name": "seasoned bean sprouts"
+      },
+      {
+        "measure": "100 g",
+        "name": "shiitake mushrooms"
+      },
+      {
+        "measure": "120 g",
+        "name": "carrot"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "fine sea salt"
+      },
+      {
+        "measure": "3\u20134 portions",
+        "name": "cooked rice"
+      },
+      {
+        "measure": "3\u20134",
+        "name": "eggs"
+      },
+      {
+        "measure": "some",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "some",
+        "name": "roasted seasoned seaweed"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sesame oil for bibimbap sauce"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "water"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "toasted sesame seeds"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "vinegar"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "minced garlic for sauce"
+      }
+    ]
+  },
+  {
+    "id": "kr-10",
+    "name": "Korean Fried Chicken",
+    "area": "South Korean",
+    "category": "Chicken",
+    "type": "favorite",
+    "original": "https://mykoreankitchen.com/korean-fried-chicken/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "1.4 kg",
+        "name": "chicken pieces or wings"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "rice wine"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "minced ginger"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "fine sea salt"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "1 cup",
+        "name": "potato starch or cornstarch"
+      },
+      {
+        "measure": "some",
+        "name": "oil for frying"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "ketchup"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "honey"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "optional",
+        "name": "toasted sesame seeds"
+      },
+      {
+        "measure": "optional",
+        "name": "green onion"
+      }
+    ]
+  },
+  {
+    "id": "kr-11",
+    "name": "Tteokbokki (Spicy Rice Cakes)",
+    "area": "South Korean",
+    "category": "Miscellaneous",
+    "type": "quick",
+    "original": "https://mykoreankitchen.com/tteokbokki-spicy-rice-cakes/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "350 g",
+        "name": "Korean rice cakes"
+      },
+      {
+        "measure": "150 g",
+        "name": "Korean fish cakes"
+      },
+      {
+        "measure": "2 cups",
+        "name": "Korean soup stock"
+      },
+      {
+        "measure": "60 g",
+        "name": "onion"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "1\u00bd Tbsp",
+        "name": "raw sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "gochugaru"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "toasted sesame seeds"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "1 stalk",
+        "name": "green onion"
+      }
+    ]
+  },
+  {
+    "id": "kr-12",
+    "name": "Jajangmyeon (Korean Black Bean Noodles)",
+    "area": "South Korean",
+    "category": "Pasta",
+    "type": "favorite",
+    "original": "https://mykoreankitchen.com/korean-black-bean-sauce-noodles-jajangmyeon/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "1 kg",
+        "name": "fresh jajangmyeon noodles"
+      },
+      {
+        "measure": "1 large",
+        "name": "onion"
+      },
+      {
+        "measure": "1 medium",
+        "name": "zucchini"
+      },
+      {
+        "measure": "2 large",
+        "name": "potatoes"
+      },
+      {
+        "measure": "7 large",
+        "name": "button mushrooms"
+      },
+      {
+        "measure": "\u00bc",
+        "name": "cabbage"
+      },
+      {
+        "measure": "600 g",
+        "name": "diced pork"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "rice wine for pork"
+      },
+      {
+        "measure": "5 sprinkles",
+        "name": "salt"
+      },
+      {
+        "measure": "5 sprinkles",
+        "name": "pepper"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "ginger powder"
+      },
+      {
+        "measure": "6 Tbsp",
+        "name": "Korean black bean paste"
+      },
+      {
+        "measure": "90 g",
+        "name": "lard or 6 Tbsp cooking oil"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "4 Tbsp",
+        "name": "rice wine for sauce"
+      },
+      {
+        "measure": "1 cup",
+        "name": "chicken stock"
+      },
+      {
+        "measure": "1 cup",
+        "name": "water"
+      },
+      {
+        "measure": "5 Tbsp",
+        "name": "potato starch"
+      },
+      {
+        "measure": "4 Tbsp",
+        "name": "water for slurry"
+      },
+      {
+        "measure": "1 large",
+        "name": "cucumber for topping (optional)"
+      }
+    ]
+  },
+  {
+    "id": "kr-13",
+    "name": "LA Galbi (Korean BBQ Short Ribs)",
+    "area": "South Korean",
+    "category": "Beef",
+    "type": "smoked",
+    "original": "https://mykoreankitchen.com/wprm_print/la-galbi-korean-bbq-short-ribs-sweet-savory-and-perfectly-grilled",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "800 g",
+        "name": "LA-style flanken short ribs"
+      },
+      {
+        "measure": "6 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "3\u00bd Tbsp",
+        "name": "dark brown sugar"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "mirin"
+      },
+      {
+        "measure": "70 g",
+        "name": "apple or Korean pear"
+      },
+      {
+        "measure": "70 g",
+        "name": "onion"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "kiwi (40 g)"
+      },
+      {
+        "measure": "1\u00bd Tbsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "minced ginger"
+      },
+      {
+        "measure": "a few sprinkles",
+        "name": "ground black pepper"
+      }
+    ]
+  },
+  {
+    "id": "kr-14",
+    "name": "Jjimdak (Soy-Braised Chicken)",
+    "area": "South Korean",
+    "category": "Chicken",
+    "type": "smoked",
+    "original": "https://mykoreankitchen.com/wprm_print/jjimdak-korean-braised-chicken",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "800 g",
+        "name": "chicken pieces"
+      },
+      {
+        "measure": "5 cups",
+        "name": "water for parboiling"
+      },
+      {
+        "measure": "2 medium",
+        "name": "potatoes"
+      },
+      {
+        "measure": "1 medium",
+        "name": "carrot"
+      },
+      {
+        "measure": "1 large",
+        "name": "brown onion"
+      },
+      {
+        "measure": "5",
+        "name": "dried small red chillies"
+      },
+      {
+        "measure": "150 g",
+        "name": "Korean glass noodles"
+      },
+      {
+        "measure": "3",
+        "name": "button or shiitake mushrooms"
+      },
+      {
+        "measure": "1 stalk",
+        "name": "green onion"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "toasted sesame seeds"
+      },
+      {
+        "measure": "1\u00bd cups",
+        "name": "water for sauce"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "rice wine"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "honey"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "oyster sauce"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "minced ginger"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "black pepper"
+      }
+    ]
+  },
+  {
+    "id": "kr-15",
+    "name": "Galbi Jjim (Braised Short Ribs)",
+    "area": "South Korean",
+    "category": "Beef",
+    "type": "smoked",
+    "original": "https://mykoreankitchen.com/wprm_print/galbi-jjim-korean-braised-short-ribs",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "1.5\u20131.8 kg",
+        "name": "bone-in beef short ribs"
+      },
+      {
+        "measure": "1\u00bd cups",
+        "name": "water"
+      },
+      {
+        "measure": "2",
+        "name": "carrots"
+      },
+      {
+        "measure": "8",
+        "name": "dried jujubes (optional)"
+      },
+      {
+        "measure": "10",
+        "name": "ginkgo nuts (optional)"
+      },
+      {
+        "measure": "10",
+        "name": "chestnuts (optional)"
+      },
+      {
+        "measure": "1",
+        "name": "apple or Asian pear"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "onion"
+      },
+      {
+        "measure": "6 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "honey"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "mirin"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "minced garlic"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "5",
+        "name": "whole black peppercorns"
+      }
+    ]
+  },
+  {
+    "id": "kr-16",
+    "name": "Seafood Jajangmyeon",
+    "area": "South Korean",
+    "category": "Seafood",
+    "type": "quick",
+    "original": "https://mykoreankitchen.com/seafood-jajangmyeon/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "2 packs",
+        "name": "fresh ramen or udon noodles"
+      },
+      {
+        "measure": "90 g",
+        "name": "shrimp"
+      },
+      {
+        "measure": "200 g",
+        "name": "littleneck clams"
+      },
+      {
+        "measure": "1 small",
+        "name": "squid"
+      },
+      {
+        "measure": "1",
+        "name": "onion"
+      },
+      {
+        "measure": "1 medium",
+        "name": "potato"
+      },
+      {
+        "measure": "1 leaf",
+        "name": "cabbage"
+      },
+      {
+        "measure": "\u00bc",
+        "name": "zucchini"
+      },
+      {
+        "measure": "2\u00bd cups",
+        "name": "water to boil seafood"
+      },
+      {
+        "measure": "some",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "Korean black bean paste"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "dark brown sugar"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "corn syrup or honey"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "rice wine"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "potato starch for slurry"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "water for slurry"
+      }
+    ]
+  },
+  {
+    "id": "kr-17",
+    "name": "Spam & Radish Kimchi Fried Rice",
+    "area": "South Korean",
+    "category": "Pork",
+    "type": "quick",
+    "original": "https://mykoreankitchen.com/spam-radish-kimchi-fried-rice/",
+    "source": "My Korean Kitchen",
+    "ingredients": [
+      {
+        "measure": "2 cups",
+        "name": "cooked short-grain rice"
+      },
+      {
+        "measure": "1 cup",
+        "name": "radish kimchi"
+      },
+      {
+        "measure": "100 g",
+        "name": "Spam"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "20 g",
+        "name": "green onion"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "kimchi juice"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "water"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "2",
+        "name": "fried eggs (optional)"
+      },
+      {
+        "measure": "optional",
+        "name": "sesame seeds"
+      },
+      {
+        "measure": "optional",
+        "name": "seaweed strips"
+      }
+    ]
+  },
+  {
+    "id": "jp-01",
+    "name": "Chicken Teriyaki",
+    "area": "Japanese",
+    "category": "Chicken",
+    "type": "quick",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/chicken-teriyaki/",
+    "ingredients": [
+      {
+        "measure": "\u00be\u20131 lb",
+        "name": "boneless, skinless chicken thighs"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "neutral oil"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "mirin"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "sake"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sugar"
+      }
+    ]
+  },
+  {
+    "id": "jp-02",
+    "name": "Oyakodon (Chicken & Egg Rice Bowls)",
+    "area": "Japanese",
+    "category": "Chicken",
+    "type": "quick",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/oyakodon/",
+    "ingredients": [
+      {
+        "measure": "\u00bd",
+        "name": "yellow onion"
+      },
+      {
+        "measure": "10 oz",
+        "name": "boneless, skinless chicken thighs"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sake"
+      },
+      {
+        "measure": "3\u20134",
+        "name": "large eggs"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "dashi stock"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "mirin"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "2 servings",
+        "name": "cooked Japanese short-grain rice"
+      },
+      {
+        "measure": "4 sprigs",
+        "name": "mitsuba or green onion"
+      }
+    ]
+  },
+  {
+    "id": "jp-03",
+    "name": "Yakisoba (Pork Stir-Fried Noodles)",
+    "area": "Japanese",
+    "category": "Pork",
+    "type": "quick",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/yakisoba/",
+    "ingredients": [
+      {
+        "measure": "3 servings",
+        "name": "yakisoba noodles"
+      },
+      {
+        "measure": "\u00be lb",
+        "name": "thin-sliced pork belly"
+      },
+      {
+        "measure": "\u00bc small head",
+        "name": "cabbage"
+      },
+      {
+        "measure": "3",
+        "name": "shiitake mushrooms"
+      },
+      {
+        "measure": "4 inches",
+        "name": "carrot"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "yellow onion"
+      },
+      {
+        "measure": "2",
+        "name": "green onions"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "neutral oil"
+      },
+      {
+        "measure": "to taste",
+        "name": "black pepper"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "Worcestershire sauce"
+      },
+      {
+        "measure": "4 tsp",
+        "name": "oyster sauce"
+      },
+      {
+        "measure": "4 tsp",
+        "name": "ketchup"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "sugar"
+      }
+    ]
+  },
+  {
+    "id": "jp-04",
+    "name": "Yaki Udon (Stir-Fried Noodles)",
+    "area": "Japanese",
+    "category": "Pork",
+    "type": "quick",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/yaki-udon/",
+    "ingredients": [
+      {
+        "measure": "\u00bd",
+        "name": "yellow onion"
+      },
+      {
+        "measure": "2\u20133 leaves",
+        "name": "cabbage"
+      },
+      {
+        "measure": "2 inches",
+        "name": "carrot"
+      },
+      {
+        "measure": "2",
+        "name": "shiitake mushrooms"
+      },
+      {
+        "measure": "2",
+        "name": "green onions"
+      },
+      {
+        "measure": "6 oz",
+        "name": "thinly sliced pork belly"
+      },
+      {
+        "measure": "2 servings",
+        "name": "udon noodles"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "neutral oil"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "dashi powder"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sake"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "mirin"
+      }
+    ]
+  },
+  {
+    "id": "jp-05",
+    "name": "Miso Salmon",
+    "area": "Japanese",
+    "category": "Seafood",
+    "type": "quick",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/miso-salmon/",
+    "ingredients": [
+      {
+        "measure": "2 fillets (\u00be lb total)",
+        "name": "salmon"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "miso"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sake"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "mirin"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "toasted sesame oil"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "sesame seeds (optional)"
+      },
+      {
+        "measure": "1",
+        "name": "green onion (optional)"
+      }
+    ]
+  },
+  {
+    "id": "jp-06",
+    "name": "Chicken Katsu",
+    "area": "Japanese",
+    "category": "Chicken",
+    "type": "favorite",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/chicken-katsu/",
+    "ingredients": [
+      {
+        "measure": "1 (9.5 oz)",
+        "name": "boneless skinless chicken breast"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "3 cups",
+        "name": "neutral oil for frying"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "1 cup",
+        "name": "panko breadcrumbs"
+      },
+      {
+        "measure": "1",
+        "name": "egg"
+      },
+      {
+        "measure": "\u00bd Tbsp",
+        "name": "neutral oil for egg"
+      },
+      {
+        "measure": "as desired",
+        "name": "tonkatsu sauce"
+      }
+    ]
+  },
+  {
+    "id": "jp-07",
+    "name": "Tonkatsu (Japanese Pork Cutlet)",
+    "area": "Japanese",
+    "category": "Pork",
+    "type": "favorite",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/tonkatsu/",
+    "ingredients": [
+      {
+        "measure": "2",
+        "name": "boneless pork loin chops"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "1",
+        "name": "large egg"
+      },
+      {
+        "measure": "\u00bd Tbsp",
+        "name": "neutral oil for egg"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "panko breadcrumbs"
+      },
+      {
+        "measure": "3 cups",
+        "name": "frying oil"
+      },
+      {
+        "measure": "4 Tbsp",
+        "name": "tonkatsu sauce"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "white sesame seeds"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "black sesame seeds"
+      },
+      {
+        "measure": "\u00bc head",
+        "name": "cabbage (optional)"
+      }
+    ]
+  },
+  {
+    "id": "jp-08",
+    "name": "Chicken Katsudon Rice Bowls",
+    "area": "Japanese",
+    "category": "Chicken",
+    "type": "favorite",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/chicken-katsu-don/",
+    "ingredients": [
+      {
+        "measure": "\u00bc cup",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "1",
+        "name": "large egg for breading"
+      },
+      {
+        "measure": "1 cup",
+        "name": "panko breadcrumbs"
+      },
+      {
+        "measure": "7 oz",
+        "name": "chicken tenders"
+      },
+      {
+        "measure": "as needed",
+        "name": "kosher salt and black pepper"
+      },
+      {
+        "measure": "3 cups",
+        "name": "neutral oil for frying"
+      },
+      {
+        "measure": "\u2154 cup",
+        "name": "dashi"
+      },
+      {
+        "measure": "1\u00bd Tbsp",
+        "name": "sake"
+      },
+      {
+        "measure": "1\u00bd Tbsp",
+        "name": "mirin"
+      },
+      {
+        "measure": "1\u00bd Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1\u00bd tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "yellow onion"
+      },
+      {
+        "measure": "2",
+        "name": "large eggs for sauce"
+      },
+      {
+        "measure": "2 servings",
+        "name": "cooked Japanese short-grain rice"
+      },
+      {
+        "measure": "4 sprigs",
+        "name": "mitsuba or green onions"
+      }
+    ]
+  },
+  {
+    "id": "jp-09",
+    "name": "Baked Chicken Katsu",
+    "area": "Japanese",
+    "category": "Chicken",
+    "type": "favorite",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/crispy-baked-chicken/",
+    "ingredients": [
+      {
+        "measure": "1\u00bc cups",
+        "name": "panko breadcrumbs"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "neutral oil for panko"
+      },
+      {
+        "measure": "2 (1 lb total)",
+        "name": "boneless, skinless chicken breasts"
+      },
+      {
+        "measure": "to taste",
+        "name": "kosher salt and black pepper"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "1",
+        "name": "large egg"
+      },
+      {
+        "measure": "\u00bd Tbsp",
+        "name": "neutral oil for egg"
+      },
+      {
+        "measure": "as desired",
+        "name": "tonkatsu sauce"
+      }
+    ]
+  },
+  {
+    "id": "jp-10",
+    "name": "Baked Tonkatsu",
+    "area": "Japanese",
+    "category": "Pork",
+    "type": "favorite",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/baked-tonkatsu/",
+    "ingredients": [
+      {
+        "measure": "\u00be cup",
+        "name": "panko breadcrumbs"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "neutral oil for panko"
+      },
+      {
+        "measure": "2 (\u00bd lb total)",
+        "name": "boneless pork loin chops"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "to taste",
+        "name": "black pepper"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "1",
+        "name": "large egg"
+      },
+      {
+        "measure": "\u00bd Tbsp",
+        "name": "neutral oil for egg"
+      }
+    ]
+  },
+  {
+    "id": "de-01",
+    "name": "Pork Schnitzel (Schweineschnitzel)",
+    "area": "German",
+    "category": "Pork",
+    "type": "favorite",
+    "source": "The Daring Gourmet",
+    "original": "https://www.daringgourmet.com/traditional-german-pork-schnitzel/",
+    "ingredients": [
+      {
+        "measure": "4",
+        "name": "boneless pork steaks or chops"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt and pepper"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "salt for flour"
+      },
+      {
+        "measure": "2",
+        "name": "large eggs"
+      },
+      {
+        "measure": "\u00be cup",
+        "name": "plain breadcrumbs"
+      },
+      {
+        "measure": "for frying",
+        "name": "neutral cooking oil"
+      }
+    ]
+  },
+  {
+    "id": "de-02",
+    "name": "German Beef Goulash (Rindergulasch)",
+    "area": "German",
+    "category": "Beef",
+    "type": "smoked",
+    "source": "The Daring Gourmet",
+    "original": "https://www.daringgourmet.com/german-goulash-rindergulasch/",
+    "ingredients": [
+      {
+        "measure": "1\u00bd lb",
+        "name": "stewing beef"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "oil"
+      },
+      {
+        "measure": "1 large",
+        "name": "yellow onion"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 cup",
+        "name": "dry red wine"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "tomato paste"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "Hungarian paprika"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "dried marjoram"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "2 cups",
+        "name": "beef broth"
+      },
+      {
+        "measure": "1",
+        "name": "bay leaf"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "cornstarch"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "water"
+      }
+    ]
+  },
+  {
+    "id": "de-03",
+    "name": "German Meatballs (Frikadellen)",
+    "area": "German",
+    "category": "Beef",
+    "type": "favorite",
+    "source": "The Daring Gourmet",
+    "original": "https://www.daringgourmet.com/frikadeller-frikadellen/",
+    "ingredients": [
+      {
+        "measure": "\u00bd lb",
+        "name": "ground beef"
+      },
+      {
+        "measure": "\u00bd lb",
+        "name": "ground pork"
+      },
+      {
+        "measure": "1 medium",
+        "name": "yellow onion"
+      },
+      {
+        "measure": "2 slices",
+        "name": "white bread"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "warm water or milk"
+      },
+      {
+        "measure": "1",
+        "name": "large egg"
+      },
+      {
+        "measure": "1 clove",
+        "name": "garlic"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "fresh parsley"
+      },
+      {
+        "measure": "1\u00bd tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "\u00be tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "yellow mustard"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "dried marjoram"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sweet paprika"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "ground ginger"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "ground mace"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "ground coriander"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "ground cardamom"
+      }
+    ]
+  },
+  {
+    "id": "de-04",
+    "name": "Kartoffelsuppe (German Potato Soup)",
+    "area": "German",
+    "category": "Pork",
+    "type": "smoked",
+    "source": "The Daring Gourmet",
+    "original": "https://www.daringgourmet.com/german-potato-soup-kartoffelsuppe/",
+    "ingredients": [
+      {
+        "measure": "8 oz",
+        "name": "bacon"
+      },
+      {
+        "measure": "1 large",
+        "name": "onion"
+      },
+      {
+        "measure": "1 clove",
+        "name": "garlic"
+      },
+      {
+        "measure": "2 lb",
+        "name": "waxy potatoes"
+      },
+      {
+        "measure": "1 large",
+        "name": "leek"
+      },
+      {
+        "measure": "3",
+        "name": "carrots"
+      },
+      {
+        "measure": "1\u00bd cups",
+        "name": "celeriac"
+      },
+      {
+        "measure": "2",
+        "name": "tomatoes"
+      },
+      {
+        "measure": "6 cups",
+        "name": "chicken broth"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "dried thyme"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "dried rosemary"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "dried marjoram"
+      },
+      {
+        "measure": "\u00be tsp",
+        "name": "sea salt"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "1",
+        "name": "bay leaf"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "fresh parsley"
+      }
+    ]
+  },
+  {
+    "id": "de-05",
+    "name": "Rouladen (German Beef Rolls)",
+    "area": "German",
+    "category": "Beef",
+    "type": "smoked",
+    "source": "The Daring Gourmet",
+    "original": "https://www.daringgourmet.com/rouladen-recipe/",
+    "ingredients": [
+      {
+        "measure": "8 slices",
+        "name": "top-round beef"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "German yellow mustard"
+      },
+      {
+        "measure": "8 slices",
+        "name": "bacon"
+      },
+      {
+        "measure": "8 medium",
+        "name": "German pickles"
+      },
+      {
+        "measure": "1 medium",
+        "name": "yellow onion"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt and black pepper"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "butter for gravy"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "cooking oil for gravy"
+      },
+      {
+        "measure": "1 medium",
+        "name": "yellow onion for gravy"
+      },
+      {
+        "measure": "1 clove",
+        "name": "garlic for gravy"
+      },
+      {
+        "measure": "1 small",
+        "name": "leek"
+      },
+      {
+        "measure": "1 large",
+        "name": "carrot"
+      },
+      {
+        "measure": "1 large",
+        "name": "celery stalk"
+      },
+      {
+        "measure": "1 cup",
+        "name": "dry red wine"
+      },
+      {
+        "measure": "2 cups",
+        "name": "beef broth"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "tomato paste"
+      },
+      {
+        "measure": "1",
+        "name": "bay leaf"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "salt for gravy"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "black pepper for gravy"
+      },
+      {
+        "measure": "4 Tbsp",
+        "name": "chilled butter"
+      },
+      {
+        "measure": "1\u20132 Tbsp",
+        "name": "cornstarch or 2\u20133 Tbsp flour for thickening"
+      },
+      {
+        "measure": "2\u20133 Tbsp",
+        "name": "water for cornstarch or \u00bc\u2013\u2153 cup for flour"
+      }
+    ]
+  },
+  {
+    "id": "de-06",
+    "name": "Sauerbraten (German Marinated Roast)",
+    "area": "German",
+    "category": "Beef",
+    "type": "smoked",
+    "source": "The Daring Gourmet",
+    "original": "https://www.daringgourmet.com/authentic-german-sauerbraten/",
+    "ingredients": [
+      {
+        "measure": "2 large",
+        "name": "yellow onions"
+      },
+      {
+        "measure": "2 large",
+        "name": "carrots"
+      },
+      {
+        "measure": "1 large",
+        "name": "leek"
+      },
+      {
+        "measure": "3 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "2 large sprigs",
+        "name": "thyme"
+      },
+      {
+        "measure": "2 small sprigs",
+        "name": "rosemary"
+      },
+      {
+        "measure": "2",
+        "name": "bay leaves"
+      },
+      {
+        "measure": "8",
+        "name": "juniper berries"
+      },
+      {
+        "measure": "6",
+        "name": "cloves"
+      },
+      {
+        "measure": "10",
+        "name": "black peppercorns"
+      },
+      {
+        "measure": "2\u00bd tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "2\u00bd cups",
+        "name": "dry red wine"
+      },
+      {
+        "measure": "1 cup",
+        "name": "red wine vinegar"
+      },
+      {
+        "measure": "1\u00bd cups",
+        "name": "water"
+      },
+      {
+        "measure": "4 lb",
+        "name": "beef roast"
+      },
+      {
+        "measure": "4 slices",
+        "name": "bacon (optional)"
+      },
+      {
+        "measure": "4 Tbsp",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "raisins"
+      },
+      {
+        "measure": "3 oz",
+        "name": "gingersnap cookies"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "honey"
+      }
+    ]
+  },
+  {
+    "id": "kr-18",
+    "name": "Doenjang-jjigae (Soybean Paste Stew)",
+    "area": "South Korean",
+    "category": "Seafood",
+    "type": "quick",
+    "source": "Maangchi",
+    "original": "https://www.maangchi.com/recipe/doenjang-jjigae",
+    "ingredients": [
+      {
+        "measure": "1 medium",
+        "name": "potato"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion"
+      },
+      {
+        "measure": "1 small",
+        "name": "zucchini"
+      },
+      {
+        "measure": "1",
+        "name": "green Korean chili pepper"
+      },
+      {
+        "measure": "4 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "4 large",
+        "name": "shrimp"
+      },
+      {
+        "measure": "2\u00bd cups",
+        "name": "water"
+      },
+      {
+        "measure": "7",
+        "name": "dried anchovies"
+      },
+      {
+        "measure": "5 Tbsp",
+        "name": "doenjang (fermented soybean paste)"
+      },
+      {
+        "measure": "6 oz",
+        "name": "medium-firm tofu"
+      },
+      {
+        "measure": "2",
+        "name": "green onions"
+      }
+    ]
+  },
+  {
+    "id": "kr-19",
+    "name": "Kimchi Jjigae (Pork Kimchi Stew) \u2014 Maangchi",
+    "area": "South Korean",
+    "category": "Pork",
+    "type": "smoked",
+    "source": "Maangchi",
+    "original": "https://www.maangchi.com/recipe/kimchi-jjigae",
+    "ingredients": [
+      {
+        "measure": "1 lb",
+        "name": "kimchi"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "kimchi brine"
+      },
+      {
+        "measure": "\u00bd lb",
+        "name": "pork shoulder or pork belly"
+      },
+      {
+        "measure": "\u00bd package",
+        "name": "tofu (optional)"
+      },
+      {
+        "measure": "3",
+        "name": "green onions"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "gochugaru"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "toasted sesame oil"
+      },
+      {
+        "measure": "2 cups",
+        "name": "anchovy or chicken stock"
+      }
+    ]
+  },
+  {
+    "id": "us-22",
+    "name": "BBQ Chicken Pizza",
+    "area": "American",
+    "category": "Chicken",
+    "type": "favorite",
+    "source": "Budget Bytes",
+    "original": "https://www.budgetbytes.com/bbq-chicken-pizza/",
+    "ingredients": [
+      {
+        "measure": "1 (\u2154 lb)",
+        "name": "chicken breast"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "smoked paprika"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "garlic powder"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "\u00bd Tbsp",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "BBQ sauce for chicken"
+      },
+      {
+        "measure": "1",
+        "name": "pizza dough"
+      },
+      {
+        "measure": "4 oz",
+        "name": "Monterey jack cheese"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "BBQ sauce for pizza"
+      },
+      {
+        "measure": "1",
+        "name": "jalape\u00f1o (optional)"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "red onion"
+      }
+    ]
+  },
+  {
+    "id": "us-23",
+    "name": "Creamy Chicken Spaghetti Bake",
+    "area": "American",
+    "category": "Pasta",
+    "type": "favorite",
+    "source": "Budget Bytes",
+    "original": "https://www.budgetbytes.com/chicken-spaghetti/",
+    "ingredients": [
+      {
+        "measure": "2 (1\u00bd lb total)",
+        "name": "chicken breasts"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "\u00bd Tbsp",
+        "name": "salt for pasta water"
+      },
+      {
+        "measure": "8 oz",
+        "name": "spaghetti"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "salted butter"
+      },
+      {
+        "measure": "1",
+        "name": "onion"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "all-purpose flour"
+      },
+      {
+        "measure": "2 cups",
+        "name": "chicken broth"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "salt for sauce"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "Italian seasoning"
+      },
+      {
+        "measure": "1 cup",
+        "name": "heavy cream"
+      },
+      {
+        "measure": "1 (10 oz) can",
+        "name": "diced tomatoes with green chiles"
+      },
+      {
+        "measure": "1 cup",
+        "name": "cheddar cheese"
+      },
+      {
+        "measure": "1 cup",
+        "name": "mozzarella cheese"
+      }
+    ]
+  },
+  {
+    "id": "us-24",
+    "name": "One-Pot Ground Beef Stroganoff",
+    "area": "American",
+    "category": "Beef",
+    "type": "quick",
+    "source": "Budget Bytes",
+    "original": "https://www.budgetbytes.com/beef-stroganoff/",
+    "ingredients": [
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "butter"
+      },
+      {
+        "measure": "\u00bd lb",
+        "name": "ground beef"
+      },
+      {
+        "measure": "8 oz",
+        "name": "mushrooms"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "2 cups",
+        "name": "beef broth"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "Worcestershire sauce"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "Dijon mustard"
+      },
+      {
+        "measure": "8 oz",
+        "name": "wide egg noodles"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "sour cream"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "chopped parsley (optional)"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "yellow onion (optional)"
+      }
+    ]
+  },
+  {
+    "id": "mx-16",
+    "name": "Mexican Beef & Potato Picadillo",
+    "area": "Mexican",
+    "category": "Beef",
+    "type": "quick",
+    "source": "Isabel Eats",
+    "original": "https://www.isabeleats.com/mexican-picadillo-recipe/",
+    "ingredients": [
+      {
+        "measure": "4",
+        "name": "Roma tomatoes"
+      },
+      {
+        "measure": "1 medium",
+        "name": "white onion"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "2",
+        "name": "jalape\u00f1o peppers"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "ground coriander"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "Mexican oregano"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "beef broth"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "1 lb",
+        "name": "lean ground beef"
+      },
+      {
+        "measure": "1 medium",
+        "name": "russet potato"
+      },
+      {
+        "measure": "1 large",
+        "name": "carrot"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "frozen peas"
+      }
+    ]
+  },
+  {
+    "id": "mx-17",
+    "name": "Chicken Flautas",
+    "area": "Mexican",
+    "category": "Chicken",
+    "type": "favorite",
+    "source": "Isabel Eats",
+    "original": "https://www.isabeleats.com/flautas/",
+    "ingredients": [
+      {
+        "measure": "1\u00bd lb",
+        "name": "boneless skinless chicken thighs"
+      },
+      {
+        "measure": "\u00be",
+        "name": "white onion"
+      },
+      {
+        "measure": "3 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1",
+        "name": "bay leaf"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "as needed",
+        "name": "water"
+      },
+      {
+        "measure": "1 Tbsp plus frying",
+        "name": "vegetable oil"
+      },
+      {
+        "measure": "2",
+        "name": "Roma tomatoes"
+      },
+      {
+        "measure": "1",
+        "name": "jalape\u00f1o pepper (optional)"
+      },
+      {
+        "measure": "16",
+        "name": "corn tortillas"
+      },
+      {
+        "measure": "as desired",
+        "name": "shredded lettuce (optional)"
+      },
+      {
+        "measure": "as desired",
+        "name": "Mexican crema (optional)"
+      },
+      {
+        "measure": "as desired",
+        "name": "salsa verde (optional)"
+      },
+      {
+        "measure": "as desired",
+        "name": "cotija cheese (optional)"
+      }
+    ]
+  },
+  {
+    "id": "mx-18",
+    "name": "Shrimp Fajitas",
+    "area": "Mexican",
+    "category": "Seafood",
+    "type": "quick",
+    "source": "Isabel Eats",
+    "original": "https://www.isabeleats.com/shrimp-fajitas/",
+    "ingredients": [
+      {
+        "measure": "1\u00bd lb",
+        "name": "large shrimp"
+      },
+      {
+        "measure": "4 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "chili powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "onion powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "smoked paprika"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "3",
+        "name": "bell peppers"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "lime juice"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "cilantro"
+      },
+      {
+        "measure": "for serving",
+        "name": "flour tortillas"
+      }
+    ]
+  },
+  {
+    "id": "kr-20",
+    "name": "Budae-Jjigae (Army Base Stew)",
+    "area": "South Korean",
+    "category": "Pork",
+    "type": "favorite",
+    "source": "Maangchi",
+    "original": "https://www.maangchi.com/recipe/budae-jjigae",
+    "ingredients": [
+      {
+        "measure": "2",
+        "name": "dried shiitake mushrooms"
+      },
+      {
+        "measure": "8",
+        "name": "dried anchovies"
+      },
+      {
+        "measure": "1 (5x6 inch) sheet",
+        "name": "dried kelp"
+      },
+      {
+        "measure": "8 cups",
+        "name": "water for stock"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "6 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "gochugaru"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "water for seasoning"
+      },
+      {
+        "measure": "\u00bd lb",
+        "name": "pork belly"
+      },
+      {
+        "measure": "2 oz",
+        "name": "sweet potato starch noodles"
+      },
+      {
+        "measure": "1 cup",
+        "name": "cabbage"
+      },
+      {
+        "measure": "\u00bd medium",
+        "name": "onion"
+      },
+      {
+        "measure": "2",
+        "name": "green onions"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "kimchi"
+      },
+      {
+        "measure": "4 oz",
+        "name": "Polish sausage"
+      },
+      {
+        "measure": "4 oz",
+        "name": "Spam"
+      },
+      {
+        "measure": "\u00bd packet",
+        "name": "instant ramen"
+      },
+      {
+        "measure": "1 cup",
+        "name": "radish sprouts"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "tofu (optional)"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "canned baked beans (optional)"
+      },
+      {
+        "measure": "12\u201316",
+        "name": "rice cakes (optional)"
+      },
+      {
+        "measure": "1 slice",
+        "name": "American cheese (optional)"
+      }
+    ]
+  },
+  {
+    "id": "kr-21",
+    "name": "Dakgangjeong (Crunchy Korean Fried Chicken)",
+    "area": "South Korean",
+    "category": "Chicken",
+    "type": "favorite",
+    "source": "Maangchi",
+    "original": "https://www.maangchi.com/Recipe/easy-dakgangjeong",
+    "ingredients": [
+      {
+        "measure": "3\u00bd lb",
+        "name": "chicken wings"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "minced ginger"
+      },
+      {
+        "measure": "\u2154 cup",
+        "name": "potato starch or cornstarch"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "peanuts (optional)"
+      },
+      {
+        "measure": "4 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "3\u20134",
+        "name": "dried red chili peppers (optional)"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "rice syrup or corn syrup"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "white vinegar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "mustard (optional)"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "toasted sesame seeds"
+      },
+      {
+        "measure": "for frying",
+        "name": "vegetable oil"
+      }
+    ]
+  },
+  {
+    "id": "er-01",
+    "name": "Classic Pork & Shrimp Egg Rolls",
+    "area": "Chinese",
+    "category": "Pork",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/takeout-egg-rolls/",
+    "ingredients": [
+      {
+        "measure": "16 cups",
+        "name": "shredded cabbage"
+      },
+      {
+        "measure": "2 cups",
+        "name": "shredded carrot"
+      },
+      {
+        "measure": "2 cups",
+        "name": "celery"
+      },
+      {
+        "measure": "3",
+        "name": "scallions"
+      },
+      {
+        "measure": "2\u00bd tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "neutral oil plus more for frying"
+      },
+      {
+        "measure": "\u00bc tsp optional",
+        "name": "five-spice powder"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "3 cups",
+        "name": "Chinese roast pork (char siu)"
+      },
+      {
+        "measure": "2 cups optional",
+        "name": "cooked shrimp"
+      },
+      {
+        "measure": "1 package (about 24)",
+        "name": "egg roll wrappers"
+      },
+      {
+        "measure": "1",
+        "name": "egg for sealing"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "About 24 egg rolls",
+    "dishStyle": "eggrolls"
+  },
+  {
+    "id": "er-02",
+    "name": "Chicken Egg Rolls",
+    "area": "Chinese",
+    "category": "Chicken",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/chicken-egg-rolls/",
+    "ingredients": [
+      {
+        "measure": "1 lb",
+        "name": "boneless chicken thighs"
+      },
+      {
+        "measure": "1 clove",
+        "name": "garlic"
+      },
+      {
+        "measure": "1\u00bd Tbsp plus 2 tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "hoisin sauce"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "Shaoxing wine"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "light soy sauce"
+      },
+      {
+        "measure": "\u00be tsp plus 2\u00bd tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "molasses"
+      },
+      {
+        "measure": "\u00bd tsp plus 1\u00bd Tbsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "five-spice powder"
+      },
+      {
+        "measure": "\u215b tsp plus \u00bc tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "for frying",
+        "name": "peanut or neutral oil"
+      },
+      {
+        "measure": "16 cups",
+        "name": "shredded cabbage"
+      },
+      {
+        "measure": "2 cups",
+        "name": "shredded carrot"
+      },
+      {
+        "measure": "2 cups",
+        "name": "celery"
+      },
+      {
+        "measure": "3",
+        "name": "scallions"
+      },
+      {
+        "measure": "24",
+        "name": "egg roll wrappers"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "Makes 24",
+    "dishStyle": "eggrolls"
+  },
+  {
+    "id": "er-03",
+    "name": "Vegetable Egg Rolls",
+    "area": "Chinese",
+    "category": "Vegetarian",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/vegetable-egg-rolls/",
+    "ingredients": [
+      {
+        "measure": "6",
+        "name": "dried shiitake mushrooms"
+      },
+      {
+        "measure": "1 package (50 g)",
+        "name": "mung bean glass noodles"
+      },
+      {
+        "measure": "2 Tbsp plus frying",
+        "name": "peanut oil"
+      },
+      {
+        "measure": "3 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "2 cups",
+        "name": "shredded carrot"
+      },
+      {
+        "measure": "1",
+        "name": "red bell pepper"
+      },
+      {
+        "measure": "7 cups",
+        "name": "savoy cabbage"
+      },
+      {
+        "measure": "7 cups",
+        "name": "green or Taiwanese cabbage"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "Shaoxing wine"
+      },
+      {
+        "measure": "2\u00bd tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "\u00bc tsp optional",
+        "name": "five-spice powder"
+      },
+      {
+        "measure": "1 cup",
+        "name": "scallions"
+      },
+      {
+        "measure": "1 package (20\u201324)",
+        "name": "egg roll wrappers"
+      },
+      {
+        "measure": "1",
+        "name": "egg for sealing"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "Makes about 20",
+    "dishStyle": "eggrolls"
+  },
+  {
+    "id": "er-04",
+    "name": "Mini Buffalo Chicken Egg Rolls",
+    "area": "American",
+    "category": "Chicken",
+    "source": "Allrecipes",
+    "original": "https://www.allrecipes.com/recipe/269471/mini-buffalo-chicken-egg-rolls/",
+    "ingredients": [
+      {
+        "measure": "\u00bd lb",
+        "name": "cooked chicken breast"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "diced celery"
+      },
+      {
+        "measure": "2 oz",
+        "name": "blue cheese"
+      },
+      {
+        "measure": "2 oz",
+        "name": "cream cheese"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "Louisiana-style hot sauce"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt"
+      },
+      {
+        "measure": "to taste",
+        "name": "black pepper"
+      },
+      {
+        "measure": "to taste",
+        "name": "cayenne pepper"
+      },
+      {
+        "measure": "14 or more",
+        "name": "wonton wrappers"
+      },
+      {
+        "measure": "1",
+        "name": "egg"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "water"
+      },
+      {
+        "measure": "for frying",
+        "name": "oil"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "Makes 14 mini rolls (wonton wrappers)",
+    "dishStyle": "eggrolls"
+  },
+  {
+    "id": "er-05",
+    "name": "Cheeseburger Egg Rolls",
+    "area": "American",
+    "category": "Beef",
+    "source": "Allrecipes",
+    "original": "https://www.allrecipes.com/recipe/105904/cheeseburger-egg-rolls/",
+    "ingredients": [
+      {
+        "measure": "1 lb",
+        "name": "ground beef"
+      },
+      {
+        "measure": "1",
+        "name": "onion"
+      },
+      {
+        "measure": "1 cup",
+        "name": "chopped pickles"
+      },
+      {
+        "measure": "1 cup",
+        "name": "shredded cheddar cheese"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "yellow mustard"
+      },
+      {
+        "measure": "1 (16 oz) package",
+        "name": "egg roll wrappers"
+      },
+      {
+        "measure": "1 cup",
+        "name": "vegetable oil for frying"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "Makes 15 egg rolls",
+    "dishStyle": "eggrolls"
+  },
+  {
+    "id": "er-06",
+    "name": "Carnitas Egg Rolls (Baked Mexican Style)",
+    "area": "Mexican",
+    "category": "Pork",
+    "source": "RecipeTin Eats",
+    "original": "https://www.recipetineats.com/baked-mexican-spring-rolls-egg-rolls/",
+    "ingredients": [
+      {
+        "measure": "12 spring roll or 16 egg roll",
+        "name": "wrappers"
+      },
+      {
+        "measure": "as needed",
+        "name": "olive oil spray"
+      },
+      {
+        "measure": "for dipping",
+        "name": "enchilada sauce"
+      },
+      {
+        "measure": "1 packed cup",
+        "name": "cooked pulled pork (carnitas)"
+      },
+      {
+        "measure": "\u00be cup",
+        "name": "grated melting cheese"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "corn kernels"
+      },
+      {
+        "measure": "\u00be cup",
+        "name": "black beans"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "chopped red bell pepper"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "cilantro leaves"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "paprika"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "cumin"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "onion powder"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "salt"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "Makes 12\u201316; uses cooked carnitas",
+    "dishStyle": "eggrolls"
+  },
+  {
+    "id": "er-07",
+    "name": "Mexican Beef & Pepper Jack Egg Rolls",
+    "area": "Mexican",
+    "category": "Beef",
+    "source": "Allrecipes",
+    "original": "https://www.allrecipes.com/recipe/69938/mexican-egg-rolls/",
+    "ingredients": [
+      {
+        "measure": "1 (14 oz) package",
+        "name": "egg roll wrappers"
+      },
+      {
+        "measure": "1 lb",
+        "name": "lean ground beef"
+      },
+      {
+        "measure": "1 (1.25 oz) package",
+        "name": "taco seasoning mix"
+      },
+      {
+        "measure": "1 (4 oz) can",
+        "name": "diced green chilies"
+      },
+      {
+        "measure": "2 cups",
+        "name": "shredded pepper Jack cheese"
+      },
+      {
+        "measure": "4 cups",
+        "name": "frying oil"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "Makes 14 egg rolls",
+    "dishStyle": "eggrolls"
+  },
+  {
+    "id": "er-08",
+    "name": "Beef & Cabbage Egg Rolls",
+    "area": "Chinese",
+    "category": "Beef",
+    "source": "Allrecipes",
+    "original": "https://www.allrecipes.com/recipe/18252/beef-egg-rolls/",
+    "ingredients": [
+      {
+        "measure": "1 lb",
+        "name": "lean ground beef"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "dried minced garlic"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "ground ginger"
+      },
+      {
+        "measure": "4 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "4 Tbsp",
+        "name": "dry sherry"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "ground black pepper"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "vegetable oil"
+      },
+      {
+        "measure": "1 large head",
+        "name": "cabbage"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "water"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "white sugar"
+      },
+      {
+        "measure": "2 quarts",
+        "name": "frying oil"
+      },
+      {
+        "measure": "16",
+        "name": "egg roll wrappers"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "Makes 16 egg rolls",
+    "dishStyle": "eggrolls"
+  },
+  {
+    "id": "fr-01",
+    "name": "Chicken Fried Rice",
+    "area": "Chinese",
+    "category": "Chicken",
+    "source": "Budget Bytes",
+    "original": "https://www.budgetbytes.com/chicken-fried-rice/",
+    "ingredients": [
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "grated fresh ginger"
+      },
+      {
+        "measure": "3",
+        "name": "green onions"
+      },
+      {
+        "measure": "1",
+        "name": "carrot"
+      },
+      {
+        "measure": "1",
+        "name": "red bell pepper"
+      },
+      {
+        "measure": "1 cup",
+        "name": "frozen peas"
+      },
+      {
+        "measure": "1 large (about \u2154 lb)",
+        "name": "boneless skinless chicken breast"
+      },
+      {
+        "measure": "2",
+        "name": "eggs"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "toasted sesame oil"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "3 cups",
+        "name": "cooked and cooled rice"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Recipe quantities for original 1\u00d7 batch",
+    "dishStyle": "friedrice"
+  },
+  {
+    "id": "fr-02",
+    "name": "Vegetable Fried Rice",
+    "area": "Chinese",
+    "category": "Vegetarian",
+    "source": "Budget Bytes",
+    "original": "https://www.budgetbytes.com/vegetable-fried-rice/",
+    "ingredients": [
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "grated fresh ginger"
+      },
+      {
+        "measure": "1",
+        "name": "carrot"
+      },
+      {
+        "measure": "1",
+        "name": "red bell pepper"
+      },
+      {
+        "measure": "4",
+        "name": "green onions"
+      },
+      {
+        "measure": "2",
+        "name": "eggs"
+      },
+      {
+        "measure": "1 cup",
+        "name": "frozen peas"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "3 cups",
+        "name": "cooked and cooled rice"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "toasted sesame oil"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 4",
+    "dishStyle": "friedrice"
+  },
+  {
+    "id": "fr-03",
+    "name": "Classic Beef Fried Rice",
+    "area": "Chinese",
+    "category": "Beef",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/classic-beef-fried-rice/",
+    "ingredients": [
+      {
+        "measure": "10 oz",
+        "name": "flank steak"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "salt for beef"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "water for marinade"
+      },
+      {
+        "measure": "\u215b tsp optional",
+        "name": "baking soda"
+      },
+      {
+        "measure": "1 tsp plus 2 tsp",
+        "name": "dark soy sauce"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "cornstarch"
+      },
+      {
+        "measure": "1 tsp plus 3 Tbsp",
+        "name": "neutral oil"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "hot water for sauce"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "1\u00bd Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "\u00bd tsp optional",
+        "name": "MSG"
+      },
+      {
+        "measure": "to taste",
+        "name": "white pepper"
+      },
+      {
+        "measure": "5 cups",
+        "name": "cooked rice"
+      },
+      {
+        "measure": "2",
+        "name": "eggs"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion"
+      },
+      {
+        "measure": "\u00be cup",
+        "name": "peas"
+      },
+      {
+        "measure": "1",
+        "name": "scallion"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "Shaoxing wine"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 6",
+    "dishStyle": "friedrice"
+  },
+  {
+    "id": "fr-04",
+    "name": "Classic Pork Fried Rice",
+    "area": "Chinese",
+    "category": "Pork",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/classic-pork-fried-rice/",
+    "ingredients": [
+      {
+        "measure": "1 Tbsp",
+        "name": "hot water"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "honey"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "Shaoxing wine"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "dark soy sauce"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "5 cups",
+        "name": "cooked jasmine rice"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion"
+      },
+      {
+        "measure": "1 lb",
+        "name": "cooked Chinese BBQ pork (char siu)"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "bean sprouts"
+      },
+      {
+        "measure": "2",
+        "name": "eggs"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "peas"
+      },
+      {
+        "measure": "2",
+        "name": "scallions"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 6",
+    "dishStyle": "friedrice"
+  },
+  {
+    "id": "fr-05",
+    "name": "Shrimp Fried Rice",
+    "area": "Chinese",
+    "category": "Seafood",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/shrimp-fried-rice/",
+    "ingredients": [
+      {
+        "measure": "2 cups",
+        "name": "uncooked jasmine rice"
+      },
+      {
+        "measure": "1\u00bd cups",
+        "name": "water"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "dark soy sauce"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "light soy sauce"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "turmeric"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "canola oil"
+      },
+      {
+        "measure": "2",
+        "name": "eggs"
+      },
+      {
+        "measure": "12 oz",
+        "name": "peeled and deveined shrimp"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "1 cup",
+        "name": "snow peas"
+      },
+      {
+        "measure": "2",
+        "name": "scallions"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "Shaoxing wine"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 4",
+    "dishStyle": "friedrice"
+  },
+  {
+    "id": "fr-06",
+    "name": "Japanese Ham & Egg Fried Rice (Yakimeshi)",
+    "area": "Japanese",
+    "category": "Pork",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/easy-fried-rice/",
+    "ingredients": [
+      {
+        "measure": "1\u00be cups",
+        "name": "cooked Japanese short-grain rice"
+      },
+      {
+        "measure": "1",
+        "name": "egg"
+      },
+      {
+        "measure": "2 slices",
+        "name": "ham"
+      },
+      {
+        "measure": "1",
+        "name": "green onion"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "neutral oil"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 2 as a side; double for a full family dinner",
+    "dishStyle": "friedrice"
+  },
+  {
+    "id": "fr-07",
+    "name": "Japanese Chashu Pork Fried Rice",
+    "area": "Japanese",
+    "category": "Pork",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/chashu-fried-rice/",
+    "ingredients": [
+      {
+        "measure": "8 oz",
+        "name": "cooked chashu pork"
+      },
+      {
+        "measure": "5",
+        "name": "green onions"
+      },
+      {
+        "measure": "2",
+        "name": "eggs"
+      },
+      {
+        "measure": "3 servings",
+        "name": "cooked Japanese short-grain rice"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "neutral oil"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "toasted sesame oil"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 3 (4 as a side); chashu is prepared separately",
+    "dishStyle": "friedrice"
+  },
+  {
+    "id": "fr-08",
+    "name": "Kimchi Fried Rice (Kimchi-bokkeumbap)",
+    "area": "South Korean",
+    "category": "Vegetarian",
+    "source": "Maangchi",
+    "original": "https://www.maangchi.com/recipe/kimchi-bokkeumbap",
+    "ingredients": [
+      {
+        "measure": "3 cups",
+        "name": "cooked rice"
+      },
+      {
+        "measure": "1 cup",
+        "name": "chopped fermented kimchi"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "kimchi juice"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "water"
+      },
+      {
+        "measure": "2\u20133 Tbsp",
+        "name": "gochujang"
+      },
+      {
+        "measure": "3 tsp",
+        "name": "toasted sesame oil"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "vegetable oil"
+      },
+      {
+        "measure": "1",
+        "name": "green onion"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "roasted sesame seeds"
+      },
+      {
+        "measure": "1 sheet",
+        "name": "gim (roasted seaweed)"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 2\u20133; optional egg topping not in source list",
+    "dishStyle": "friedrice"
+  },
+  {
+    "id": "fr-09",
+    "name": "Korean Beef & Vegetable Fried Rice (Bokkeumbap)",
+    "area": "South Korean",
+    "category": "Beef",
+    "source": "Maangchi",
+    "original": "https://www.maangchi.com/recipe/bokkeumbap",
+    "ingredients": [
+      {
+        "measure": "3 cups",
+        "name": "cooked rice"
+      },
+      {
+        "measure": "1\u20132 Tbsp",
+        "name": "vegetable oil"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "chopped onion"
+      },
+      {
+        "measure": "5 oz",
+        "name": "beef"
+      },
+      {
+        "measure": "\u2153 cup",
+        "name": "kimchi"
+      },
+      {
+        "measure": "3 cups",
+        "name": "mixed chopped vegetables"
+      },
+      {
+        "measure": "1\u20132 optional",
+        "name": "green chili peppers"
+      },
+      {
+        "measure": "2",
+        "name": "green onions"
+      },
+      {
+        "measure": "1",
+        "name": "egg"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "toasted sesame oil"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "oyster sauce"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "black pepper"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "Oaxaca, mozzarella, or cheddar cheese"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 2\u20133",
+    "dishStyle": "friedrice"
+  },
+  {
+    "id": "fr-10",
+    "name": "Pineapple & Shrimp Fried Rice",
+    "area": "Asian Fusion",
+    "category": "Seafood",
+    "source": "Budget Bytes",
+    "original": "https://www.budgetbytes.com/shrimp-fried-rice-pineapple-toasted-coconut/",
+    "ingredients": [
+      {
+        "measure": "2 Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "sriracha"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "brown sugar"
+      },
+      {
+        "measure": "1 (20 oz) can",
+        "name": "pineapple chunks"
+      },
+      {
+        "measure": "\u00bd bunch",
+        "name": "green onions"
+      },
+      {
+        "measure": "4",
+        "name": "eggs"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "unsweetened shredded coconut"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "cooking oil"
+      },
+      {
+        "measure": "\u00bd lb",
+        "name": "peeled and deveined shrimp"
+      },
+      {
+        "measure": "4 cups",
+        "name": "cooked day-old jasmine rice"
+      },
+      {
+        "measure": "optional handful",
+        "name": "cilantro"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Original 1\u00d7 yield; pineapple-coconut fusion",
+    "dishStyle": "friedrice"
+  },
+  {
+    "id": "nd-01",
+    "name": "Restaurant-Style Chicken Lo Mein",
+    "area": "Chinese",
+    "category": "Chicken",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/chicken-lo-mein/",
+    "ingredients": [
+      {
+        "measure": "1 lb",
+        "name": "fresh lo mein egg noodles"
+      },
+      {
+        "measure": "8 oz",
+        "name": "boneless chicken thighs or breast"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "cornstarch"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "water for marinade"
+      },
+      {
+        "measure": "2 tsp plus cooking",
+        "name": "neutral oil"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "oyster sauce for marinade"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "hot water for sauce"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "light soy sauce"
+      },
+      {
+        "measure": "4 tsp",
+        "name": "dark soy sauce"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "1 clove",
+        "name": "garlic"
+      },
+      {
+        "measure": "4 cups",
+        "name": "shredded cabbage"
+      },
+      {
+        "measure": "2 medium",
+        "name": "carrots"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "Shaoxing wine or dry sherry"
+      },
+      {
+        "measure": "2 cups",
+        "name": "mung bean sprouts"
+      },
+      {
+        "measure": "2",
+        "name": "scallions"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 6",
+    "dishStyle": "noodles"
+  },
+  {
+    "id": "nd-02",
+    "name": "Beef Lo Mein",
+    "area": "Chinese",
+    "category": "Beef",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/beef-lo-mein/",
+    "ingredients": [
+      {
+        "measure": "12 oz",
+        "name": "flank steak"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "cornstarch for beef"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "soy sauce for beef"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "neutral oil for beef"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "baking soda"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "light soy sauce"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "oyster sauce"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "dark soy sauce"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "salt"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "\u00bc tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "1 lb",
+        "name": "fresh lo mein noodles"
+      },
+      {
+        "measure": "1 clove",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 medium",
+        "name": "carrot"
+      },
+      {
+        "measure": "\u00bd",
+        "name": "red bell pepper"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "mushrooms"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "bamboo shoots"
+      },
+      {
+        "measure": "2 cups",
+        "name": "napa cabbage"
+      },
+      {
+        "measure": "\u2154 cup",
+        "name": "snow peas"
+      },
+      {
+        "measure": "2 cups",
+        "name": "mung bean sprouts"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "neutral oil for stir-frying"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "Shaoxing wine"
+      },
+      {
+        "measure": "2",
+        "name": "scallions"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 6",
+    "dishStyle": "noodles"
+  },
+  {
+    "id": "nd-03",
+    "name": "Shrimp Lo Mein",
+    "area": "Chinese",
+    "category": "Seafood",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/shrimp-lo-mein/",
+    "ingredients": [
+      {
+        "measure": "12 oz",
+        "name": "peeled deveined shrimp"
+      },
+      {
+        "measure": "1 lb",
+        "name": "pre-cooked fresh lo mein noodles"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "1\u00bd Tbsp",
+        "name": "regular soy sauce"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "dark soy sauce"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "oyster sauce"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "neutral oil"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "6",
+        "name": "mushrooms"
+      },
+      {
+        "measure": "1 medium",
+        "name": "carrot"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "bamboo shoots"
+      },
+      {
+        "measure": "\u00bd cup",
+        "name": "water chestnuts"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "Shaoxing wine"
+      },
+      {
+        "measure": "3 cups",
+        "name": "napa cabbage"
+      },
+      {
+        "measure": "1 cup",
+        "name": "snow peas"
+      },
+      {
+        "measure": "1 cup",
+        "name": "mung bean sprouts"
+      },
+      {
+        "measure": "2",
+        "name": "scallions"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 6",
+    "dishStyle": "noodles"
+  },
+  {
+    "id": "nd-04",
+    "name": "Vegetable Lo Mein",
+    "area": "Chinese",
+    "category": "Vegetarian",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/vegetable-lo-mein/",
+    "ingredients": [
+      {
+        "measure": "1 lb",
+        "name": "fresh white noodles or lo mein noodles"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "dark soy sauce"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "light soy sauce"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "hot water"
+      },
+      {
+        "measure": "pinch optional",
+        "name": "five-spice powder"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "neutral oil"
+      },
+      {
+        "measure": "1 clove",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 cup",
+        "name": "sliced mushrooms"
+      },
+      {
+        "measure": "1",
+        "name": "scallion"
+      },
+      {
+        "measure": "1",
+        "name": "bell pepper"
+      },
+      {
+        "measure": "1 small",
+        "name": "carrot"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "Shaoxing wine"
+      },
+      {
+        "measure": "1 handful",
+        "name": "snow peas"
+      },
+      {
+        "measure": "1 handful",
+        "name": "bok choy or other leafy greens"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 4",
+    "dishStyle": "noodles"
+  },
+  {
+    "id": "sf-01",
+    "name": "Chicken & Broccoli in Brown Sauce",
+    "area": "Chinese",
+    "category": "Chicken",
+    "source": "The Woks of Life",
+    "original": "https://thewoksoflife.com/chinese-chicken-broccoli-brown-sauce/",
+    "ingredients": [
+      {
+        "measure": "12 oz",
+        "name": "boneless chicken breast or thighs"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "water for marinade"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "oyster sauce for marinade"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "cornstarch for marinade"
+      },
+      {
+        "measure": "1\u00bd tsp",
+        "name": "neutral oil for marinade"
+      },
+      {
+        "measure": "\u2154 cup",
+        "name": "low-sodium chicken stock"
+      },
+      {
+        "measure": "1\u00bd tsp",
+        "name": "sugar"
+      },
+      {
+        "measure": "1\u00bd Tbsp",
+        "name": "soy sauce"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "dark soy sauce"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "oyster sauce for sauce"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "sesame oil"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "white pepper"
+      },
+      {
+        "measure": "4 cups",
+        "name": "broccoli florets"
+      },
+      {
+        "measure": "3 Tbsp",
+        "name": "neutral oil for stir-frying"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "\u00bc tsp optional",
+        "name": "grated ginger"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "Shaoxing wine"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "cornstarch for slurry"
+      },
+      {
+        "measure": "2 Tbsp",
+        "name": "water for slurry"
+      }
+    ],
+    "type": "quick",
+    "yieldNote": "Serves 4",
+    "dishStyle": "stirfry"
+  },
+  {
+    "id": "dm-01",
+    "name": "Japanese Pork Gyoza (Potstickers)",
+    "area": "Japanese",
+    "category": "Pork",
+    "source": "Just One Cookbook",
+    "original": "https://www.justonecookbook.com/gyoza/",
+    "ingredients": [
+      {
+        "measure": "\u00bd lb",
+        "name": "ground pork"
+      },
+      {
+        "measure": "\u00be lb",
+        "name": "green cabbage"
+      },
+      {
+        "measure": "2",
+        "name": "shiitake mushrooms"
+      },
+      {
+        "measure": "2",
+        "name": "green onions"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "grated fresh ginger"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "2 tsp optional",
+        "name": "sake"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "toasted sesame oil for filling"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "soy sauce for filling"
+      },
+      {
+        "measure": "\u215b tsp",
+        "name": "ground black pepper"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "1 package (52)",
+        "name": "gyoza wrappers"
+      },
+      {
+        "measure": "as needed",
+        "name": "water for sealing"
+      },
+      {
+        "measure": "1 Tbsp per pan batch",
+        "name": "neutral oil"
+      },
+      {
+        "measure": "1 tsp per pan batch",
+        "name": "toasted sesame oil for frying"
+      },
+      {
+        "measure": "4 Tbsp per pan batch",
+        "name": "water for frying"
+      },
+      {
+        "measure": "1 Tbsp per serving",
+        "name": "soy sauce for dipping"
+      },
+      {
+        "measure": "1 Tbsp per serving",
+        "name": "rice vinegar"
+      },
+      {
+        "measure": "\u215b tsp per serving",
+        "name": "chili oil"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "Makes about 52 dumplings; frying/sauce measures are per batch/serving",
+    "dishStyle": "dumplings"
+  },
+  {
+    "id": "dm-02",
+    "name": "Korean Pork Mandu (Homemade Dumplings)",
+    "area": "South Korean",
+    "category": "Pork",
+    "source": "Maangchi",
+    "original": "https://www.maangchi.com/recipe/mandu",
+    "ingredients": [
+      {
+        "measure": "80",
+        "name": "mandu wrappers"
+      },
+      {
+        "measure": "1 lb",
+        "name": "ground pork belly or pork shoulder"
+      },
+      {
+        "measure": "4 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "minced ginger"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce for filling"
+      },
+      {
+        "measure": "1 tsp plus \u00bd tsp",
+        "name": "ground black pepper"
+      },
+      {
+        "measure": "1 Tbsp plus 2 tsp",
+        "name": "sesame oil for filling"
+      },
+      {
+        "measure": "1 lb",
+        "name": "zucchini"
+      },
+      {
+        "measure": "1 medium",
+        "name": "onion"
+      },
+      {
+        "measure": "1 tsp plus 1 tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "1 tsp plus frying",
+        "name": "neutral oil"
+      },
+      {
+        "measure": "2 oz",
+        "name": "sweet potato starch noodles"
+      },
+      {
+        "measure": "4 oz",
+        "name": "Asian chives (buchu)"
+      },
+      {
+        "measure": "12\u201314 oz",
+        "name": "mung bean sprouts"
+      },
+      {
+        "measure": "1 lb",
+        "name": "firm tofu"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce for dipping"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "vinegar for dipping"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "sesame seeds"
+      },
+      {
+        "measure": "\u00bd tsp optional",
+        "name": "gochugaru for dipping"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "green onion for dipping"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "Makes around 80 dumplings; freezes well",
+    "dishStyle": "dumplings"
+  },
+  {
+    "id": "dm-03",
+    "name": "Korean Chicken Mandu",
+    "area": "South Korean",
+    "category": "Chicken",
+    "source": "Maangchi",
+    "original": "https://www.maangchi.com/recipe/dakgogi-mandu",
+    "ingredients": [
+      {
+        "measure": "30 large or 40 regular",
+        "name": "mandu wrappers"
+      },
+      {
+        "measure": "1 lb",
+        "name": "boneless chicken thigh meat"
+      },
+      {
+        "measure": "4 oz",
+        "name": "onion"
+      },
+      {
+        "measure": "4 large cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1\u00bd tsp",
+        "name": "kosher salt"
+      },
+      {
+        "measure": "\u00bd tsp",
+        "name": "ground black pepper"
+      },
+      {
+        "measure": "\u00bc cup",
+        "name": "milk"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "potato starch or cornstarch"
+      },
+      {
+        "measure": "1 small (5\u20136 oz)",
+        "name": "zucchini"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "toasted sesame oil"
+      },
+      {
+        "measure": "1 Tbsp",
+        "name": "soy sauce for dipping"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "white vinegar for dipping"
+      },
+      {
+        "measure": "a pinch",
+        "name": "gochugaru for dipping"
+      }
+    ],
+    "type": "favorite",
+    "yieldNote": "Serves 4; makes 28\u201330",
+    "dishStyle": "dumplings"
+  }
+]
