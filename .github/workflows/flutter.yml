@@ -1,0 +1,31 @@
+name: Flutter checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Generate native target files without replacing product source
+        run: |
+          flutter create --platforms=android,web --org=com.dinnermap --project-name=dinnermap /tmp/dinnermap_targets
+          cp -r /tmp/dinnermap_targets/android /tmp/dinnermap_targets/web .
+          cp /tmp/dinnermap_targets/.metadata .
+      - run: flutter pub get
+      - run: dart format --output=none --set-exit-if-changed lib test tool
+      - run: flutter analyze
+      - run: flutter test
+      - run: dart tool/domain_check.dart
+      - run: dart tool/storage_check.dart
+      - run: flutter build web
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dinnermap-web
+          path: build/web
