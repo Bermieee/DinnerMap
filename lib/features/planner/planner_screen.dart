@@ -207,7 +207,9 @@ class _PlannerState extends ConsumerState<PlannerScreen> {
                     FilledButton.icon(
                       onPressed: () async {
                         final chosen = await chooseRecipe(context, s);
-                        if (chosen != null)
+                        if (chosen != null &&
+                            controller.mounted &&
+                            controller.canEdit)
                           controller.replaceMeal(
                             entry ??
                                 PlanEntry(
@@ -305,7 +307,9 @@ class _PlannerState extends ConsumerState<PlannerScreen> {
                         initial: entry.notes,
                         lines: 3,
                       );
-                      if (text != null)
+                      if (text != null &&
+                          controller.mounted &&
+                          controller.canEdit)
                         controller.updateEntry(
                           entry.copyWith(notes: text),
                           expectedEntry: entry,

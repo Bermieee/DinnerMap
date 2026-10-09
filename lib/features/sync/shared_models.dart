@@ -87,7 +87,12 @@ List<Map<String, dynamic>> changesBetween(
       if (!list.manualItems.any((p) => p.id == m.id))
         result.add({'op': 'removeManual', 'id': m.id});
     }
+    final remainingKeys = {
+      ...list.rows.map((r) => r.key),
+      ...list.manualItems.map((m) => m.id),
+    };
     for (final key in {...previous.checked, ...list.checked}) {
+      if (!remainingKeys.contains(key)) continue;
       if (previous.checked.contains(key) != list.checked.contains(key))
         result.add({
           'op': 'check',

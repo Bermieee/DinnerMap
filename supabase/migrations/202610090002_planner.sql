@@ -122,6 +122,9 @@ create function public.read_shared_plan() returns jsonb language plpgsql securit
 declare u uuid:=private.verified_user();h uuid:=private.current_household();s jsonb;l jsonb;rev bigint;
 begin
  if h is null then raise exception 'Household membership required' using errcode='42501';end if;
+ -- All mutations lock this household row; a shared lock keeps values and revisions coherent.
+ perform 1 from public.households where id=h for share;
+ if private.current_household() is distinct from h then raise exception 'Membership changed' using errcode='42501';end if;
  select calendar_revision into rev from public.households where id=h;
  select jsonb_build_object('start',to_char(start_day,'YYYY-MM-DD'),'weeks',weeks,'sourceRevision',source_revision,'warnings',warnings,
  'rows',coalesce((select jsonb_agg(value order by id) from public.shopping_items where household_id=h and not manual),'[]'),

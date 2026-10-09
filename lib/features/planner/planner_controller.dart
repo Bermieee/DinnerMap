@@ -136,7 +136,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
       updateEntry(entry.copyWith(kind: kind), expectedEntry: entry);
   void setCooked(PlanEntry entry, bool value) =>
       updateEntry(entry.copyWith(cooked: value), expectedEntry: entry);
-  void updateRecipe(Recipe recipe) {
+  void updateRecipe(Recipe recipe, {Recipe? expectedRecipe}) {
     final s = state.asData!.value;
     commitSnapshot(
       s.copyWith(recipes: {...s.recipes, recipe.id: recipe}),

@@ -20,6 +20,23 @@ class _NoSnapshotRepository implements PlannerRepository {
       throw StateError('Shared edits must use commands');
 }
 
+class PendingGeneration {
+  final String requestId;
+  final int revision, weeks;
+  final DateTime start;
+  final List<Map<String, dynamic>> rows;
+  final List<String> warnings;
+  bool recompute = false;
+  PendingGeneration(
+    this.requestId,
+    this.revision,
+    this.start,
+    this.weeks,
+    this.rows,
+    this.warnings,
+  );
+}
+
 class SharedPlannerController extends PlannerController {
   final SharedRepository shared;
   final SharedCache cache;
@@ -30,6 +47,8 @@ class SharedPlannerController extends PlannerController {
   List<Map<String, dynamic>>? conflictChanges;
   List<Map<String, dynamic>>? pendingChanges;
   String? _pendingRequestId;
+  PendingGeneration? pendingGeneration;
+  String? generationMessage;
   List<Map<String, dynamic>>? _inverse;
   StreamSubscription<bool>? _subscription;
   int _epoch = 0;
@@ -67,11 +86,14 @@ class SharedPlannerController extends PlannerController {
   bool get canEdit =>
       online &&
       !busy &&
+      !_refreshing &&
       view != null &&
       conflictChanges == null &&
-      pendingChanges == null;
+      pendingChanges == null &&
+      pendingGeneration == null;
   @override
-  String? get syncMessage => busy ? 'Saving shared changes…' : status;
+  String? get syncMessage =>
+      busy ? 'Saving shared changes…' : generationMessage ?? status;
   void _notify() {
     if (mounted && state.asData != null)
       state = AsyncValue.data(state.asData!.value);
@@ -94,6 +116,8 @@ class SharedPlannerController extends PlannerController {
       return;
     }
     _refreshing = true;
+    online = false;
+    _notify();
     final epoch = _epoch;
     try {
       final next = await shared.fetch();
@@ -208,7 +232,7 @@ class SharedPlannerController extends PlannerController {
   }
 
   Future<void> retryPending() async {
-    if (!online || busy || pendingChanges == null) return;
+    if (!online || busy || _refreshing || pendingChanges == null) return;
     final changes = pendingChanges!;
     final id = _pendingRequestId;
     pendingChanges = null;
@@ -258,6 +282,29 @@ class SharedPlannerController extends PlannerController {
   }
 
   @override
+  void updateRecipe(Recipe recipe, {Recipe? expectedRecipe}) {
+    if (!canEdit) return;
+    final current = view?.snapshot.recipes[recipe.id];
+    if (expectedRecipe != null &&
+        current != null &&
+        jsonEncode(current.toJson()) != jsonEncode(expectedRecipe.toJson())) {
+      conflictChanges = [
+        {
+          'op': 'recipe',
+          'id': recipe.id,
+          'value': recipe.toJson(),
+          'expectedRevision': view!.revisions['recipe:${recipe.id}'] ?? -1,
+        },
+      ];
+      status =
+          'This recipe changed while you were editing. Review both versions.';
+      _notify();
+      return;
+    }
+    super.updateRecipe(recipe, expectedRecipe: expectedRecipe);
+  }
+
+  @override
   void undo() {
     final commands = _inverse;
     _inverse = null;
@@ -271,10 +318,6 @@ class SharedPlannerController extends PlannerController {
 
   Future<void> _generate(DateTime start, int weeks) async {
     if (!canEdit) return;
-    busy = true;
-    status = null;
-    _notify();
-    final epoch = _epoch;
     final before = view!;
     final result = ShoppingEngine.generate(
       entries: before.snapshot.entries,
@@ -282,19 +325,46 @@ class SharedPlannerController extends PlannerController {
       start: start,
       weeks: weeks,
     );
-    try {
-      final next = await shared.regenerate(
+    await _sendGeneration(
+      PendingGeneration(
         const Uuid().v4(),
         before.snapshot.revision,
         start,
         weeks,
         result.rows.map((r) => r.toJson()).toList(),
         result.warnings,
+      ),
+    );
+  }
+
+  Future<void> _sendGeneration(PendingGeneration proposal) async {
+    if (!online || busy || _refreshing) return;
+    busy = true;
+    status = null;
+    generationMessage = null;
+    _notify();
+    final epoch = _epoch;
+    try {
+      final next = await shared.regenerate(
+        proposal.requestId,
+        proposal.revision,
+        proposal.start,
+        proposal.weeks,
+        proposal.rows,
+        proposal.warnings,
       );
       await _accept(next, epoch);
+      if (mounted && epoch == _epoch) {
+        pendingGeneration = null;
+        generationMessage = null;
+      }
     } catch (e) {
       if (mounted && epoch == _epoch) {
-        status = e.toString();
+        pendingGeneration = proposal;
+        proposal.recompute = e is SharedConflict;
+        generationMessage = e is SharedConflict
+            ? '${e.toString()}. Reloaded the calendar; retry groceries to use its latest meals.'
+            : 'Grocery generation has an uncertain result. Reload, then retry groceries safely.';
         if (e is! SharedConflict) online = false;
       }
     } finally {
@@ -304,6 +374,26 @@ class SharedPlannerController extends PlannerController {
         await refresh();
       }
     }
+  }
+
+  Future<void> retryGeneration() async {
+    final proposal = pendingGeneration;
+    if (proposal == null || !online || busy || _refreshing) return;
+    if (proposal.recompute) {
+      pendingGeneration = null;
+      generationMessage = null;
+      await _generate(proposal.start, proposal.weeks);
+    } else {
+      // Reusing the original payload/request makes an accepted-but-lost reply safe.
+      await _sendGeneration(proposal);
+    }
+  }
+
+  void discardGeneration() {
+    pendingGeneration = null;
+    generationMessage = null;
+    status = null;
+    _notify();
   }
 
   String conflictPreview() {

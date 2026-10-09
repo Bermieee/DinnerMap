@@ -16,7 +16,11 @@ class MemoryShared implements SharedRepository {
   final events = StreamController<bool>.broadcast();
   late SharedView current;
   List<Map<String, dynamic>>? sent;
-  bool conflict = false, uncertain = false, regenConflict = false;
+  bool conflict = false,
+      uncertain = false,
+      regenConflict = false,
+      regenUncertain = false;
+  final generationRequests = <String>[];
   final requests = <String>[];
   Completer<SharedView>? pending, delayedFetch;
   MemoryShared() {
@@ -62,6 +66,11 @@ class MemoryShared implements SharedRepository {
     List<Map<String, dynamic>> rows,
     List<String> warnings,
   ) async {
+    generationRequests.add(id);
+    if (regenUncertain) {
+      regenUncertain = false;
+      throw const SharedUnavailable('Lost generation reply', uncertain: true);
+    }
     if (regenConflict) throw const SharedConflict('Calendar changed');
     return current;
   }
@@ -221,4 +230,48 @@ void main() {
     expect(c.view!.snapshot.recipes['r']!.title, 'Their updated soup');
     await tester.pumpWidget(const SizedBox());
   });
+  test(
+    'lost generation reply remains pending and retry reuses payload ID',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final cache = SharedCache(await SharedPreferences.getInstance());
+      final repo = MemoryShared();
+      final c = SharedPlannerController(repo, cache, 'u', 'h');
+      await tick();
+      repo.regenUncertain = true;
+      c.generate(DateTime(2026, 10, 9), 1);
+      await tick();
+      expect(c.pendingGeneration, isNotNull);
+      expect(c.syncMessage, contains('uncertain'));
+      await c.retryGeneration();
+      expect(repo.generationRequests.length, 2);
+      expect(repo.generationRequests.first, repo.generationRequests.last);
+      expect(c.pendingGeneration, isNull);
+      c.dispose();
+    },
+  );
+  test(
+    'uncertain command cannot retry during reconnect reconciliation',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final cache = SharedCache(await SharedPreferences.getInstance());
+      final repo = MemoryShared();
+      final c = SharedPlannerController(repo, cache, 'u', 'h');
+      await tick();
+      repo.uncertain = true;
+      c.setCooked(repo.current.snapshot.entries.first, true);
+      await tick();
+      repo.uncertain = false;
+      repo.delayedFetch = Completer<SharedView>();
+      repo.events.add(true);
+      await tick();
+      await c.retryPending();
+      expect(repo.requests.length, 1);
+      repo.delayedFetch!.complete(repo.current);
+      await tick();
+      await c.retryPending();
+      expect(repo.requests.length, 2);
+      c.dispose();
+    },
+  );
 }

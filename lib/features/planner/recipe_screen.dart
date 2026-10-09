@@ -73,6 +73,7 @@ Future<void> editRecipe(
   WidgetRef ref, {
   Recipe? recipe,
 }) async {
+  final editingController = ref.read(plannerProvider.notifier);
   final name = TextEditingController(text: recipe?.title ?? '');
   final servings = TextEditingController(
     text: recipe?.baseServings?.toString() ?? '',
@@ -183,23 +184,29 @@ Future<void> editRecipe(
                   ),
                 );
               }
-              ref
-                  .read(plannerProvider.notifier)
-                  .updateRecipe(
-                    Recipe(
-                      id:
-                          recipe?.id ??
-                          'custom-${DateTime.now().microsecondsSinceEpoch}',
-                      title: name.text.trim(),
-                      baseServings: n,
-                      ingredients: parsed,
-                      instructions: instructions.text.trim(),
-                      sourceUrl: recipe?.sourceUrl ?? '',
-                      category: recipe?.category ?? 'favorite',
-                      region: recipe?.region ?? 'Custom',
-                      incomplete: recipe?.incomplete ?? false,
-                    ),
-                  );
+              if (!editingController.mounted || !editingController.canEdit) {
+                setState(
+                  () => error =
+                      'Editing is unavailable. Reconnect or reopen this recipe in the active household.',
+                );
+                return;
+              }
+              editingController.updateRecipe(
+                Recipe(
+                  id:
+                      recipe?.id ??
+                      'custom-${DateTime.now().microsecondsSinceEpoch}',
+                  title: name.text.trim(),
+                  baseServings: n,
+                  ingredients: parsed,
+                  instructions: instructions.text.trim(),
+                  sourceUrl: recipe?.sourceUrl ?? '',
+                  category: recipe?.category ?? 'favorite',
+                  region: recipe?.region ?? 'Custom',
+                  incomplete: recipe?.incomplete ?? false,
+                ),
+                expectedRecipe: recipe,
+              );
               Navigator.pop(context);
             },
             child: const Text('Save recipe'),

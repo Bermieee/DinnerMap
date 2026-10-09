@@ -252,6 +252,19 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                       content: Text(editing.syncMessage!),
                       actions: [
                         if (editing is SharedPlannerController &&
+                            editing.pendingGeneration != null) ...[
+                          TextButton(
+                            onPressed: editing.online
+                                ? editing.retryGeneration
+                                : null,
+                            child: const Text('Retry groceries'),
+                          ),
+                          TextButton(
+                            onPressed: editing.discardGeneration,
+                            child: const Text('Keep current list'),
+                          ),
+                        ],
+                        if (editing is SharedPlannerController &&
                             editing.pendingChanges != null) ...[
                           TextButton(
                             onPressed: () async {
