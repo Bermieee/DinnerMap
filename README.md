@@ -53,3 +53,9 @@ The demo starts with 28 offline recipes, selected from the prototype's curated l
 ## Hosting
 
 Flutter is free. No paid service has been configured. Select the account/sync backend after comparing current free quotas and billing requirements. Retailer secrets must stay on a backend; Walmart grocery API access requires approval.
+
+## Verification status
+
+Standalone Dart checks and static analysis of the pure domain/data code pass. Full Flutter analysis, widget tests and builds require CI verification; the source is a draft until those checks pass. Local Flutter bootstrap was stopped by automatic approval review for cloud metadata access.
+
+Known foundation gaps: exported TXT/CSV lists retain original counts but do not include edited count-to-weight estimates; those estimates are displayed in the app. Browser printing and native sharing are not wired yet.

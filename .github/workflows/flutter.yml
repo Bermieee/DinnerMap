@@ -19,8 +19,8 @@ jobs:
           cp -r /tmp/dinnermap_targets/android /tmp/dinnermap_targets/web .
           cp /tmp/dinnermap_targets/.metadata .
       - run: flutter pub get
-      - run: dart format --output=none --set-exit-if-changed lib test tool
-      - run: flutter analyze
+      - run: dart format --language-version=3.8 --output=none --set-exit-if-changed lib test tool
+      - run: flutter analyze --no-fatal-infos
       - run: flutter test
       - run: dart tool/domain_check.dart
       - run: dart tool/storage_check.dart

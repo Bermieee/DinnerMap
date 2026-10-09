@@ -101,8 +101,9 @@ String rowAmount(ShoppingRow row, String massUnit) {
 String groceryGroup(String name) {
   final s = name.toLowerCase();
   if (RegExp('frozen').hasMatch(s)) return 'Frozen';
-  if (RegExp('chicken|beef|pork|steak|shrimp|salmon|turkey|bacon|sausage')
-          .hasMatch(s) &&
+  if (RegExp(
+        'chicken|beef|pork|steak|shrimp|salmon|turkey|bacon|sausage',
+      ).hasMatch(s) &&
       !RegExp('stock|broth|sauce').hasMatch(s))
     return 'Meat & seafood';
   if (RegExp('milk|cheese|butter|egg|cream|yogurt').hasMatch(s))

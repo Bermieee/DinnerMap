@@ -49,8 +49,9 @@ Future<void> saveText(
     );
   } catch (e) {
     if (context.mounted)
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Export failed: $e')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Export failed: $e')));
   }
 }
 

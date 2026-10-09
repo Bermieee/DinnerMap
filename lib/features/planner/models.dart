@@ -1,3 +1,11 @@
+int? parseBaseServings(String note) {
+  final match = RegExp(
+    r'^Serves\s+(\d+)(?:\s*;|\s*$)',
+    caseSensitive: false,
+  ).firstMatch(note.trim());
+  return match == null ? null : int.tryParse(match[1]!);
+}
+
 DateTime parseDate(String value) {
   final parsed = DateTime.tryParse(value);
   if (parsed == null ||

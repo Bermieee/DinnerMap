@@ -153,7 +153,8 @@ Future<void> editRecipe(
               if (name.text.trim().isEmpty ||
                   (servings.text.trim().isNotEmpty && (n == null || n <= 0))) {
                 setState(
-                  () => error = 'Enter a name and a positive serving count, or leave servings blank.',
+                  () => error =
+                      'Enter a name and a positive serving count, or leave servings blank.',
                 );
                 return;
               }

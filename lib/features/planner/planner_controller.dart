@@ -34,17 +34,17 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
         state = AsyncValue.data(saved);
         return;
       }
-      final raw = jsonDecode(
-        await rootBundle.loadString('assets/recipes.json'),
-      ) as List;
+      final raw =
+          jsonDecode(await rootBundle.loadString('assets/recipes.json'))
+              as List;
       final recipes = raw.map((value) {
         final j = Map<String, dynamic>.from(value as Map);
         final yield = j['yieldNote'] as String? ?? '';
-        final servings = RegExp(r'[Ss]erves\s+(\d+)').firstMatch(yield);
+        final servings = parseBaseServings(yield);
         return Recipe(
           id: j['id'] as String,
           title: j['name'] as String,
-          baseServings: servings == null ? null : int.parse(servings[1]!),
+          baseServings: servings,
           category: j['type'] as String? ?? 'quick',
           region: j['area'] as String? ?? '',
           sourceUrl: j['original'] as String? ?? '',

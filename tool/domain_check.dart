@@ -54,4 +54,12 @@ void main() {
     'date range and compatible mass',
   );
   check(packagesRequired(5.1, 2.5) == 3, 'package rounding');
+  check(
+    parseBaseServings('Serves 2–3') == null,
+    'serving ranges remain unconfirmed',
+  );
+  check(
+    parseBaseServings('Serves 4; makes 28–30') == 4,
+    'explicit serving count accepted',
+  );
 }

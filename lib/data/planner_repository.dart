@@ -67,8 +67,9 @@ class PlannerSnapshot {
               ),
         favorites: Set<String>.from(j['favorites'] as List? ?? []),
         avoided: Set<String>.from(j['avoided'] as List? ?? []),
-        pieceWeights: Map<String, dynamic>.from(j['pieceWeights'] as Map? ?? {})
-            .map((k, v) => MapEntry(k, (v as num).toDouble())),
+        pieceWeights: Map<String, dynamic>.from(
+          j['pieceWeights'] as Map? ?? {},
+        ).map((k, v) => MapEntry(k, (v as num).toDouble())),
       );
       if (result.revision < 0 ||
           result.entries.any(
