@@ -1,6 +1,6 @@
 # DinnerMap
 
-Flutter meal planning and grocery lists for Android and web. Household sharing and official Kroger/Walmart connections are the next stages.
+Flutter meal planning and grocery lists for Android and web. Optional Supabase accounts and household sharing are implemented in the sharing branch; official Kroger/Walmart connections are the next stage.
 
 ## Foundation features
 
@@ -10,7 +10,13 @@ Flutter meal planning and grocery lists for Android and web. Household sharing a
 - Local saved data, checklist items, manual groceries, regeneration, TXT/CSV export and JSON backup/restore.
 - Retailer interfaces and tested lowest/highest price sorting logic; live product results and cart transfer are not connected.
 
-This version is explicitly a **local demo**. Data stays in the current browser/device. Accounts, invitations and cross-device sync are not implemented. Browser storage can be cleared; export backups for important plans.
+Without backend configuration, this version runs as a **local demo** and data stays on the current browser/device. Browser storage can be cleared; export backups for important plans.
+
+## Household sharing
+
+The optional Supabase backend adds email/password accounts, verified household membership, single-use invitations, shared meal/recipe edits and grocery checkoffs. Every member can edit and invite. Choose local or shared mode explicitly; local data never uploads on sign-in. Import into an empty household requires a preview/confirmation. Shared edits require connectivity, with cached data and reviewed conflicts.
+
+See [household setup](docs/household-setup.md) for migrations, free-project configuration, redirect URLs and configured builds. Default CI artifacts contain no Supabase project configuration, so sharing is not live in those APKs. No paid billing has been enabled. One calendar and one saved grocery list per household are supported initially.
 
 ## Run
 
@@ -36,7 +42,7 @@ flutter build web
 flutter build apk --debug
 ```
 
-GitHub Actions generates platform files, resolves dependencies, analyzes, tests and builds a downloadable web artifact. Android builds require an Android SDK.
+GitHub Actions validates an ephemeral PostgreSQL database, generates platform files, resolves dependencies, analyzes, tests, and produces downloadable web and Android artifacts.
 
 ## Recipe and calculation limitations
 
@@ -52,10 +58,12 @@ The demo starts with 28 offline recipes, selected from the prototype's curated l
 
 ## Hosting
 
-Flutter is free. No paid service has been configured. Select the account/sync backend after comparing current free quotas and billing requirements. Retailer secrets must stay on a backend; Walmart grocery API access requires approval.
+Flutter is free. No paid service has been configured. Supabase is the selected optional account/sync backend; check its current free quotas before deployment. Retailer secrets must stay on a backend; Walmart grocery API access requires approval.
 
 ## Verification status
 
-Standalone Dart checks and static analysis of the pure domain/data code pass. Full Flutter analysis, widget tests and builds require CI verification; the source is a draft until those checks pass. Local Flutter bootstrap was stopped by automatic approval review for cloud metadata access.
+The initial local foundation passed Flutter tests and Android/web builds, and the user confirmed meal editing and grocery generation on an Android phone. The sharing branch adds database security/concurrency and Flutter sync regressions; inspect its latest [CI run](https://github.com/Bermieee/DinnerMap/pull/2/checks) for current results.
 
-Known foundation gaps: Browser/native printing and system sharing are wired through Flutter plugins; platform dialogs require manual device verification.
+Hosted Supabase Auth/Realtime, email delivery/redirects and a live two-account flow require a configured project and remain unverified. Local Flutter bootstrap was blocked by automatic approval review; validation uses isolated GitHub CI and safe standalone Dart checks.
+
+Known limitations: Shared offline mode currently blocks browsing interactions as well as edits; refining mutation-only disabled controls is deferred. Printing/system sharing dialogs still need manual phone verification. No live retailer prices/cart transfer or public deployment is provided.
