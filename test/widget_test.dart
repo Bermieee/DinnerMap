@@ -67,6 +67,11 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Generate list'));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.text('chicken'),
+      180,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('chicken'), findsOneWidget);
     expect(find.text('1 lb'), findsOneWidget);
     expect(tester.takeException(), isNull);
@@ -81,7 +86,11 @@ void main() {
     tester,
   ) async {
     final repo = await mount(tester, const Size(390, 844));
-    await tester.ensureVisible(find.text('Replace meal'));
+    await tester.scrollUntilVisible(
+      find.text('Replace meal'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.text('Replace meal'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Soup'));
