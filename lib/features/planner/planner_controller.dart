@@ -12,20 +12,28 @@ import '../shopping/shopping_models.dart';
 final repositoryProvider = Provider<PlannerRepository>(
   (ref) => throw StateError('Repository not configured'),
 );
+final plannerFactoryProvider = Provider<PlannerController Function()?>(
+  (ref) => null,
+);
 final plannerProvider =
     StateNotifierProvider<PlannerController, AsyncValue<PlannerSnapshot>>(
-      (ref) => PlannerController(ref.read(repositoryProvider)),
+      (ref) =>
+          ref.watch(plannerFactoryProvider)?.call() ??
+          PlannerController(ref.read(repositoryProvider)),
     );
 
 class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
   final PlannerRepository repository;
-  PlannerSnapshot? _undo;
+  PlannerSnapshot? undoSnapshot;
+  bool get canEdit => true;
+  String? get syncMessage => null;
   String? saveError;
   bool _blocked = false;
   bool _restoring = false;
   Future<void> _queue = Future.value();
-  PlannerController(this.repository) : super(const AsyncValue.loading()) {
-    load();
+  PlannerController(this.repository, {bool autoLoad = true})
+    : super(const AsyncValue.loading()) {
+    if (autoLoad) load();
   }
   Future<void> load() async {
     try {
@@ -84,7 +92,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     }
   }
 
-  void _set(
+  void commitSnapshot(
     PlannerSnapshot snapshot, {
     bool mealChange = false,
     bool remember = true,
@@ -92,7 +100,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     if (_blocked || _restoring) return;
     final current = state.asData?.value;
     if (current == null) return;
-    if (remember) _undo = current;
+    if (remember) undoSnapshot = current;
     final next = snapshot.copyWith(
       revision: mealChange ? current.revision + 1 : current.revision,
     );
@@ -108,9 +116,9 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     });
   }
 
-  void updateEntry(PlanEntry entry) {
+  void updateEntry(PlanEntry entry, {PlanEntry? expectedEntry}) {
     final s = state.asData!.value;
-    _set(
+    commitSnapshot(
       s.copyWith(
         entries: s.entries.any((e) => e.id == entry.id)
             ? s.entries.map((e) => e.id == entry.id ? entry : e).toList()
@@ -122,14 +130,15 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
 
   void replaceMeal(PlanEntry entry, Recipe recipe) => updateEntry(
     entry.copyWith(recipeId: recipe.id, kind: EntryKind.recipe, cooked: false),
+    expectedEntry: entry,
   );
   void setEntryKind(PlanEntry entry, EntryKind kind) =>
-      updateEntry(entry.copyWith(kind: kind));
+      updateEntry(entry.copyWith(kind: kind), expectedEntry: entry);
   void setCooked(PlanEntry entry, bool value) =>
-      updateEntry(entry.copyWith(cooked: value));
-  void updateRecipe(Recipe recipe) {
+      updateEntry(entry.copyWith(cooked: value), expectedEntry: entry);
+  void updateRecipe(Recipe recipe, {Recipe? expectedRecipe}) {
     final s = state.asData!.value;
-    _set(
+    commitSnapshot(
       s.copyWith(recipes: {...s.recipes, recipe.id: recipe}),
       mealChange: true,
     );
@@ -139,14 +148,14 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     final s = state.asData!.value;
     final ids = {...s.favorites};
     if (!ids.add(id)) ids.remove(id);
-    _set(s.copyWith(favorites: ids));
+    commitSnapshot(s.copyWith(favorites: ids));
   }
 
   void avoid(String id) {
     final s = state.asData!.value;
     final ids = {...s.avoided};
     if (!ids.add(id)) ids.remove(id);
-    _set(s.copyWith(avoided: ids));
+    commitSnapshot(s.copyWith(avoided: ids));
   }
 
   void randomizeRange(DateTime start, int days) {
@@ -157,7 +166,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     if (available.isEmpty) return;
     final end = DateTime(start.year, start.month, start.day + days);
     final random = Random();
-    _set(
+    commitSnapshot(
       s.copyWith(
         entries: s.entries
             .map(
@@ -178,10 +187,10 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
   }
 
   void undo() {
-    final previous = _undo;
+    final previous = undoSnapshot;
     if (previous != null) {
-      _undo = null;
-      _set(previous, mealChange: true, remember: false);
+      undoSnapshot = null;
+      commitSnapshot(previous, mealChange: true, remember: false);
     }
   }
 
@@ -200,7 +209,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
           weeks: weeks,
           sourceRevision: s.revision,
         );
-    _set(
+    commitSnapshot(
       s.copyWith(
         list: regenerateList(
           previous,
@@ -219,14 +228,14 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     if (list == null) return;
     final ids = {...list.checked};
     checked ? ids.add(key) : ids.remove(key);
-    _set(s.copyWith(list: list.copyWith(checked: ids)));
+    commitSnapshot(s.copyWith(list: list.copyWith(checked: ids)));
   }
 
   void addManual(String name, String amount) {
     final s = state.asData!.value;
     final list = s.list;
     if (list == null) return;
-    _set(
+    commitSnapshot(
       s.copyWith(
         list: list.copyWith(
           manualItems: [
@@ -245,7 +254,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
   void removeManual(String id) {
     final s = state.asData!.value;
     final l = s.list!;
-    _set(
+    commitSnapshot(
       s.copyWith(
         list: l.copyWith(
           manualItems: l.manualItems.where((m) => m.id != id).toList(),
@@ -258,7 +267,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
   void setPieceWeight(String key, double weight) {
     if (!weight.isFinite || weight <= 0 || weight > 48) return;
     final s = state.asData!.value;
-    _set(s.copyWith(pieceWeights: {...s.pieceWeights, key: weight}));
+    commitSnapshot(s.copyWith(pieceWeights: {...s.pieceWeights, key: weight}));
   }
 
   Future<void> importBackup(String raw) async {
@@ -267,7 +276,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     final operation = _queue.then((_) async {
       await repository.save(restored);
       _blocked = false;
-      _undo = null;
+      undoSnapshot = null;
       saveError = null;
       if (mounted) state = AsyncValue.data(restored);
     });

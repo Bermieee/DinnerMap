@@ -36,7 +36,7 @@ class _PlannerState extends ConsumerState<PlannerScreen> {
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         const SizedBox(height: 6),
-        const Text('Plan together later. Cook confidently today.'),
+        const Text('Plan your meals. Cook confidently.'),
         const SizedBox(height: 16),
         Wrap(
           spacing: 8,
@@ -207,7 +207,9 @@ class _PlannerState extends ConsumerState<PlannerScreen> {
                     FilledButton.icon(
                       onPressed: () async {
                         final chosen = await chooseRecipe(context, s);
-                        if (chosen != null)
+                        if (chosen != null &&
+                            controller.mounted &&
+                            controller.canEdit)
                           controller.replaceMeal(
                             entry ??
                                 PlanEntry(
@@ -278,6 +280,7 @@ class _PlannerState extends ConsumerState<PlannerScreen> {
                           if (n != null)
                             controller.updateEntry(
                               entry.copyWith(targetServings: n),
+                              expectedEntry: entry,
                             );
                         },
                       ),
@@ -304,8 +307,13 @@ class _PlannerState extends ConsumerState<PlannerScreen> {
                         initial: entry.notes,
                         lines: 3,
                       );
-                      if (text != null)
-                        controller.updateEntry(entry.copyWith(notes: text));
+                      if (text != null &&
+                          controller.mounted &&
+                          controller.canEdit)
+                        controller.updateEntry(
+                          entry.copyWith(notes: text),
+                          expectedEntry: entry,
+                        );
                     },
                     icon: const Icon(Icons.notes),
                     label: Text(

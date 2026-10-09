@@ -7,3 +7,6 @@ coverage/
 *.iml
 .idea/
 android/local.properties
+
+node_modules/
+tool/database/node_modules
