@@ -2,7 +2,7 @@ import {database} from './database_fixture.mjs';
 import {readFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 const db=await database();
-await db.exec(`create role anon;create role authenticated;create schema auth;create schema extensions;
+await db.exec(`do $$begin create role anon;exception when duplicate_object then null;end$$;do $$begin create role authenticated;exception when duplicate_object then null;end$$;create schema auth;create schema extensions;
 create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz);
 create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;
 grant usage on schema public,auth to authenticated,anon;
@@ -29,6 +29,8 @@ await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op
 await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'entry',id:'day-1',expectedRevision:1,value:{...entry,date:'2026-02-30'}}]);
 await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'entry',id:'day-1',expectedRevision:1,value:{...entry,recipeId:'other'}}]);
 await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'entry',id:'day-1',expectedRevision:1,value:{...entry,household_id:'forged'}}]);
+await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'recipe',id:'r1',expectedRevision:0,value:{...snapshot.recipes[0],instructions:42}}]);
+await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'entry',id:'day-1',expectedRevision:1,value:{...entry,notes:42}}]);
 const row={key:'carrot|count|',name:'carrot',quantity:2,unit:'count',preparation:'',sourceText:[]};
 await q('select public.regenerate_shared_list($1,$2,$3,$4,$5,$6)',[crypto.randomUUID(),1,'2026-10-09',2,[row],[]]);
 await change({op:'check',id:row.key,value:true});

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dinnermap/features/household/account_models.dart';
+import 'package:dinnermap/features/household/account_controller.dart';
+import '../../tool/account_check.dart' as fixtures;
 import 'package:dinnermap/features/household/household_screen.dart';
 
 void main() {
@@ -16,9 +18,10 @@ void main() {
     'unverified users see verification rather than household controls',
     (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
             body: HouseholdScreen(
+              controller: AccountController(fixtures.FakeAccounts()),
               state: AccountState(
                 session: AccountSession('u', 'a@example.com', false),
               ),

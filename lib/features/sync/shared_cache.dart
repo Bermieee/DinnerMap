@@ -20,6 +20,10 @@ class SharedCache {
     await preferences.setString(key(user, household), view.encode());
   }
 
+  Future<void> clearScope(String user, String household) async {
+    await preferences.remove(key(user, household));
+  }
+
   Future<void> clearUser(String user) async {
     for (final k
         in preferences

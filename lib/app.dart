@@ -113,6 +113,13 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
         const AccountState();
     final sharedContext = ref.watch(activeHouseholdProvider);
     final editing = ref.read(plannerProvider.notifier);
+    final householdFallback = HouseholdScreen(
+      state: account,
+      controller: accountController,
+      shared: sharedContext != null,
+      onUseShared: () => ref.read(useSharedProvider.notifier).state = true,
+      onUseLocal: () => ref.read(useSharedProvider.notifier).state = false,
+    );
     final wide = MediaQuery.sizeOf(context).width >= 850;
     const destinations = [
       NavigationDestination(
@@ -139,7 +146,7 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Chip(
-              label: Text(sharedContext == null ? 'LOCAL' : 'SHARED'),
+              label: Text(sharedContext == null ? 'LOCAL DEMO' : 'SHARED'),
               avatar: const Icon(Icons.phonelink, size: 16),
             ),
           ),
@@ -203,23 +210,27 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
             ),
           Expanded(
             child: data.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, st) => Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(Icons.warning_amber, size: 48),
-                      const Text('Your saved data could not be loaded.'),
-                      Text('$e'),
-                      const Text(
-                        'The saved payload has been preserved. Export it or restore a valid backup using the menu.',
+              loading: () => tab == 3
+                  ? householdFallback
+                  : const Center(child: CircularProgressIndicator()),
+              error: (e, st) => tab == 3
+                  ? householdFallback
+                  : Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.warning_amber, size: 48),
+                            const Text('Your saved data could not be loaded.'),
+                            Text('$e'),
+                            const Text(
+                              'The saved payload has been preserved. Export it or restore a valid backup using the menu.',
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
               data: (s) => Column(
                 children: [
                   if (ref.read(plannerProvider.notifier).saveError != null)
@@ -240,6 +251,41 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                     MaterialBanner(
                       content: Text(editing.syncMessage!),
                       actions: [
+                        if (editing is SharedPlannerController &&
+                            editing.pendingChanges != null) ...[
+                          TextButton(
+                            onPressed: () async {
+                              await showDialog<void>(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: const Text('Review uncertain edit'),
+                                  content: SingleChildScrollView(
+                                    child: SelectableText(
+                                      editing.pendingChanges.toString(),
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(ctx),
+                                      child: const Text('Close'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            child: const Text('Review'),
+                          ),
+                          TextButton(
+                            onPressed: editing.online
+                                ? editing.retryPending
+                                : null,
+                            child: const Text('Retry edit'),
+                          ),
+                          TextButton(
+                            onPressed: editing.discardPending,
+                            child: const Text('Keep current plan'),
+                          ),
+                        ],
                         if (editing is SharedPlannerController &&
                             editing.conflictChanges != null)
                           TextButton(

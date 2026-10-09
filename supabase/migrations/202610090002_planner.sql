@@ -59,29 +59,49 @@ begin
  if d<date '2020-01-01' or d>date '2100-12-31' or to_char(d,'YYYY-MM-DD')<>v then raise exception 'Invalid date' using errcode='22023';end if;
  return d;
 end $$;
+create function private.string_fields(v jsonb,keys text[]) returns void language plpgsql set search_path='' as $$
+declare k text;begin
+ foreach k in array keys loop
+ if v?k and v->k<>'null'::jsonb and (jsonb_typeof(v->k)<>'string' or length(v->>k)>20000) then raise exception 'Invalid text field' using errcode='22023';end if;
+ end loop;
+end $$;
+create function private.string_array(v jsonb) returns void language plpgsql set search_path='' as $$
+begin
+ if jsonb_typeof(v) is distinct from 'array' or jsonb_array_length(v)>4000 or exists(select 1 from jsonb_array_elements(v) x where jsonb_typeof(x)<>'string' or length(x::text)>20000) then raise exception 'Invalid text list' using errcode='22023';end if;
+end $$;
 create function private.validate_value(kind text,v jsonb) returns void language plpgsql set search_path='' as $$
 declare i jsonb;n numeric;
 begin
  if octet_length(v::text)>262144 then raise exception 'Record too large' using errcode='22023';end if;
  if kind='recipe' then
+ perform private.string_fields(v,array['id','title','instructions','sourceUrl','category','region']);
+ if jsonb_typeof(v->'id') is distinct from 'string' or (v?'incomplete' and jsonb_typeof(v->'incomplete')<>'boolean') then raise exception 'Invalid recipe fields' using errcode='22023';end if;
  perform private.assert_keys(v,array['id','title','baseServings','ingredients','instructions','sourceUrl','category','region','incomplete']);
  if coalesce(length(btrim(v->>'title')),0) not between 1 and 300 or jsonb_typeof(v->'ingredients') is distinct from 'array' then raise exception 'Invalid recipe' using errcode='22023';end if;
  if v->>'baseServings' is not null and (jsonb_typeof(v->'baseServings')<>'number' or (v->>'baseServings')::numeric not between 1 and 100 or (v->>'baseServings')::numeric<>trunc((v->>'baseServings')::numeric)) then raise exception 'Invalid servings' using errcode='22023';end if;
  if jsonb_array_length(v->'ingredients')>200 then raise exception 'Too many ingredients' using errcode='22023';end if;
  for i in select value from jsonb_array_elements(v->'ingredients') loop
+ perform private.string_fields(i,array['name','unit','preparation','originalText']);
  perform private.assert_keys(i,array['name','quantity','unit','preparation','originalText']);
  if coalesce(length(btrim(i->>'name')),0) not between 1 and 300 then raise exception 'Invalid ingredient' using errcode='22023';end if;
  if i->>'quantity' is not null and (jsonb_typeof(i->'quantity')<>'number' or (i->>'quantity')::numeric<=0 or (i->>'quantity')::numeric>1000000) then raise exception 'Invalid quantity' using errcode='22023';end if;
  end loop;
  elsif kind='entry' then
+ perform private.string_fields(v,array['id','date','recipeId','kind','notes']);
+ if jsonb_typeof(v->'id') is distinct from 'string' then raise exception 'Invalid meal ID' using errcode='22023';end if;
  perform private.assert_keys(v,array['id','date','recipeId','targetServings','kind','cooked','notes']);
  perform private.valid_day(v->>'date');
  n:=(v->>'targetServings')::numeric;
  if n is null or n not between 1 and 100 or n<>trunc(n) or jsonb_typeof(v->'targetServings')<>'number' or coalesce(v->>'kind','') not in ('recipe','takeout','leftovers') or jsonb_typeof(v->'cooked') is distinct from 'boolean' then raise exception 'Invalid meal' using errcode='22023';end if;
  elsif kind='manual' then
+ perform private.string_fields(v,array['id','name','amount']);
+ if jsonb_typeof(v->'id') is distinct from 'string' then raise exception 'Invalid item ID' using errcode='22023';end if;
  perform private.assert_keys(v,array['id','name','amount']);
  if coalesce(length(btrim(v->>'name')),0) not between 1 and 300 or coalesce(length(v->>'amount'),0)>300 then raise exception 'Invalid manual item' using errcode='22023';end if;
  elsif kind='row' then
+ perform private.string_fields(v,array['key','name','unit','preparation']);
+ perform private.string_array(v->'sourceText');
+ if jsonb_typeof(v->'unit') is distinct from 'string' then raise exception 'Invalid unit' using errcode='22023';end if;
  perform private.assert_keys(v,array['key','name','quantity','unit','preparation','sourceText']);
  if coalesce(length(v->>'key'),0) not between 1 and 1000 or coalesce(length(v->>'name'),0) not between 1 and 300 or jsonb_typeof(v->'sourceText') is distinct from 'array' then raise exception 'Invalid grocery row' using errcode='22023';end if;
  if v->>'quantity' is not null and (jsonb_typeof(v->'quantity')<>'number' or (v->>'quantity')::numeric<=0 or (v->>'quantity')::numeric>1000000) then raise exception 'Invalid quantity' using errcode='22023';end if;
@@ -122,6 +142,7 @@ create function private.apply_one(h uuid,u uuid,c jsonb) returns void language p
 declare op text:=c->>'op';ident text:=c->>'id';v jsonb:=c->'value';expected bigint:=(c->>'expectedRevision')::bigint;r bigint;tbl text;kind text;
 begin
  perform private.assert_keys(c,array['op','id','value','expectedRevision']);
+ perform private.string_fields(c,array['op','id']);
  if ident is null or length(ident) not between 1 and 1000 then raise exception 'Invalid record ID' using errcode='22023';end if;
  if op in ('entry','recipe','favorites','avoided','weights') then
  kind:=case when op='weights' then 'weights' else op end;
@@ -190,6 +211,7 @@ begin
  if rev<>p_calendar_revision then raise exception 'Calendar changed; regenerate after reload' using errcode='P0002';end if;
  perform private.valid_day(p_start::text);
  if p_weeks is null or p_weeks not between 1 and 4 or jsonb_typeof(p_rows) is distinct from 'array' or jsonb_typeof(p_warnings) is distinct from 'array' or jsonb_array_length(p_rows)>2000 then raise exception 'Invalid list' using errcode='22023';end if;
+ perform private.string_array(p_warnings);
  for r in select value from jsonb_array_elements(p_rows) loop perform private.validate_value('row',r);end loop;
  if (select count(*) from jsonb_array_elements(p_rows))<>(select count(distinct value->>'key') from jsonb_array_elements(p_rows)) then raise exception 'Duplicate grocery rows' using errcode='22023';end if;
  insert into public.shopping_lists(household_id,start_day,weeks,source_revision,warnings,updated_by) values(h,p_start,p_weeks,rev,p_warnings,u)
@@ -233,3 +255,5 @@ end $$;
 revoke all on function private.assert_keys(jsonb,text[]),private.valid_day(text),private.validate_value(text,jsonb),private.apply_one(uuid,uuid,jsonb) from public,anon,authenticated;
 revoke all on function public.read_shared_plan(),public.apply_shared_change(uuid,jsonb),public.regenerate_shared_list(uuid,bigint,date,int,jsonb,jsonb),public.import_local_plan(jsonb) from public,anon,authenticated;
 grant execute on function public.read_shared_plan(),public.apply_shared_change(uuid,jsonb),public.regenerate_shared_list(uuid,bigint,date,int,jsonb,jsonb),public.import_local_plan(jsonb) to authenticated;
+
+revoke all on function private.string_fields(jsonb,text[]),private.string_array(jsonb) from public,anon,authenticated;

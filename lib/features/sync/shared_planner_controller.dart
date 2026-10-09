@@ -27,6 +27,8 @@ class SharedPlannerController extends PlannerController {
   bool online = false, busy = false;
   String? status;
   List<Map<String, dynamic>>? conflictChanges;
+  List<Map<String, dynamic>>? pendingChanges;
+  String? _pendingRequestId;
   List<Map<String, dynamic>>? _inverse;
   StreamSubscription<bool>? _subscription;
   int _epoch = 0;
@@ -62,7 +64,11 @@ class SharedPlannerController extends PlannerController {
   }
   @override
   bool get canEdit =>
-      online && !busy && view != null && conflictChanges == null;
+      online &&
+      !busy &&
+      view != null &&
+      conflictChanges == null &&
+      pendingChanges == null;
   @override
   String? get syncMessage => busy ? 'Saving shared changes…' : status;
   void _notify() {
@@ -76,7 +82,8 @@ class SharedPlannerController extends PlannerController {
     state = AsyncValue.data(next.snapshot);
     // A disposed account must never repopulate its cache through a late write.
     await cache.write(userId, householdId, next);
-    if (!mounted || epoch != _epoch) await cache.clearUser(userId);
+    if (!mounted || epoch != _epoch)
+      await cache.clearScope(userId, householdId);
   }
 
   Future<void> refresh() async {
@@ -157,6 +164,7 @@ class SharedPlannerController extends PlannerController {
   Future<void> _send(
     List<Map<String, dynamic>> changes, {
     bool remember = true,
+    String? requestId,
   }) async {
     if (!canEdit || changes.isEmpty) return;
     final before = view!;
@@ -164,8 +172,9 @@ class SharedPlannerController extends PlannerController {
     status = null;
     _notify();
     final epoch = _epoch;
+    final id = requestId ?? const Uuid().v4();
     try {
-      final next = await shared.apply(const Uuid().v4(), changes);
+      final next = await shared.apply(id, changes);
       if (mounted && epoch == _epoch) {
         if (remember) _inverse = _undoCommands(before, changes, next);
         await _accept(next, epoch);
@@ -179,6 +188,8 @@ class SharedPlannerController extends PlannerController {
     } catch (e) {
       if (mounted && epoch == _epoch) {
         online = false;
+        pendingChanges = changes;
+        _pendingRequestId = id;
         status = e.toString();
       }
     } finally {
@@ -191,6 +202,22 @@ class SharedPlannerController extends PlannerController {
         }
       }
     }
+  }
+
+  Future<void> retryPending() async {
+    if (!online || busy || pendingChanges == null) return;
+    final changes = pendingChanges!;
+    final id = _pendingRequestId;
+    pendingChanges = null;
+    _pendingRequestId = null;
+    await _send(changes, requestId: id);
+  }
+
+  void discardPending() {
+    pendingChanges = null;
+    _pendingRequestId = null;
+    status = null;
+    _notify();
   }
 
   @override

@@ -2,7 +2,7 @@ import {database} from './database_fixture.mjs';
 import {readFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 const db = await database();
-await db.exec(`create role anon; create role authenticated;
+await db.exec(`do $$begin create role anon;exception when duplicate_object then null;end$$; do $$begin create role authenticated;exception when duplicate_object then null;end$$;
 create schema auth; create schema extensions;
 create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz);
 create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;
@@ -61,5 +61,16 @@ const invite=(await value('select public.create_invitation() as token')).token;
 await db.query('select public.leave_household()');
 await as(3);
 await denied('select public.redeem_invitation($1)',[invite]);
+if(db.connect){
+ // Separate PostgreSQL sessions race the same token; row locking permits one redemption.
+ await as(1);await qCreate();
+ const t=(await value('select public.create_invitation() as token')).token;
+ const clients=await Promise.all([db.connect(),db.connect()]);
+ await Promise.all(clients.map((c,i)=>c.query(`set role authenticated;select set_config('request.jwt.claim.sub','${uid(i+2)}',false)`)));
+ const results=await Promise.allSettled(clients.map(c=>c.query('select public.redeem_invitation($1)',[t])));
+ assert.equal(results.filter(r=>r.status==='fulfilled').length,1);checks++;
+ await Promise.all(clients.map(c=>c.end()));
+}
+async function qCreate(){await db.query('select public.create_household($1)',['Concurrent']);}
 console.log(`${checks} household security checks passed`);
 await db.close();
