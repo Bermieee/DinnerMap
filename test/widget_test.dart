@@ -21,7 +21,7 @@ class MemoryRepository implements PlannerRepository {
 }
 
 void main() {
-  Future<void> mount(WidgetTester tester, Size size) async {
+  Future<MemoryRepository> mount(WidgetTester tester, Size size) async {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
@@ -37,6 +37,7 @@ void main() {
           ),
         ],
         recipes: {
+          'soup': const Recipe(id: 'soup', title: 'Soup', baseServings: 4),
           'r': const Recipe(
             id: 'r',
             title: 'Chicken Dinner',
@@ -53,6 +54,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    return repo;
   }
 
   testWidgets('mobile navigation and one week grocery generation', (
@@ -72,6 +74,31 @@ void main() {
   testWidgets('desktop calendar has no overflow', (tester) async {
     await mount(tester, const Size(1280, 900));
     expect(find.text('What’s for dinner?'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('replacement, undo and takeout exclude grocery ingredients', (
+    tester,
+  ) async {
+    final repo = await mount(tester, const Size(390, 844));
+    await tester.ensureVisible(find.text('Replace meal'));
+    await tester.tap(find.text('Replace meal'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Soup'));
+    await tester.pumpAndSettle();
+    expect(repo.snapshot.entries.single.recipeId, 'soup');
+    await tester.ensureVisible(find.text('Undo'));
+    await tester.tap(find.text('Undo'));
+    await tester.pumpAndSettle();
+    expect(repo.snapshot.entries.single.recipeId, 'r');
+    await tester.ensureVisible(find.text('Takeout'));
+    await tester.tap(find.text('Takeout'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Shopping'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Generate list'));
+    await tester.pumpAndSettle();
+    expect(repo.snapshot.list!.rows, isEmpty);
     expect(tester.takeException(), isNull);
   });
 }

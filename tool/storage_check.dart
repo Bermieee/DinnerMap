@@ -1,5 +1,4 @@
 import '../lib/data/planner_repository.dart';
-import '../lib/features/planner/models.dart';
 import '../lib/features/shopping/shopping_models.dart';
 import '../lib/features/shopping/shopping_engine.dart';
 import '../lib/features/shopping/shopping_export.dart';
@@ -85,5 +84,23 @@ void main() async {
     shoppingText(prepared).contains('bone-in') &&
         shoppingCsv(prepared).contains('bone-in'),
     'exports preserve preparation',
+  );
+  final counted = SavedShoppingList(
+    start: DateTime(2026),
+    weeks: 1,
+    sourceRevision: 0,
+    rows: [
+      const ShoppingRow(
+        key: 'thighs',
+        name: 'chicken thighs',
+        unit: 'count',
+        quantity: 18,
+      ),
+    ],
+  );
+  check(
+    shoppingText(counted, pieceWeights: {'thighs': 6}).contains('6.75 lb') &&
+        shoppingCsv(counted, pieceWeights: {'thighs': 6}).contains('6.75 lb'),
+    'exports include edited weight estimates and counts',
   );
 }

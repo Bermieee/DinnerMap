@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dinnermap/data/planner_repository.dart';
 import 'package:dinnermap/features/planner/models.dart';
 import 'package:dinnermap/features/planner/planner_controller.dart';
@@ -33,10 +34,19 @@ void main() {
         recipes: {'r': const Recipe(id: 'r', title: 'Dinner')},
       ),
     );
-    final controller = PlannerController(repository);
+    final container = ProviderContainer(
+      overrides: [repositoryProvider.overrideWithValue(repository)],
+    );
+    final controller = container.read(plannerProvider.notifier);
     await Future<void>.delayed(Duration.zero);
     controller.updateEntry(
-      controller.state.asData!.value.entries.first.copyWith(notes: 'old edit'),
+      container
+          .read(plannerProvider)
+          .asData!
+          .value
+          .entries
+          .first
+          .copyWith(notes: 'old edit'),
     );
     await Future<void>.delayed(Duration.zero);
     const restored = PlannerSnapshot(entries: [], recipes: {}, revision: 20);
@@ -45,20 +55,23 @@ void main() {
     await restoring;
     expect(repository.snapshot.revision, 20);
     expect(repository.snapshot.entries, isEmpty);
-    expect(controller.state.asData!.value.revision, 20);
-    controller.dispose();
+    expect(container.read(plannerProvider).asData!.value.revision, 20);
+    container.dispose();
   });
   test('invalid restore does not overwrite saved data', () async {
     final repository = DelayedRepository(
       const PlannerSnapshot(entries: [], recipes: {}, revision: 1),
     );
-    final controller = PlannerController(repository);
+    final container = ProviderContainer(
+      overrides: [repositoryProvider.overrideWithValue(repository)],
+    );
+    final controller = container.read(plannerProvider.notifier);
     await Future<void>.delayed(Duration.zero);
     await expectLater(
       controller.importBackup('{"version":99}'),
       throwsFormatException,
     );
     expect(repository.writes, 0);
-    controller.dispose();
+    container.dispose();
   });
 }

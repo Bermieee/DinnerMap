@@ -9,6 +9,7 @@ import '../planner/planner_controller.dart';
 import 'shopping_models.dart';
 import 'shopping_engine.dart';
 import 'shopping_export.dart';
+import 'shopping_actions.dart';
 
 class ShoppingScreen extends ConsumerStatefulWidget {
   final PlannerSnapshot snapshot;
@@ -127,7 +128,13 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
               OutlinedButton.icon(
                 onPressed: () async {
                   await Clipboard.setData(
-                    ClipboardData(text: shoppingText(list, massUnit: unit)),
+                    ClipboardData(
+                      text: shoppingText(
+                        list,
+                        massUnit: unit,
+                        pieceWeights: s.pieceWeights,
+                      ),
+                    ),
                   );
                   if (context.mounted)
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -140,7 +147,11 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
               OutlinedButton(
                 onPressed: () => saveText(
                   context,
-                  shoppingText(list, massUnit: unit),
+                  shoppingText(
+                    list,
+                    massUnit: unit,
+                    pieceWeights: s.pieceWeights,
+                  ),
                   'dinnermap-shopping',
                   'txt',
                 ),
@@ -149,7 +160,11 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
               OutlinedButton(
                 onPressed: () => saveText(
                   context,
-                  shoppingCsv(list, massUnit: unit),
+                  shoppingCsv(
+                    list,
+                    massUnit: unit,
+                    pieceWeights: s.pieceWeights,
+                  ),
                   'dinnermap-shopping',
                   'csv',
                 ),

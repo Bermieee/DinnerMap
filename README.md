@@ -58,4 +58,4 @@ Flutter is free. No paid service has been configured. Select the account/sync ba
 
 Standalone Dart checks and static analysis of the pure domain/data code pass. Full Flutter analysis, widget tests and builds require CI verification; the source is a draft until those checks pass. Local Flutter bootstrap was stopped by automatic approval review for cloud metadata access.
 
-Known foundation gaps: exported TXT/CSV lists retain original counts but do not include edited count-to-weight estimates; those estimates are displayed in the app. Browser printing and native sharing are not wired yet.
+Known foundation gaps: Browser/native printing and system sharing are wired through Flutter plugins; platform dialogs require manual device verification.
