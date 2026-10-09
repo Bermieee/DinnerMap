@@ -26,7 +26,7 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
       password = TextEditingController(),
       name = TextEditingController(),
       invite = TextEditingController();
-  bool register = false;
+  bool register = false, changingPassword = false;
   @override
   void dispose() {
     email.dispose();
@@ -109,7 +109,7 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
         ] else ...[
           Text(s.session!.email),
           const SizedBox(height: 12),
-          if (s.session!.passwordRecovery) ...[
+          if (s.session!.passwordRecovery || changingPassword) ...[
             TextField(
               controller: password,
               obscureText: true,
@@ -119,6 +119,8 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
               final p = password.text;
               password.clear();
               await c.updatePassword(p);
+              if (mounted && c.state.error == null)
+                setState(() => changingPassword = false);
             }),
           ] else if (!s.session!.verified) ...[
             const Text(
@@ -138,8 +140,8 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
             ),
             button('Join household', () async {
               final t = invite.text;
-              invite.clear();
               await c.redeemInvitation(t);
+              if (c.state.household != null) invite.clear();
             }),
           ] else ...[
             Text(
@@ -218,6 +220,13 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
               }
             }),
           ],
+          if (!changingPassword && !s.session!.passwordRecovery)
+            TextButton(
+              onPressed: s.busy
+                  ? null
+                  : () => setState(() => changingPassword = true),
+              child: const Text('Change password'),
+            ),
           button('Sign out', () async {
             widget.onUseLocal?.call();
             await c.signOut();

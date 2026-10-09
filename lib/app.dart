@@ -261,7 +261,7 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                                   title: const Text('Review uncertain edit'),
                                   content: SingleChildScrollView(
                                     child: SelectableText(
-                                      editing.pendingChanges.toString(),
+                                      editing.conflictPreview(),
                                     ),
                                   ),
                                   actions: [

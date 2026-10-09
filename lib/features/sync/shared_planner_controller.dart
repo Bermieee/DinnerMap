@@ -306,10 +306,26 @@ class SharedPlannerController extends PlannerController {
     }
   }
 
-  String conflictPreview() => const JsonEncoder.withIndent('  ').convert({
-    'current': view?.snapshot.toJsonForReview(),
-    'proposed': conflictChanges,
-  });
+  String conflictPreview() {
+    final snapshot = view?.snapshot;
+    final records = (conflictChanges ?? pendingChanges ?? []).map((c) {
+      final id = c['id'];
+      final op = c['op'];
+      Object? current;
+      if (op == 'entry')
+        current = snapshot?.entries
+            .where((e) => e.id == id)
+            .firstOrNull
+            ?.toJson();
+      if (op == 'recipe') current = snapshot?.recipes[id]?.toJson();
+      if (op == 'favorites') current = snapshot?.favorites.toList();
+      if (op == 'avoided') current = snapshot?.avoided.toList();
+      if (op == 'weights') current = snapshot?.pieceWeights;
+      return {'record': id, 'current': current, 'proposed': c['value']};
+    }).toList();
+    return const JsonEncoder.withIndent('  ').convert(records);
+  }
+
   Future<void> discardConflict() async {
     conflictChanges = null;
     status = null;
@@ -362,8 +378,4 @@ class SharedPlannerController extends PlannerController {
     shared.dispose();
     super.dispose();
   }
-}
-
-extension on PlannerSnapshot {
-  Object toJsonForReview() => jsonDecode(encode());
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../lib/data/planner_repository.dart';
 import '../lib/features/planner/models.dart';
 import '../lib/features/sync/shared_models.dart';
+import '../lib/features/shopping/shopping_models.dart';
 
 void check(bool v, String n) {
   if (!v) throw StateError(n);
@@ -39,5 +40,22 @@ void main() {
   check(
     SharedView.decode(view.encode()).revisions['entry:day'] == 4,
     'cache revisions round trip',
+  );
+  final oldList = SavedShoppingList(
+    start: DateTime(2026, 10, 9),
+    weeks: 1,
+    sourceRevision: 0,
+    checked: {'m1'},
+    manualItems: [const ManualItem(id: 'm1', name: 'Milk')],
+  );
+  final withManual = s.copyWith(list: oldList);
+  final removed = oldList.copyWith(checked: {}, manualItems: []);
+  final removal = changesBetween(
+    SharedView(withManual, {}),
+    withManual.copyWith(list: removed),
+  );
+  check(
+    removal.length == 1 && removal.first['op'] == 'removeManual',
+    'checked manual removal has no orphan check command',
   );
 }

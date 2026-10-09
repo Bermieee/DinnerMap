@@ -12,9 +12,9 @@ class MemoryShared implements SharedRepository {
   final events = StreamController<bool>.broadcast();
   late SharedView current;
   List<Map<String, dynamic>>? sent;
-  bool conflict = false, uncertain = false;
+  bool conflict = false, uncertain = false, regenConflict = false;
   final requests = <String>[];
-  Completer<SharedView>? pending;
+  Completer<SharedView>? pending, delayedFetch;
   MemoryShared() {
     final e = PlanEntry(id: 'd', date: DateTime(2026, 10, 9), recipeId: 'r');
     current = SharedView(
@@ -26,7 +26,8 @@ class MemoryShared implements SharedRepository {
     );
   }
   @override
-  Future<SharedView> fetch() async => current;
+  Future<SharedView> fetch() async =>
+      delayedFetch == null ? current : delayedFetch!.future;
   @override
   Future<SharedView> apply(
     String requestId,
@@ -56,7 +57,11 @@ class MemoryShared implements SharedRepository {
     int weeks,
     List<Map<String, dynamic>> rows,
     List<String> warnings,
-  ) async => current;
+  ) async {
+    if (regenConflict) throw const SharedConflict('Calendar changed');
+    return current;
+  }
+
   @override
   Future<void> importLocal(PlannerSnapshot s) async {}
   @override
@@ -135,6 +140,39 @@ void main() {
     expect(repo.requests.length, 2);
     expect(repo.requests.first, repo.requests.last);
     expect(c.view!.snapshot.entries.first.cooked, isTrue);
+    c.dispose();
+  });
+  test(
+    'regeneration conflict remains visible after refreshing records',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final cache = SharedCache(await SharedPreferences.getInstance());
+      final repo = MemoryShared();
+      final c = SharedPlannerController(repo, cache, 'u', 'h');
+      await tick();
+      repo.regenConflict = true;
+      c.generate(DateTime(2026, 10, 9), 1);
+      await tick();
+      expect(c.syncMessage, contains('Calendar changed'));
+      c.dispose();
+    },
+  );
+
+  test('fresh reconnect read completes before an edit can submit', () async {
+    SharedPreferences.setMockInitialValues({});
+    final cache = SharedCache(await SharedPreferences.getInstance());
+    final repo = MemoryShared();
+    final c = SharedPlannerController(repo, cache, 'u', 'h');
+    await tick();
+    repo.delayedFetch = Completer<SharedView>();
+    final reload = c.refresh();
+    c.setCooked(repo.current.snapshot.entries.first, true);
+    await tick();
+    expect(repo.sent, isNull);
+    expect(c.canEdit, isFalse);
+    repo.delayedFetch!.complete(repo.current);
+    await reload;
+    expect(c.canEdit, isTrue);
     c.dispose();
   });
 }
