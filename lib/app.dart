@@ -6,9 +6,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'features/planner/planner_controller.dart';
+import 'data/planner_repository.dart';
 import 'features/planner/planner_screen.dart';
 import 'features/planner/recipe_screen.dart';
 import 'features/shopping/shopping_screen.dart';
+import 'features/household/account_providers.dart';
+import 'features/household/account_models.dart';
+import 'features/household/household_screen.dart';
+import 'features/sync/shared_planner_controller.dart';
 
 class DinnerMapApp extends StatelessWidget {
   const DinnerMapApp({super.key});
@@ -101,6 +106,13 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
   @override
   Widget build(BuildContext context) {
     final data = ref.watch(plannerProvider);
+    final accountController = ref.watch(accountControllerProvider);
+    final account =
+        ref.watch(accountStateProvider).asData?.value ??
+        accountController?.state ??
+        const AccountState();
+    final sharedContext = ref.watch(activeHouseholdProvider);
+    final editing = ref.read(plannerProvider.notifier);
     final wide = MediaQuery.sizeOf(context).width >= 850;
     const destinations = [
       NavigationDestination(
@@ -127,7 +139,7 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Chip(
-              label: const Text('LOCAL DEMO'),
+              label: Text(sharedContext == null ? 'LOCAL' : 'SHARED'),
               avatar: const Icon(Icons.phonelink, size: 16),
             ),
           ),
@@ -141,7 +153,7 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                     await ref.read(repositoryProvider).rawBackup();
                 if (raw != null && context.mounted)
                   await saveText(context, raw, 'dinnermap-backup', 'json');
-              } else if (action == 'import') {
+              } else if (action == 'import' && sharedContext == null) {
                 final raw = await promptText(
                   context,
                   'Restore JSON backup',
@@ -164,10 +176,11 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                 value: 'backup',
                 child: Text('Export backup'),
               ),
-              const PopupMenuItem(
-                value: 'import',
-                child: Text('Restore backup'),
-              ),
+              if (sharedContext == null)
+                const PopupMenuItem(
+                  value: 'import',
+                  child: Text('Restore backup'),
+                ),
             ],
           ),
         ],
@@ -223,13 +236,111 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                         ),
                       ],
                     ),
+                  if (editing.syncMessage != null)
+                    MaterialBanner(
+                      content: Text(editing.syncMessage!),
+                      actions: [
+                        if (editing is SharedPlannerController &&
+                            editing.conflictChanges != null)
+                          TextButton(
+                            onPressed: () async {
+                              final apply = await showDialog<bool>(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: const Text('Review conflicting edit'),
+                                  content: SizedBox(
+                                    width: 600,
+                                    child: SingleChildScrollView(
+                                      child: SelectableText(
+                                        editing.conflictPreview(),
+                                      ),
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(ctx, false),
+                                      child: const Text('Use current version'),
+                                    ),
+                                    FilledButton(
+                                      onPressed: () => Navigator.pop(ctx, true),
+                                      child: const Text('Reapply my edit'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              if (apply == true) {
+                                await editing.reapplyConflict();
+                              } else if (apply == false) {
+                                await editing.discardConflict();
+                              }
+                            },
+                            child: const Text('Review'),
+                          ),
+                        if (editing is SharedPlannerController)
+                          TextButton(
+                            onPressed: editing.refresh,
+                            child: const Text('Reload'),
+                          ),
+                      ],
+                    ),
                   Expanded(
-                    child: switch (tab) {
-                      0 => PlannerScreen(snapshot: s),
-                      1 => RecipeScreen(snapshot: s),
-                      2 => ShoppingScreen(snapshot: s),
-                      _ => const HouseholdScreen(),
-                    },
+                    child: AbsorbPointer(
+                      absorbing: tab != 3 && !editing.canEdit,
+                      child: switch (tab) {
+                        0 => PlannerScreen(snapshot: s),
+                        1 => RecipeScreen(snapshot: s),
+                        2 => ShoppingScreen(snapshot: s),
+                        _ => HouseholdScreen(
+                          state: account,
+                          controller: accountController,
+                          shared: sharedContext != null,
+                          onUseShared: () =>
+                              ref.read(useSharedProvider.notifier).state = true,
+                          onUseLocal: () =>
+                              ref.read(useSharedProvider.notifier).state =
+                                  false,
+                          onImportLocal: () async {
+                            final raw = await ref
+                                .read(repositoryProvider)
+                                .rawBackup();
+                            if (raw == null || !context.mounted) return;
+                            final local = PlannerSnapshot.decode(raw);
+                            final confirmed = await showDialog<bool>(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: const Text('Import local plan?'),
+                                content: Text(
+                                  '${local.entries.length} meals, ${local.recipes.length} recipes, and ${local.list?.manualItems.length ?? 0} manual groceries. Only an empty household can import. Your local copy stays on this phone.',
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(ctx, false),
+                                    child: const Text('Cancel'),
+                                  ),
+                                  FilledButton(
+                                    onPressed: () => Navigator.pop(ctx, true),
+                                    child: const Text('Import'),
+                                  ),
+                                ],
+                              ),
+                            );
+                            if (confirmed == true) {
+                              try {
+                                await editing.importBackup(raw);
+                              } catch (e) {
+                                if (context.mounted)
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Import failed: $e'),
+                                    ),
+                                  );
+                              }
+                            }
+                          },
+                        ),
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -246,50 +357,4 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
             ),
     );
   }
-}
-
-class HouseholdScreen extends StatelessWidget {
-  const HouseholdScreen({super.key});
-  @override
-  Widget build(BuildContext context) => ListView(
-    padding: const EdgeInsets.all(24),
-    children: [
-      Text('Your household', style: Theme.of(context).textTheme.headlineMedium),
-      const SizedBox(height: 16),
-      const Card(
-        child: Padding(
-          padding: EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(Icons.group_outlined, size: 40),
-              SizedBox(height: 12),
-              Text('Shared plans are the next stage'),
-              SizedBox(height: 8),
-              Text(
-                'This demo saves only on this browser or device. Accounts, invitations and live sync are not connected yet. Everyone in your household will be able to edit once sharing is implemented.',
-              ),
-            ],
-          ),
-        ),
-      ),
-      const Card(
-        child: Padding(
-          padding: EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Kroger • Not connected'),
-              SizedBox(height: 8),
-              Text('Walmart • Access approval required'),
-              SizedBox(height: 8),
-              Text(
-                'Product matching, lowest/highest price sorting and reviewed cart transfer are planned. No live prices or cart actions are available in this demo.',
-              ),
-            ],
-          ),
-        ),
-      ),
-    ],
-  );
 }

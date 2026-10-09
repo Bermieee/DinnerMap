@@ -13,4 +13,5 @@ if [[ ! -d android || ! -d web ]]; then
   cp "$target_dir/dinnermap/.metadata" .
   rm -rf "$target_dir"
 fi
+python3 tool/configure_android.py
 flutter pub get
