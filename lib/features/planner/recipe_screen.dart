@@ -151,7 +151,8 @@ Future<void> editRecipe(
             onPressed: () {
               final n = int.tryParse(servings.text);
               if (name.text.trim().isEmpty ||
-                  (servings.text.trim().isNotEmpty && (n == null || n <= 0))) {
+                  (servings.text.trim().isNotEmpty &&
+                      (n == null || n <= 0 || n > 100))) {
                 setState(
                   () => error =
                       'Enter a name and a positive serving count, or leave servings blank.',

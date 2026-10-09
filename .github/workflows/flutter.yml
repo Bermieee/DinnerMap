@@ -1,7 +1,11 @@
 name: Flutter checks
 on:
   push:
+    branches: [main]
   pull_request:
+concurrency:
+  group: flutter-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:

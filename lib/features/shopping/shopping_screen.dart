@@ -144,6 +144,31 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
                 icon: const Icon(Icons.copy),
                 label: const Text('Copy list'),
               ),
+              OutlinedButton.icon(
+                onPressed: () => shareShopping(
+                  context,
+                  shoppingText(
+                    list,
+                    massUnit: unit,
+                    pieceWeights: s.pieceWeights,
+                  ),
+                ),
+                icon: const Icon(Icons.share),
+                label: const Text('Share list'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () => printShopping(
+                  context,
+                  shoppingText(
+                    list,
+                    massUnit: unit,
+                    pieceWeights: s.pieceWeights,
+                  ),
+                ),
+                icon: const Icon(Icons.print),
+                label: const Text('Print list'),
+              ),
+
               OutlinedButton(
                 onPressed: () => saveText(
                   context,
