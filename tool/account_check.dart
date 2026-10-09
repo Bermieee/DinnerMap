@@ -20,6 +20,8 @@ class FakeAccounts implements AccountRepository {
   Future<Household?> currentHousehold() async =>
       delayed == null ? const Household('h', 'Family') : delayed!.future;
   @override
+  Future<AccountSession?> refreshSession() async => session;
+  @override
   Future<void> signOut() async => emit(null);
   @override
   Future<void> signUp(String e, String p) async {}

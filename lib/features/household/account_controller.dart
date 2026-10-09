@@ -142,7 +142,24 @@ class AccountController {
     }
   }
 
-  Future<void> refresh() => _session(repository.currentSession);
+  Future<void> refresh() async {
+    final generation = _generation;
+    try {
+      final s = await repository.refreshSession();
+      if (generation == _generation) await _session(s);
+    } catch (_) {
+      if (generation == _generation)
+        _set(
+          AccountState(
+            session: state.session,
+            household: state.household,
+            members: state.members,
+            error: 'Could not refresh account. Check your connection.',
+          ),
+        );
+    }
+  }
+
   Future<void> createHousehold(String name) => _run(() async {
     if (name.trim().isEmpty || name.trim().length > 100)
       throw Exception('Use a household name of 1–100 characters.');

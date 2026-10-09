@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import '../../data/planner_repository.dart';
 import '../planner/planner_controller.dart';
+import '../planner/models.dart';
 import '../shopping/shopping_engine.dart';
 import 'shared_cache.dart';
 import 'shared_models.dart';
@@ -99,7 +100,9 @@ class SharedPlannerController extends PlannerController {
       if (mounted && epoch == _epoch) {
         online = true;
         status = conflictChanges == null
-            ? null
+            ? (pendingChanges == null
+                  ? null
+                  : 'An edit has an uncertain result. Review the current plan before retrying.')
             : 'Another member changed this record. Review your edit.';
         await _accept(next, epoch);
       }
@@ -228,6 +231,30 @@ class SharedPlannerController extends PlannerController {
   }) {
     if (!canEdit) return;
     _send(changesBetween(view!, snapshot), remember: remember);
+  }
+
+  @override
+  void updateEntry(PlanEntry entry, {PlanEntry? expectedEntry}) {
+    final current = view?.snapshot.entries
+        .where((e) => e.id == entry.id)
+        .firstOrNull;
+    if (expectedEntry != null &&
+        current != null &&
+        jsonEncode(current.toJson()) != jsonEncode(expectedEntry.toJson())) {
+      conflictChanges = [
+        {
+          'op': 'entry',
+          'id': entry.id,
+          'value': entry.toJson(),
+          'expectedRevision': view!.revisions['entry:${entry.id}'] ?? -1,
+        },
+      ];
+      status =
+          'This meal changed while you were editing. Review both versions.';
+      _notify();
+      return;
+    }
+    super.updateEntry(entry, expectedEntry: expectedEntry);
   }
 
   @override

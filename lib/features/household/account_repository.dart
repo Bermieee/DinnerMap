@@ -3,6 +3,7 @@ import 'account_models.dart';
 abstract class AccountRepository {
   AccountSession? get currentSession;
   Stream<AccountSession?> watchSession();
+  Future<AccountSession?> refreshSession();
   Future<void> signUp(String email, String password);
   Future<void> signIn(String email, String password);
   Future<void> signOut();

@@ -25,6 +25,12 @@ class SupabaseAccountRepository implements AccountRepository {
         return _session(a.session?.user);
       });
   @override
+  Future<AccountSession?> refreshSession() async {
+    await client.auth.refreshSession();
+    return currentSession;
+  }
+
+  @override
   Future<void> signUp(String email, String password) async {
     await client.auth.signUp(
       email: email,
