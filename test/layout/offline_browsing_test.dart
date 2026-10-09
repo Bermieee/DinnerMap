@@ -25,12 +25,12 @@ void main() {
       await navigate(tester, 'Recipes');
       await tester.enterText(find.byType(TextField), 'Soup');
       await tester.pumpAndSettle();
-      expect(find.text('Soup'), findsOneWidget);
+      expect(find.text('Soup'), findsNWidgets(2));
       final add = tester.widget<FilledButton>(
         find.widgetWithText(FilledButton, 'Add recipe'),
       );
       expect(add.onPressed, isNull);
-      await tester.tap(find.text('Soup'));
+      await tester.tap(find.text('Soup').last);
       await tester.pumpAndSettle();
       expect(find.text('Ingredients'), findsOneWidget);
       expect(

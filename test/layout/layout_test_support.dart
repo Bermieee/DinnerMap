@@ -1,4 +1,4 @@
-import 'dart:ui' show DisplayFeature, DisplayFeatureType, DisplayFeatureState;
+import 'dart:ui' show DisplayFeature;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +14,7 @@ Future<MemoryRepository> mountLayout(
   double scale = 1,
   List<DisplayFeature> features = const [],
   EdgeInsets padding = EdgeInsets.zero,
-  EdgeInsets keyboard = EdgeInsets.zero,
+  EdgeInsets? keyboard,
   PlannerController? controller,
 }) async {
   tester.view.physicalSize = size;
@@ -51,7 +51,7 @@ Future<MemoryRepository> mountLayout(
               textScaler: TextScaler.linear(scale),
               displayFeatures: features,
               padding: padding,
-              viewInsets: keyboard,
+              viewInsets: keyboard ?? MediaQuery.of(context).viewInsets,
             ),
             child: const DinnerMapShell(),
           ),
