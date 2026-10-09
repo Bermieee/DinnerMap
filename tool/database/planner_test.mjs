@@ -47,4 +47,16 @@ await as(2);await q('select public.create_household($1)',['Other']);
 view=(await q('select public.read_shared_plan() as v')).v;
 assert.equal(view.snapshot.entries.length,0);checks++;
 await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'entry',id:'day-1',expectedRevision:1,value:entry}]);
+if(db.connect){
+ await as(1);const writer=await db.connect();const reader=await db.connect();
+ const login=`set role authenticated;select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000001',false)`;
+ await writer.query(login);await reader.query(login);await writer.query('begin');
+ await writer.query('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),JSON.stringify({op:'entry',id:'day-1',expectedRevision:1,value:{...entry,cooked:false}})]);
+ let done=false;const read=reader.query('select public.read_shared_plan() as v').then(r=>{done=true;return r;});
+ await new Promise(r=>setTimeout(r,100));const blocked=!done;
+ await writer.query('commit');const result=(await read).rows[0].v;
+ await writer.end();await reader.end();
+ assert.ok(blocked,'shared read waits for in-flight mutation lock');checks++;
+ assert.equal(result.snapshot.entries[0].cooked,false);assert.equal(result.recordRevisions['entry:day-1'],2);assert.equal(result.snapshot.revision,2);checks++;
+}
 console.log(`${checks} shared storage checks passed`);await db.close();

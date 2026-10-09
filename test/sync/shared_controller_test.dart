@@ -1,5 +1,9 @@
 import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dinnermap/features/planner/planner_controller.dart';
+import 'package:dinnermap/features/planner/recipe_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dinnermap/data/planner_repository.dart';
 import 'package:dinnermap/features/planner/models.dart';
@@ -174,5 +178,47 @@ void main() {
     await reload;
     expect(c.canEdit, isTrue);
     c.dispose();
+  });
+  testWidgets('recipe editor preserves draft when remote recipe changes', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    final cache = SharedCache(await SharedPreferences.getInstance());
+    final repo = MemoryShared();
+    final c = SharedPlannerController(repo, cache, 'u', 'h');
+    await tester.runAsync(tick);
+    final original = repo.current.snapshot.recipes['r']!;
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [plannerFactoryProvider.overrideWithValue(() => c)],
+        child: MaterialApp(
+          home: Consumer(
+            builder: (context, ref, _) => Scaffold(
+              body: TextButton(
+                onPressed: () => editRecipe(context, ref, recipe: original),
+                child: const Text('Edit'),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('Edit'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, 'My draft soup');
+    repo.current = SharedView(
+      repo.current.snapshot.copyWith(
+        recipes: {'r': const Recipe(id: 'r', title: 'Their updated soup')},
+      ),
+      {'entry:d': 0, 'recipe:r': 1},
+    );
+    await tester.runAsync(c.refresh);
+    await tester.pump();
+    await tester.tap(find.text('Save recipe'));
+    await tester.pumpAndSettle();
+    expect(repo.sent, isNull);
+    expect(c.conflictChanges!.first['value']['title'], 'My draft soup');
+    expect(c.view!.snapshot.recipes['r']!.title, 'Their updated soup');
+    await tester.pumpWidget(const SizedBox());
   });
 }
