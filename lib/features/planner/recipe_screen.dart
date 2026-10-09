@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../app.dart';
 import '../../data/planner_repository.dart';
 import '../shopping/shopping_engine.dart';
 import 'models.dart';
@@ -83,7 +82,7 @@ Future<void> editRecipe(
         recipe?.ingredients
             .map(
               (i) =>
-                  '${i.name} | ${i.originalText.isNotEmpty ? i.originalText : '${i.quantity ?? ''} ${i.unit}'}',
+                  '${i.name} | ${i.originalText.isNotEmpty ? i.originalText : '${i.quantity ?? ''} ${i.unit}'}${i.preparation.isEmpty ? '' : ' | ${i.preparation}'}',
             )
             .join('\n') ??
         '',
@@ -164,7 +163,8 @@ Future<void> editRecipe(
                       .split('\n')
                       .where((line) => line.trim().isNotEmpty)) {
                 final parts = line.split('|');
-                if (parts.length != 2 || parts[0].trim().isEmpty) {
+                if ((parts.length != 2 && parts.length != 3) ||
+                    parts[0].trim().isEmpty) {
                   setState(
                     () => error = 'Each ingredient needs a name | measurement.',
                   );
@@ -177,6 +177,7 @@ Future<void> editRecipe(
                     quantity: measure.quantity,
                     unit: measure.unit,
                     originalText: parts[1].trim(),
+                    preparation: parts.length == 3 ? parts[2].trim() : '',
                   ),
                 );
               }

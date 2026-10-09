@@ -49,21 +49,24 @@ class SavedShoppingList {
     'manualItems': manualItems.map((m) => m.toJson()).toList(),
     'warnings': warnings,
   };
-  factory SavedShoppingList.fromJson(
-    Map<String, dynamic> j,
-  ) => SavedShoppingList(
-    start: DateTime.parse(j['start'] as String),
-    weeks: j['weeks'] as int,
-    sourceRevision: j['sourceRevision'] as int,
-    rows: (j['rows'] as List)
-        .map((r) => ShoppingRow.fromJson(Map<String, dynamic>.from(r as Map)))
-        .toList(),
-    checked: Set<String>.from(j['checked'] as List),
-    manualItems: (j['manualItems'] as List)
-        .map((m) => ManualItem.fromJson(Map<String, dynamic>.from(m as Map)))
-        .toList(),
-    warnings: List<String>.from(j['warnings'] as List? ?? []),
-  );
+  factory SavedShoppingList.fromJson(Map<String, dynamic> j) {
+    final weeks = j['weeks'] as int;
+    if (weeks < 1 || weeks > 4)
+      throw const FormatException('Shopping range must be 1–4 weeks');
+    return SavedShoppingList(
+      start: parseDate(j['start'] as String),
+      weeks: j['weeks'] as int,
+      sourceRevision: j['sourceRevision'] as int,
+      rows: (j['rows'] as List)
+          .map((r) => ShoppingRow.fromJson(Map<String, dynamic>.from(r as Map)))
+          .toList(),
+      checked: Set<String>.from(j['checked'] as List),
+      manualItems: (j['manualItems'] as List)
+          .map((m) => ManualItem.fromJson(Map<String, dynamic>.from(m as Map)))
+          .toList(),
+      warnings: List<String>.from(j['warnings'] as List? ?? []),
+    );
+  }
 }
 
 SavedShoppingList regenerateList(

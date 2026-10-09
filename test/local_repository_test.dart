@@ -26,4 +26,18 @@ void main() {
       throwsFormatException,
     );
   });
+  test('backup rejects invalid servings and date overflow', () {
+    expect(
+      () => PlannerSnapshot.decode(
+        '{"version":1,"revision":0,"recipes":[],"entries":[{"id":"a","date":"2026-02-30","targetServings":4,"kind":"recipe"}]}',
+      ),
+      throwsFormatException,
+    );
+    expect(
+      () => PlannerSnapshot.decode(
+        '{"version":1,"revision":0,"recipes":[],"entries":[{"id":"a","date":"2026-02-28","targetServings":0,"kind":"recipe"}]}',
+      ),
+      throwsFormatException,
+    );
+  });
 }

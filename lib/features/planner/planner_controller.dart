@@ -22,6 +22,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
   PlannerSnapshot? _undo;
   String? saveError;
   bool _blocked = false;
+  bool _restoring = false;
   Future<void> _queue = Future.value();
   PlannerController(this.repository) : super(const AsyncValue.loading()) {
     load();
@@ -88,7 +89,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     bool mealChange = false,
     bool remember = true,
   }) {
-    if (_blocked) return;
+    if (_blocked || _restoring) return;
     final current = state.asData?.value;
     if (current == null) return;
     if (remember) _undo = current;
@@ -262,9 +263,19 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
 
   Future<void> importBackup(String raw) async {
     final restored = PlannerSnapshot.decode(raw);
-    await repository.save(restored);
-    _blocked = false;
-    _undo = null;
-    state = AsyncValue.data(restored);
+    _restoring = true;
+    final operation = _queue.then((_) async {
+      await repository.save(restored);
+      _blocked = false;
+      _undo = null;
+      saveError = null;
+      if (mounted) state = AsyncValue.data(restored);
+    });
+    _queue = operation.catchError((Object _) {});
+    try {
+      await operation;
+    } finally {
+      _restoring = false;
+    }
   }
 }

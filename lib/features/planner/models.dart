@@ -1,3 +1,13 @@
+DateTime parseDate(String value) {
+  final parsed = DateTime.tryParse(value);
+  if (parsed == null ||
+      dateKey(parsed) != value ||
+      parsed.year < 2020 ||
+      parsed.year > 2100)
+    throw const FormatException('Invalid calendar date');
+  return parsed;
+}
+
 String dateKey(DateTime d) =>
     '${d.year.toString().padLeft(4, '0')}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
 DateTime dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
@@ -114,7 +124,7 @@ class PlanEntry {
   };
   factory PlanEntry.fromJson(Map<String, dynamic> j) => PlanEntry(
     id: j['id'] as String,
-    date: DateTime.parse(j['date'] as String),
+    date: parseDate(j['date'] as String),
     recipeId: j['recipeId'] as String?,
     targetServings: j['targetServings'] as int? ?? 4,
     kind: EntryKind.values.byName(j['kind'] as String),

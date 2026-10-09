@@ -5,7 +5,7 @@ String shoppingText(SavedShoppingList list, {String massUnit = 'lb'}) => [
   'DinnerMap • ${dateKey(list.start)} • ${list.weeks} week(s)',
   ...list.rows.map(
     (r) =>
-        '${list.checked.contains(r.key) ? '[x]' : '[ ]'} ${r.name}: ${rowAmount(r, massUnit)}',
+        '${list.checked.contains(r.key) ? '[x]' : '[ ]'} ${r.name}${r.preparation.isEmpty ? '' : ' (${r.preparation})'}: ${rowAmount(r, massUnit)}',
   ),
   ...list.manualItems.map(
     (m) =>
@@ -23,7 +23,10 @@ String shoppingCsv(SavedShoppingList list, {String massUnit = 'lb'}) {
         r.name,
         rowAmount(r, massUnit),
         list.checked.contains(r.key) ? 'yes' : 'no',
-        r.quantity == null ? 'Review quantity' : '',
+        [
+          r.preparation,
+          if (r.quantity == null) 'Review quantity',
+        ].where((s) => s.isNotEmpty).join('; '),
       ],
     ),
     ...list.manualItems.map(

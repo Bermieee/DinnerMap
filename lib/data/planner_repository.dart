@@ -54,7 +54,7 @@ class PlannerSnapshot {
       final recipes = (j['recipes'] as List).map(
         (r) => Recipe.fromJson(Map<String, dynamic>.from(r as Map)),
       );
-      return PlannerSnapshot(
+      final result = PlannerSnapshot(
         entries: (j['entries'] as List)
             .map((e) => PlanEntry.fromJson(Map<String, dynamic>.from(e as Map)))
             .toList(),
@@ -70,6 +70,41 @@ class PlannerSnapshot {
         pieceWeights: Map<String, dynamic>.from(j['pieceWeights'] as Map? ?? {})
             .map((k, v) => MapEntry(k, (v as num).toDouble())),
       );
+      if (result.revision < 0 ||
+          result.entries.any(
+            (e) => e.targetServings <= 0 || e.targetServings > 100,
+          ))
+        throw const FormatException('Invalid servings or revision');
+      if (result.entries.map((e) => e.id).toSet().length !=
+              result.entries.length ||
+          result.entries.map((e) => dateKey(e.date)).toSet().length !=
+              result.entries.length)
+        throw const FormatException('Duplicate calendar entries');
+      if (result.recipes.values.any(
+        (r) =>
+            r.id.isEmpty ||
+            r.title.trim().isEmpty ||
+            (r.baseServings != null &&
+                (r.baseServings! <= 0 || r.baseServings! > 100)) ||
+            r.ingredients.any(
+              (i) =>
+                  i.quantity != null &&
+                  (!i.quantity!.isFinite || i.quantity! <= 0),
+            ),
+      ))
+        throw const FormatException('Invalid recipe quantities');
+      if (result.pieceWeights.values.any(
+        (w) => !w.isFinite || w <= 0 || w > 48,
+      ))
+        throw const FormatException('Invalid piece weight');
+      if (result.list?.rows.any(
+            (r) =>
+                r.quantity != null &&
+                (!r.quantity!.isFinite || r.quantity! <= 0),
+          ) ??
+          false)
+        throw const FormatException('Invalid grocery quantity');
+      return result;
     } catch (e) {
       throw FormatException('Saved data could not be read: $e');
     }
