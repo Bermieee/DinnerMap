@@ -78,5 +78,30 @@ void main() {
   );
   if (bestDeal(milk, [almond], '123') != null)
     throw StateError('Do not silently substitute plant milk');
-  print('PASS 6 automatic deal checks');
+  const butter = ShoppingRow(
+    key: 'b',
+    name: 'butter',
+    quantity: 1,
+    unit: 'cup',
+  );
+  const peanut = ProductOffer(
+    'p',
+    'Peanut Butter',
+    price: 1,
+    amount: 1,
+    unit: 'lb',
+    storeId: '123',
+    soldBy: 'UNIT',
+  );
+  if (bestDeal(butter, [peanut], '123') != null)
+    throw StateError('Reject peanut butter for cooking butter');
+  if (suitableProduct('butter', 'Butter Cookies') ||
+      suitableProduct('chicken', 'Chicken Dog Treats') ||
+      suitableProduct('milk', 'Chocolate Milk') ||
+      suitableProduct('flour', 'Flour Tortillas'))
+    throw StateError('Reject different foods sharing ingredient words');
+  if (!suitableProduct('peanut butter', 'Creamy Peanut Butter') ||
+      !suitableProduct('butter', 'Kroger Salted Sweet Cream Butter'))
+    throw StateError('Keep legitimate product forms');
+  print('PASS 9 automatic deal checks');
 }
