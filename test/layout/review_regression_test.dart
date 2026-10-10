@@ -3,7 +3,8 @@ import 'dart:ui'
         DisplayFeature,
         DisplayFeatureType,
         DisplayFeatureState,
-        SemanticsAction;
+        SemanticsAction,
+        SemanticsFlag;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,17 +105,18 @@ void main() {
     final semantics = tester.ensureSemantics();
     addTearDown(semantics.dispose);
     await mountLayout(tester, const Size(390, 844));
+    await tester.ensureVisible(find.byKey(const ValueKey('day-14')));
+    await tester.pumpAndSettle();
     final node = tester.getSemantics(find.byKey(const ValueKey('day-14')));
     expect(node.getSemanticsData().hasAction(SemanticsAction.tap), isTrue);
-    tester.binding.pipelineOwner.semanticsOwner!.performAction(
-      node.id,
-      SemanticsAction.tap,
-    );
+    node.owner!.performAction(node.id, SemanticsAction.tap);
     await tester.pumpAndSettle();
-    final now = DateTime.now();
     expect(
-      find.text('${now.year}-${now.month.toString().padLeft(2, '0')}-14'),
-      findsOneWidget,
+      tester
+          .getSemantics(find.byKey(const ValueKey('day-14')))
+          .getSemanticsData()
+          .hasFlag(SemanticsFlag.isSelected),
+      isTrue,
     );
   });
   testWidgets('single page uses larger asymmetric fold region', (tester) async {
@@ -157,7 +159,20 @@ void main() {
     );
     expect(tester.takeException(), isNull);
     await navigate(tester, 'Recipes');
-    await tester.ensureVisible(find.byType(TextField));
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      1,
+    );
+    await tester.scrollUntilVisible(
+      find.byType(TextField),
+      32,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const PageStorageKey('recipes-scroll')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     await tester.pumpAndSettle();
     final rect = tester.getRect(find.byType(TextField));
     expect(rect.top, greaterThanOrEqualTo(0));
