@@ -50,11 +50,26 @@ class FakeRegion implements RegionRepository {
         ];
 }
 
+Future<void> reveal(WidgetTester t, Finder target) async {
+  await t.scrollUntilVisible(
+    target,
+    150,
+    scrollable: find
+        .descendant(
+          of: find.byKey(const PageStorageKey('region-scroll')),
+          matching: find.byType(Scrollable),
+        )
+        .first,
+  );
+  await t.pumpAndSettle();
+}
+
 void main() {
   Future<FakeRegion> mount(
     WidgetTester t,
     Size size, {
     double scale = 1,
+    List<DisplayFeature> features = const [],
   }) async {
     t.view.physicalSize = size;
     t.view.devicePixelRatio = 1;
@@ -66,9 +81,10 @@ void main() {
         overrides: [regionRepositoryProvider.overrideWithValue(repo)],
         child: MaterialApp(
           builder: (context, child) => MediaQuery(
-            data: MediaQuery.of(
-              context,
-            ).copyWith(textScaler: TextScaler.linear(scale)),
+            data: MediaQuery.of(context).copyWith(
+              textScaler: TextScaler.linear(scale),
+              displayFeatures: features,
+            ),
             child: child!,
           ),
           home: const RegionScreen(),
@@ -83,11 +99,13 @@ void main() {
     'ZIP validation preserves invalid text and saves leading zeroes',
     (t) async {
       final repo = await mount(t, const Size(390, 844));
+      await reveal(t, find.byKey(const Key('region-zip')));
       await t.enterText(find.byKey(const Key('region-zip')), '1234');
       await t.tap(find.text('Save location'));
       await t.pumpAndSettle();
       expect(repo.profile, isNull);
       expect(find.textContaining('five-digit'), findsOneWidget);
+      await reveal(t, find.byKey(const Key('region-zip')));
       await t.enterText(find.byKey(const Key('region-zip')), '00501');
       await t.tap(find.text('Save location'));
       await t.pumpAndSettle();
@@ -101,6 +119,7 @@ void main() {
     t,
   ) async {
     final repo = await mount(t, const Size(1280, 800));
+    await reveal(t, find.byKey(const Key('region-zip')));
     await t.enterText(find.byKey(const Key('region-zip')), '40165');
     await t.tap(find.text('Save location'));
     await t.pumpAndSettle();
@@ -110,19 +129,21 @@ void main() {
     await t.tap(find.text('Nearby Kroger'));
     await t.pumpAndSettle();
     expect(repo.profile?.selectedStoreId, '123');
+    await reveal(t, find.byKey(const Key('product-query')));
     await t.enterText(find.byKey(const Key('product-query')), 'chicken');
-    await t.ensureVisible(find.text('Search products'));
+    await reveal(t, find.text('Search products'));
     await t.tap(find.text('Search products'));
     await t.pumpAndSettle();
-    await t.scrollUntilVisible(find.text('Small chicken'), 200);
+    await reveal(t, find.text('Small chicken'));
     expect(find.text('Small chicken'), findsOneWidget);
-    await t.scrollUntilVisible(find.text('Large chicken'), 200);
+    await reveal(t, find.text('Large chicken'));
     expect(find.text('Large chicken'), findsOneWidget);
     expect(t.takeException(), isNull);
   });
   testWidgets('empty product search explains there are no results', (t) async {
     final repo = await mount(t, const Size(1280, 800));
     repo.empty = true;
+    await reveal(t, find.byKey(const Key('region-zip')));
     await t.enterText(find.byKey(const Key('region-zip')), '40165');
     await t.tap(find.text('Save location'));
     await t.pumpAndSettle();
@@ -130,14 +151,12 @@ void main() {
     await t.pumpAndSettle();
     await t.tap(find.text('Nearby Kroger'));
     await t.pumpAndSettle();
+    await reveal(t, find.byKey(const Key('product-query')));
     await t.enterText(find.byKey(const Key('product-query')), 'rice');
-    await t.ensureVisible(find.text('Search products'));
+    await reveal(t, find.text('Search products'));
     await t.tap(find.text('Search products'));
     await t.pumpAndSettle();
-    await t.scrollUntilVisible(
-      find.textContaining('No products returned'),
-      200,
-    );
+    await reveal(t, find.textContaining('No products returned'));
     expect(find.textContaining('No products returned'), findsOneWidget);
   });
   for (final size in [
@@ -149,8 +168,9 @@ void main() {
       t,
     ) async {
       final repo = await mount(t, size, scale: 2);
+      await reveal(t, find.byKey(const Key('region-zip')));
       await t.enterText(find.byKey(const Key('region-zip')), '40165');
-      await t.ensureVisible(find.text('Save location'));
+      await reveal(t, find.text('Save location'));
       await t.tap(find.text('Save location'));
       await t.pumpAndSettle();
       expect(repo.profile?.zip, '40165');
@@ -165,7 +185,7 @@ void main() {
         const Size(800, 800),
         features: const [
           DisplayFeature(
-            bounds: Rect.fromLTWH(0, 400, 800, 24),
+            bounds: Rect.fromLTWH(0, 300, 800, 24),
             type: DisplayFeatureType.hinge,
             state: DisplayFeatureState.postureHalfOpened,
           ),
@@ -173,11 +193,11 @@ void main() {
       );
       expect(
         t.getRect(find.text('Stores & prices')).top,
-        greaterThanOrEqualTo(424),
+        greaterThanOrEqualTo(324),
       );
       expect(
         t.getRect(find.byKey(const Key('region-zip'))).top,
-        greaterThanOrEqualTo(424),
+        greaterThanOrEqualTo(324),
       );
       expect(t.takeException(), isNull);
     },
