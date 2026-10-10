@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../data/planner_repository.dart';
 import '../../layout/adaptive_page.dart';
 import '../shopping/shopping_engine.dart';
+import '../shopping/consumer_amounts.dart';
 import 'models.dart';
 import 'planner_controller.dart';
 import 'recipe_discovery.dart';
@@ -553,11 +554,7 @@ Future<void> showRecipe(
                 (i) => ListTile(
                   dense: true,
                   title: Text(i.name),
-                  subtitle: Text(
-                    i.originalText.isEmpty
-                        ? '${i.quantity ?? 'Review'} ${i.unit}'
-                        : i.originalText,
-                  ),
+                  subtitle: Text(recipeIngredientAmount(i)),
                 ),
               ),
               const SizedBox(height: 20),

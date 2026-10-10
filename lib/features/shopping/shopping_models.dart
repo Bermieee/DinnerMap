@@ -1,5 +1,6 @@
 import '../planner/models.dart';
 import 'shopping_engine.dart';
+import 'consumer_amounts.dart';
 
 class ManualItem {
   final String id, name, amount;
@@ -93,9 +94,7 @@ SavedShoppingList regenerateList(
 
 String rowAmount(ShoppingRow row, String massUnit) {
   if (row.quantity == null) return row.sourceText.toSet().join(' + ');
-  final q = family(row.unit) == 'mass' ? row.amountIn(massUnit) : row.quantity!;
-  final unit = family(row.unit) == 'mass' ? massUnit : row.unit;
-  return '${q.toStringAsFixed(2).replaceFirst(RegExp(r'\.?0+$'), '')} $unit';
+  return readableAmount(row.quantity!, row.unit, massUnit: massUnit);
 }
 
 String groceryGroup(String name) {
@@ -117,3 +116,15 @@ String groceryGroup(String name) {
     return 'Bakery & grains';
   return 'Pantry & other';
 }
+
+List<ShoppingRow> groceryRows(SavedShoppingList list) => [
+  ...list.rows,
+  for (final item in list.manualItems)
+    ShoppingRow(
+      key: 'manual:${item.id}',
+      name: item.name,
+      unit: 'text',
+      quantity: null,
+      sourceText: [item.amount],
+    ),
+];

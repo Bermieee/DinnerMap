@@ -7,8 +7,12 @@ import 'package:dinnermap/features/region/region_providers.dart';
 import 'package:dinnermap/features/shopping/shopping_engine.dart';
 import 'package:dinnermap/features/shopping/shopping_models.dart';
 import 'package:dinnermap/features/shopping/shopping_price_screen.dart';
+import 'package:dinnermap/features/shopping/shopping_quote_provider.dart';
 
 class PriceRepository implements RegionRepository {
+  late final quoteOverride = shoppingQuoteProvider.overrideWith(
+    (ref) => QuoteSession(),
+  );
   bool fail = false;
   String basis = 'UNIT';
   @override
@@ -60,7 +64,10 @@ void main() {
     t.view.devicePixelRatio = 1;
     await t.pumpWidget(
       ProviderScope(
-        overrides: [regionRepositoryProvider.overrideWithValue(repo)],
+        overrides: [
+          regionRepositoryProvider.overrideWithValue(repo),
+          repo.quoteOverride,
+        ],
         child: MaterialApp(
           home: Scaffold(
             body: ShoppingPricePanel(repository: repo, list: list(quantity)),

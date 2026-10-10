@@ -68,6 +68,9 @@ jobs:
       - run: dart tool/shared_check.dart
       - run: dart tool/layout_check.dart
       - run: dart tool/region_check.dart
+      - run: dart tool/consumer_check.dart
+      - run: dart compile js -O2 -o /tmp/consumer_check.js tool/consumer_check.dart
+      - run: node /tmp/consumer_check.js
       - run: dart tool/pricing_check.dart
       - run: dart compile js -O2 -o /tmp/pricing_check.js tool/pricing_check.dart
       - run: node /tmp/pricing_check.js

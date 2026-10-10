@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../region/region_models.dart';
 import 'shopping_engine.dart';
+import 'consumer_amounts.dart';
 
 int? suggestPackages(
   ShoppingRow row,
@@ -17,14 +18,22 @@ int? suggestPackages(
     requiredAmount = row.amountIn('lb');
   } else if (family(row.unit) == 'volume' && offer.unitFamily == 'volume') {
     requiredAmount = row.amountIn('fl oz');
-  } else if (row.unit == 'count' && offer.unitFamily == 'count') {
+  } else if (family(row.unit) == 'volume' &&
+      offer.unitFamily == 'mass' &&
+      estimatedPurchaseGrams(row) != null) {
+    requiredAmount = estimatedPurchaseGrams(row)! / 453.59237;
+  } else if (['count', 'large', 'medium', 'small'].contains(row.unit) &&
+      offer.unitFamily == 'count') {
     requiredAmount = quantity;
   } else if (pieceWeightOz != null && offer.unitFamily == 'mass') {
     requiredAmount = row.estimatedOz(pieceWeightOz);
     if (requiredAmount != null) requiredAmount /= 16;
   }
   if (requiredAmount == null) return null;
-  final packages = (requiredAmount / amount).ceil();
+  // Avoid an extra package caused only by floating-point conversion noise.
+  final ratio = requiredAmount / amount;
+  final nearest = ratio.round();
+  final packages = (ratio - nearest).abs() < 1e-10 ? nearest : ratio.ceil();
   return packages >= 1 && packages <= 999 ? packages : null;
 }
 
@@ -64,3 +73,6 @@ int? quoteTotalCents(Iterable<PriceSelection> selections) {
     (total, selection) => total + selection.costCents,
   );
 }
+
+String buyPackages(PriceSelection selection) =>
+    'Buy ${selection.packages} × ${selection.offer.size.isEmpty ? 'package (size unknown)' : selection.offer.size}';

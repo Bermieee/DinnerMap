@@ -9,6 +9,8 @@ import '../region/region_screen.dart';
 import 'shopping_engine.dart';
 import 'shopping_models.dart';
 import 'shopping_pricing.dart';
+import 'shopping_quote_provider.dart';
+import 'consumer_amounts.dart';
 
 class ShoppingPriceScreen extends ConsumerWidget {
   const ShoppingPriceScreen({super.key});
@@ -36,7 +38,7 @@ class ShoppingPriceScreen extends ConsumerWidget {
   }
 }
 
-class ShoppingPricePanel extends StatefulWidget {
+class ShoppingPricePanel extends ConsumerStatefulWidget {
   final RegionRepository repository;
   final SavedShoppingList list;
   final Map<String, double> pieceWeights;
@@ -49,12 +51,14 @@ class ShoppingPricePanel extends StatefulWidget {
     this.stale = false,
   });
   @override
-  State<ShoppingPricePanel> createState() => _ShoppingPricePanelState();
+  ConsumerState<ShoppingPricePanel> createState() => _ShoppingPricePanelState();
 }
 
-class _ShoppingPricePanelState extends State<ShoppingPricePanel> {
+class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
   RegionProfile? profile;
-  final selections = <String, PriceSelection>{};
+  Map<String, PriceSelection> get selections =>
+      ref.read(shoppingQuoteProvider).selections;
+  QuoteSession get quotes => ref.read(shoppingQuoteProvider.notifier);
   bool loading = true;
   String? error;
   int generation = 0, pickerGeneration = 0;
@@ -64,16 +68,10 @@ class _ShoppingPricePanelState extends State<ShoppingPricePanel> {
     if (!identical(oldWidget.list, widget.list) ||
         oldWidget.stale != widget.stale) {
       pickerGeneration++;
-      if (widget.stale) {
-        selections.clear();
-      } else {
-        final current = {for (final row in rows) row.key: row};
-        selections.removeWhere(
-          (key, value) =>
-              current[key] == null ||
-              !value.matches(current[key]!, profile?.selectedStoreId ?? ''),
-        );
-      }
+      final list = widget.list, stale = widget.stale;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) quotes.reconcile(list, stale: stale);
+      });
     }
   }
 
@@ -94,8 +92,7 @@ class _ShoppingPricePanelState extends State<ShoppingPricePanel> {
       final next = await widget.repository.load();
       if (!mounted || request != generation) return;
       setState(() {
-        if (profile?.selectedStoreId != next?.selectedStoreId)
-          selections.clear();
+        quotes.selectStore(next?.selectedStoreId);
         profile = next;
         loading = false;
       });
@@ -108,17 +105,7 @@ class _ShoppingPricePanelState extends State<ShoppingPricePanel> {
     }
   }
 
-  List<ShoppingRow> get rows => [
-    ...widget.list.rows,
-    for (final item in widget.list.manualItems)
-      ShoppingRow(
-        key: 'manual:${item.id}',
-        name: item.name,
-        unit: 'text',
-        quantity: null,
-        sourceText: [item.amount],
-      ),
-  ];
+  List<ShoppingRow> get rows => groceryRows(widget.list);
   PriceSelection? selectionFor(ShoppingRow row) {
     final selection = selections[row.key];
     return selection != null &&
@@ -148,11 +135,12 @@ class _ShoppingPricePanelState extends State<ShoppingPricePanel> {
     if (rows.any(
       (current) => result.matches(current, profile?.selectedStoreId ?? ''),
     ))
-      setState(() => selections[row.key] = result);
+      quotes.select(result);
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(shoppingQuoteProvider);
     final valid = rows.map(selectionFor).whereType<PriceSelection>().toList();
     final total = quoteTotalCents(valid);
     final store = profile?.selectedStoreId;
@@ -165,7 +153,7 @@ class _ShoppingPricePanelState extends State<ShoppingPricePanel> {
         ),
         const SizedBox(height: 8),
         const Text(
-          'Choose a product and package count for each item. This estimates the full list, including checked items; it does not place an order.',
+          'Choose a product; we calculate whole packages where sizes are compatible. Reviewed choices also appear on your grocery list and exports during this app session.',
         ),
         const SizedBox(height: 12),
         OutlinedButton.icon(
@@ -230,8 +218,12 @@ class _ShoppingPricePanelState extends State<ShoppingPricePanel> {
                     row.name,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  Text(rowAmount(row, 'lb')),
+                  Text('Needed for recipes: ${rowAmount(row, 'lb')}'),
                   if (selectionFor(row) case final selected?) ...[
+                    Text(
+                      buyPackages(selected),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                     Text(selected.offer.name),
                     Text(
                       '${selected.packages} package(s) × \$${selected.offer.price!.toStringAsFixed(2)} = \$${(selected.costCents / 100).toStringAsFixed(2)}',
@@ -242,12 +234,11 @@ class _ShoppingPricePanelState extends State<ShoppingPricePanel> {
                         'Price retrieved ${selected.offer.retrievedAt!.toLocal()}',
                       ),
                     TextButton(
-                      onPressed: () =>
-                          setState(() => selections.remove(row.key)),
+                      onPressed: () => quotes.remove(row.key),
                       child: const Text('Remove product'),
                     ),
                   ] else
-                    const Text('Not priced'),
+                    Text(purchaseHint(row)),
                   OutlinedButton(
                     onPressed: !loading && store != null && !widget.stale
                         ? () => selectProduct(row)
@@ -418,6 +409,11 @@ class _GroceryProductPickerState extends ConsumerState<GroceryProductPicker> {
                     : 'Search for a product, then review its size and price.',
               ),
             if (selected != null && !accountChanged) ...[
+              if (estimatedPurchaseGrams(widget.row) != null &&
+                  selected!.unitFamily == 'mass')
+                Text(
+                  'Estimated shopping weight: ${readableAmount(estimatedPurchaseGrams(widget.row)!, 'g')}. Uses an ingredient-specific cup-to-weight estimate; review the package.',
+                ),
               Text('Selected: ${selected!.name}'),
               if (suggestPackages(
                     widget.row,

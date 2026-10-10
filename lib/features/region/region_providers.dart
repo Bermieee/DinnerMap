@@ -25,9 +25,23 @@ final regionRepositoryProvider = Provider<RegionRepository>((ref) {
   }
   return LocalRegionRepository(ref.watch(preferencesProvider));
 });
+// In-session selected store changes invalidate reviewed grocery estimates.
+final regionalStoreProvider = StateProvider<String?>((ref) {
+  ref.watch(regionalIdentityProvider);
+  return null;
+});
 final regionControllerProvider = Provider.autoDispose<RegionController>((ref) {
   final controller = RegionController(ref.watch(regionRepositoryProvider));
-  ref.onDispose(controller.dispose);
+  final subscription = controller.changes.listen((state) {
+    if (!state.busy && state.error == null) {
+      ref.read(regionalStoreProvider.notifier).state =
+          state.profile?.selectedStoreId;
+    }
+  });
+  ref.onDispose(() {
+    subscription.cancel();
+    controller.dispose();
+  });
   controller.load();
   return controller;
 });
