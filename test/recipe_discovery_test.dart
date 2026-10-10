@@ -62,6 +62,12 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Vegan').first);
       await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.text('Sweet Potato & Bean Chilli'),
+        180,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
       expect(find.text('Sweet Potato & Bean Chilli'), findsOneWidget);
       expect(find.text('Easy Meatloaf'), findsNothing);
       await tester.ensureVisible(find.text('All regions'));

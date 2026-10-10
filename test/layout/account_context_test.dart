@@ -69,6 +69,12 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Cancel'));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.text('Second meal'),
+      180,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
     expect(find.text('Second meal'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
