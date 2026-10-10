@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 import 'package:dinnermap/data/planner_repository.dart';
 import 'package:dinnermap/features/planner/planner_controller.dart';
+import 'package:dinnermap/features/planner/starter_recipes.dart';
+import 'package:dinnermap/features/shopping/consumer_amounts.dart';
 import 'package:dinnermap/features/region/region_models.dart';
 import 'package:dinnermap/features/region/region_providers.dart';
 import 'package:dinnermap/features/shopping/shopping_engine.dart';
@@ -21,6 +24,29 @@ class LoadedPlanner extends PlannerController {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  test('all 108 starter recipes display readable ingredient amounts', () async {
+    final recipes = loadRecipes(
+      jsonDecode(await rootBundle.loadString('assets/recipes.json')) as List,
+    );
+    expect(recipes.length, 108);
+    for (final recipe in recipes) {
+      for (final ingredient in recipe.ingredients) {
+        final text = recipeIngredientAmount(ingredient);
+        expect(text, isNotEmpty, reason: '${recipe.title}: ${ingredient.name}');
+        if (ingredient.quantity != null &&
+            family(ingredient.unit) == 'volume') {
+          expect(
+            text,
+            isNot(contains(' ml')),
+            reason: '${recipe.title}: ${ingredient.name}',
+          );
+        }
+        if (ingredient.quantity == null && ingredient.originalText.isNotEmpty)
+          expect(text, ingredient.originalText);
+      }
+    }
+  });
   const flour = ShoppingRow(
     key: 'flour',
     name: 'all-purpose flour',

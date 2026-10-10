@@ -73,7 +73,8 @@ void main() {
       scrollable: find.byType(Scrollable).first,
     );
     expect(find.text('chicken'), findsOneWidget);
-    expect(find.text('1 lb'), findsOneWidget);
+    expect(find.text('Buy at least 1 lb'), findsOneWidget);
+    expect(find.text('Needed for recipes: 1 lb'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
   testWidgets('desktop calendar has no overflow', (tester) async {
