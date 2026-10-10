@@ -16,7 +16,11 @@ class AdaptivePage extends StatelessWidget {
         displayFeatures: media.displayFeatures,
         textScale: media.textScaler.scale(1),
       );
-      final region = policy.primaryRegion;
+      var region = policy.primaryRegion;
+      final second = policy.secondaryRegion;
+      if (second != null &&
+          second.width * second.height > region.width * region.height)
+        region = second;
       final width = math.min(region.width, maxWidth);
       final left = region.left + (region.width - width) / 2;
       return Stack(

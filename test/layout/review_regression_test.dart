@@ -106,6 +106,16 @@ void main() {
     await mountLayout(tester, const Size(390, 844));
     final node = tester.getSemantics(find.byKey(const ValueKey('day-14')));
     expect(node.getSemanticsData().hasAction(SemanticsAction.tap), isTrue);
+    tester.binding.pipelineOwner.semanticsOwner!.performAction(
+      node.id,
+      SemanticsAction.tap,
+    );
+    await tester.pumpAndSettle();
+    final now = DateTime.now();
+    expect(
+      find.text('${now.year}-${now.month.toString().padLeft(2, '0')}-14'),
+      findsOneWidget,
+    );
   });
   testWidgets('single page uses larger asymmetric fold region', (tester) async {
     await mountLayout(

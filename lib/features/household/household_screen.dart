@@ -222,7 +222,12 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
                     ],
                   ),
                 );
-                if (leave == true) {
+                if (leave == true &&
+                    mounted &&
+                    identical(widget.controller, c) &&
+                    c.state.session?.userId == s.session?.userId &&
+                    c.state.household?.id == s.household?.id &&
+                    !c.state.busy) {
                   widget.onUseLocal?.call();
                   await c.leaveHousehold();
                 }

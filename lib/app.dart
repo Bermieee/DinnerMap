@@ -162,6 +162,9 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
             : policy.primaryRegion.expandToInclude(policy.secondaryRegion!);
         final primary = policy.primaryRegion.shift(-region.topLeft);
         final wide = policy.useRail;
+        final compactShell = region.height < 240;
+        final appBarHeight = compactShell ? 0.0 : 56.0;
+        final navigationHeight = compactShell ? 48.0 : 80.0;
         final railWidth = 72.0 * math.max(1.0, media.textScaler.scale(1));
         final local = shiftedMedia(
           media,
@@ -176,110 +179,112 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                 data: local,
                 child: Scaffold(
                   resizeToAvoidBottomInset: false,
-                  appBar: PreferredSize(
-                    preferredSize: const Size.fromHeight(56),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: SizedBox(
-                        width: primary.width,
-                        child: AppBar(
-                          title: const Text(
-                            'DinnerMap',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          actions: [
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child:
-                                  primary.width < 360 ||
-                                      media.textScaler.scale(1) > 1.5
-                                  ? Tooltip(
-                                      message: sharedContext == null
-                                          ? 'LOCAL DEMO'
-                                          : 'SHARED',
-                                      child: const Icon(Icons.phonelink),
-                                    )
-                                  : Chip(
-                                      label: Text(
-                                        sharedContext == null
-                                            ? 'LOCAL DEMO'
-                                            : 'SHARED',
-                                      ),
-                                      avatar: const Icon(
-                                        Icons.phonelink,
-                                        size: 16,
-                                      ),
-                                    ),
-                            ),
-                            PopupMenuButton<String>(
-                              onSelected: (action) async {
-                                final controller = ref.read(
-                                  plannerProvider.notifier,
-                                );
-                                if (action == 'backup') {
-                                  final s = data.asData?.value;
-                                  final raw =
-                                      s?.encode() ??
-                                      await ref
-                                          .read(repositoryProvider)
-                                          .rawBackup();
-                                  if (raw != null && context.mounted)
-                                    await saveText(
-                                      context,
-                                      raw,
-                                      'dinnermap-backup',
-                                      'json',
-                                    );
-                                } else if (action == 'import' &&
-                                    sharedContext == null) {
-                                  final raw = await promptText(
-                                    context,
-                                    'Restore JSON backup',
-                                    lines: 8,
-                                  );
-                                  if (raw != null && raw.isNotEmpty) {
-                                    try {
-                                      await controller.importBackup(raw);
-                                    } catch (e) {
-                                      if (context.mounted)
-                                        ScaffoldMessenger.of(
-                                          context,
-                                        ).showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Backup not restored: $e',
+                  appBar: compactShell
+                      ? null
+                      : PreferredSize(
+                          preferredSize: const Size.fromHeight(56),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: SizedBox(
+                              width: primary.width,
+                              child: AppBar(
+                                title: const Text(
+                                  'DinnerMap',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                actions: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child:
+                                        primary.width < 360 ||
+                                            media.textScaler.scale(1) > 1.5
+                                        ? Tooltip(
+                                            message: sharedContext == null
+                                                ? 'LOCAL DEMO'
+                                                : 'SHARED',
+                                            child: const Icon(Icons.phonelink),
+                                          )
+                                        : Chip(
+                                            label: Text(
+                                              sharedContext == null
+                                                  ? 'LOCAL DEMO'
+                                                  : 'SHARED',
+                                            ),
+                                            avatar: const Icon(
+                                              Icons.phonelink,
+                                              size: 16,
                                             ),
                                           ),
-                                        );
-                                    }
-                                  }
-                                }
-                              },
-                              itemBuilder: (_) => [
-                                const PopupMenuItem(
-                                  value: 'backup',
-                                  child: Text('Export backup'),
-                                ),
-                                if (sharedContext == null)
-                                  const PopupMenuItem(
-                                    value: 'import',
-                                    child: Text('Restore backup'),
                                   ),
-                              ],
+                                  PopupMenuButton<String>(
+                                    onSelected: (action) async {
+                                      final controller = ref.read(
+                                        plannerProvider.notifier,
+                                      );
+                                      if (action == 'backup') {
+                                        final s = data.asData?.value;
+                                        final raw =
+                                            s?.encode() ??
+                                            await ref
+                                                .read(repositoryProvider)
+                                                .rawBackup();
+                                        if (raw != null && context.mounted)
+                                          await saveText(
+                                            context,
+                                            raw,
+                                            'dinnermap-backup',
+                                            'json',
+                                          );
+                                      } else if (action == 'import' &&
+                                          sharedContext == null) {
+                                        final raw = await promptText(
+                                          context,
+                                          'Restore JSON backup',
+                                          lines: 8,
+                                        );
+                                        if (raw != null && raw.isNotEmpty) {
+                                          try {
+                                            await controller.importBackup(raw);
+                                          } catch (e) {
+                                            if (context.mounted)
+                                              ScaffoldMessenger.of(
+                                                context,
+                                              ).showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Backup not restored: $e',
+                                                  ),
+                                                ),
+                                              );
+                                          }
+                                        }
+                                      }
+                                    },
+                                    itemBuilder: (_) => [
+                                      const PopupMenuItem(
+                                        value: 'backup',
+                                        child: Text('Export backup'),
+                                      ),
+                                      if (sharedContext == null)
+                                        const PopupMenuItem(
+                                          value: 'import',
+                                          child: Text('Restore backup'),
+                                        ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                   body: MediaQuery(
                     data: shiftedMedia(
                       local,
-                      Offset(wide ? railWidth : 0, 56),
+                      Offset(wide ? railWidth : 0, appBarHeight),
                       Size(
                         region.width - (wide ? railWidth : 0),
-                        region.height - 56,
+                        region.height - appBarHeight,
                       ),
                     ),
                     child: Row(
@@ -346,8 +351,11 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                                   ConstrainedBox(
                                     constraints: BoxConstraints(
                                       maxHeight: math.max(
-                                        48,
-                                        (region.height - 56) * 0.3,
+                                        0,
+                                        (region.height -
+                                                appBarHeight -
+                                                (wide ? 0 : navigationHeight)) *
+                                            0.3,
                                       ),
                                     ),
                                     child: SingleChildScrollView(
@@ -462,45 +470,88 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                                                         null)
                                                   TextButton(
                                                     onPressed: () async {
+                                                      final proposal = editing
+                                                          .conflictChanges;
                                                       final apply = await showDinnerMapDialog<bool>(
                                                         context: context,
-                                                        builder: (ctx) => AdaptiveAlertDialog(
-                                                          title: const Text(
-                                                            'Review conflicting edit',
-                                                          ),
-                                                          content: SizedBox(
-                                                            width: 600,
-                                                            child: SingleChildScrollView(
-                                                              child: SelectableText(
+                                                        builder: (ctx) => Consumer(
+                                                          builder: (ctx, dialogRef, _) {
+                                                            final current =
+                                                                dialogRef.watch(
+                                                                  plannerProvider
+                                                                      .notifier,
+                                                                );
+                                                            dialogRef.watch(
+                                                              plannerProvider,
+                                                            );
+                                                            final available =
+                                                                identical(
+                                                                  current,
+                                                                  editing,
+                                                                ) &&
                                                                 editing
-                                                                    .conflictPreview(),
+                                                                    .canReapplyConflict &&
+                                                                identical(
+                                                                  editing
+                                                                      .conflictChanges,
+                                                                  proposal,
+                                                                );
+                                                            return AdaptiveAlertDialog(
+                                                              title: const Text(
+                                                                'Review conflicting edit',
                                                               ),
-                                                            ),
-                                                          ),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                    ctx,
-                                                                    false,
+                                                              content: SizedBox(
+                                                                width: 600,
+                                                                child: SingleChildScrollView(
+                                                                  child: SelectableText(
+                                                                    editing
+                                                                        .conflictPreview(),
                                                                   ),
-                                                              child: const Text(
-                                                                'Use current version',
+                                                                ),
                                                               ),
-                                                            ),
-                                                            FilledButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                    ctx,
-                                                                    true,
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                        ctx,
+                                                                        false,
+                                                                      ),
+                                                                  child: const Text(
+                                                                    'Use current version',
                                                                   ),
-                                                              child: const Text(
-                                                                'Reapply my edit',
-                                                              ),
-                                                            ),
-                                                          ],
+                                                                ),
+                                                                FilledButton(
+                                                                  onPressed:
+                                                                      available
+                                                                      ? () => Navigator.pop(
+                                                                          ctx,
+                                                                          true,
+                                                                        )
+                                                                      : null,
+                                                                  child: const Text(
+                                                                    'Reapply my edit',
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
                                                         ),
                                                       );
+                                                      if (!context.mounted ||
+                                                          !editing.mounted ||
+                                                          !identical(
+                                                            ref.read(
+                                                              plannerProvider
+                                                                  .notifier,
+                                                            ),
+                                                            editing,
+                                                          ) ||
+                                                          !identical(
+                                                            editing
+                                                                .conflictChanges,
+                                                            proposal,
+                                                          ))
+                                                        return;
                                                       if (apply == true) {
                                                         await editing
                                                             .reapplyConflict();
@@ -560,7 +611,15 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                                           final raw = await ref
                                               .read(repositoryProvider)
                                               .rawBackup();
-                                          if (raw == null || !context.mounted)
+                                          if (raw == null ||
+                                              !context.mounted ||
+                                              !editing.mounted ||
+                                              !identical(
+                                                ref.read(
+                                                  plannerProvider.notifier,
+                                                ),
+                                                editing,
+                                              ))
                                             return;
                                           final local = PlannerSnapshot.decode(
                                             raw,
@@ -600,7 +659,16 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                                                       ],
                                                     ),
                                               );
-                                          if (confirmed == true) {
+                                          if (confirmed == true &&
+                                              context.mounted &&
+                                              editing.mounted &&
+                                              identical(
+                                                ref.read(
+                                                  plannerProvider.notifier,
+                                                ),
+                                                editing,
+                                              ) &&
+                                              editing.canEdit) {
                                             try {
                                               await editing.importBackup(raw);
                                             } catch (e) {
@@ -636,6 +704,12 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                           child: SizedBox(
                             width: primary.width,
                             child: NavigationBar(
+                              height: navigationHeight,
+                              labelBehavior: compactShell
+                                  ? NavigationDestinationLabelBehavior
+                                        .alwaysHide
+                                  : NavigationDestinationLabelBehavior
+                                        .alwaysShow,
                               selectedIndex: tab,
                               onDestinationSelected: (i) =>
                                   setState(() => tab = i),

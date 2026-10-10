@@ -66,7 +66,7 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
                     firstDate: DateTime(2020),
                     lastDate: DateTime(2100),
                   );
-                  if (date != null) setState(() => _start = date);
+                  if (mounted && date != null) setState(() => _start = date);
                 },
                 icon: const Icon(Icons.calendar_today, size: 18),
                 label: Text(dateKey(start)),

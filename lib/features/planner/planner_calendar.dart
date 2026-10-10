@@ -153,6 +153,7 @@ class PlannerCalendar extends StatelessWidget {
                       button: true,
                       selected: dateKey(selected) == dateKey(date),
                       excludeSemantics: true,
+                      onTap: () => onSelected(date),
                       child: Material(
                         color: dateKey(selected) == dateKey(date)
                             ? const Color(0xff243965)
