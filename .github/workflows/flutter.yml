@@ -1,0 +1,76 @@
+name: Flutter checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+concurrency:
+  group: flutter-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  database:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: [5432:5432]
+        options: >-
+          --health-cmd pg_isready --health-interval 10s
+          --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+        working-directory: tool/database
+      - run: npm test
+        working-directory: tool/database
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.7
+          channel: stable
+          cache: true
+      - run: bash tool/setup.sh
+      - run: flutter pub get
+      - run: dart format --language-version=3.8 --output=none --set-exit-if-changed lib test tool
+      - run: flutter analyze --no-fatal-infos
+      - run: flutter test
+      - run: dart tool/domain_check.dart
+      - run: dart tool/storage_check.dart
+      - run: dart tool/account_check.dart
+      - run: dart tool/shared_check.dart
+      - run: flutter build web
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dinnermap-web
+          path: build/web
+  android:
+    needs: [checks, database]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.7
+          channel: stable
+          cache: true
+      - run: bash tool/setup.sh
+      - run: flutter build apk --debug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dinnermap-android-debug
+          path: build/app/outputs/flutter-apk/app-debug.apk
