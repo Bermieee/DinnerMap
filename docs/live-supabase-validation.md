@@ -70,3 +70,13 @@ First published web source: Sites commit b3e69dd7b5dec6d16a1cecac66a06909db72556
 - New filter interactions still need live device acceptance; managed interactive browser QA is unavailable.
 - Web 0.4.2 publication succeeded at the existing URL, preserving owner-private access. Sites source commit 5b4f661846ec3dfa6361923d8c6a5d5811a62e7a; deployment appgdep_6aca99ac88b88191961fd9ce797b9fac. Artifact 11680434364 ZIP SHA256 2230bb4213f04384cf7d341e1c3f1cade1404fd91b2ed684c33887a019c6326c verified before extraction; compiled recipe controls, public configuration and 108 bundled recipes checked.
 - Regression testing exposed an expansion/scroll PageStorage collision; the ideas section now uses its own key. Offline recipe access, search across tabs/resize, account replacement, existing backup saves and narrow large-text picker checks pass.
+
+## 0.4.3 browser dietary matching repair
+
+- User reported empty Vegetarian results and repeated Vegan wording on a recipe. Clarified that vegetarian permits eggs/dairy; vegan excludes animal products. Menu screenshot contains one distinct choice for each.
+- Reproduced actual web failure using dart2js: JSON encodes whole double quantities differently on native Dart and JavaScript. Text comparison invalidated every curated recipe on web. Structural ingredient-field comparison fixes this while preserving exact source/title/directions and ingredient edit guards.
+- New regression fixtures use four real public starter records after PostgreSQL JSON serialization. Test failed in compiled JavaScript before repair and passes natively and in optimized compiled JavaScript after repair. CI now runs both runtimes. A compiled JavaScript probe of all live household records returns 108 recipes, 9 Vegetarian, 3 Vegan and 8 Meal prep.
+- Library and dinner picker omit the extra Vegan badge when the reviewed recipe title already contains Vegan; other vegan recipes retain the informative badge. Rendered picker regression verifies this.
+- All 94 Flutter tests, formatter/analyzer, standalone checks, compiled JavaScript regression, PostgreSQL and retailer checks, and configured web build pass at https://github.com/Bermieee/DinnerMap/actions/runs/38084391883 (code 2c69742492359bdd07b08100efd39a2fa1974bd3). No database write or schema change required.
+- Web patch published successfully at the existing URL, preserving owner-private audience. Sites source commit 3dba08c2fa631f4b0b86d25ff7c1edaa0b811711, deployment appgdep_6acaa2a86910819181f2e0439e1be22d. Artifact 11681309564 ZIP SHA256 6890d419c0828458643d2a5fe9b672a61e8a9f63b76ad799cd696ef1aa133bd8 verified before extraction.
+- Interactive managed browser QA unavailable; refreshed live UI acceptance remains pending.
