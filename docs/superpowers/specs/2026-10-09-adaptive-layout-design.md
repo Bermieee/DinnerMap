@@ -1,6 +1,6 @@
 # DinnerMap adaptive layouts
 
-Status: proposed written specification; scope approved, awaiting specification review.
+Status: approved for implementation October 9, 2026.
 
 ## Intent and milestones
 
