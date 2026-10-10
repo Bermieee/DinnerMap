@@ -75,6 +75,12 @@ void main() {
     t.view.devicePixelRatio = 1;
     addTearDown(t.view.resetPhysicalSize);
     addTearDown(t.view.resetDevicePixelRatio);
+    final onError = FlutterError.onError;
+    FlutterError.onError = (details) {
+      debugPrint('Regional layout: $details');
+      onError?.call(details);
+    };
+    addTearDown(() => FlutterError.onError = onError);
     final repo = FakeRegion();
     await t.pumpWidget(
       ProviderScope(

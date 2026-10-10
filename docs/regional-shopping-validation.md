@@ -8,7 +8,8 @@ Private account ZIP/radius preferences, ZIP metadata resolution/cache, Kroger lo
 - Local region PostgreSQL fixtures: 13 passing, alongside 44 existing fixture checks. Hosted PostgreSQL CI adds existing concurrency checks.
 - Node retailer/handler tests: 14 passing, including provider normalization, safe errors/token renewal, auth verification, throttling, bounded request bodies and optional cache failure recovery.
 - RED CI 38020890591: 79 existing Flutter tests passed; two new regional screen tests failed because the new controls had not been implemented. Analysis/formatting and database job passed.
-- Full implementation CI is running. No success claim for Flutter tests/builds yet.
+- CI 38021665347 passed 84 Flutter tests, including discovery, store selection, product search, empty results and landscape/tablet large text. Two layout regressions reproduced narrow large-text overflow and a header outside the largest fold region; fixes are under verification.
+- Full implementation CI is running. No success claim for complete Flutter suite/builds yet.
 
 ## Review and decisions
 Independent review found no Critical findings. I regraded the two malformed-provider response findings as Important because one corrupt row could hide valid store/product results. Tests reproduced both failures before filtering malformed items and normalizing optional store fields; Node suite is green. I also treated empty-search feedback as Important for the new search flow: a completed empty response must be distinguishable from an unsubmitted query. A pure Dart test reproduced the missing status before the state/UI fix.

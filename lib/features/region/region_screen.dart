@@ -1,7 +1,9 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../layout/adaptive_page.dart';
+import '../../layout/adaptive_layout.dart';
 import 'region_controller.dart';
 import 'region_models.dart';
 import 'region_providers.dart';
@@ -11,9 +13,57 @@ class RegionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(regionControllerProvider);
-    return Scaffold(
-      appBar: AppBar(title: const Text('Stores & prices')),
-      body: RegionPanel(key: ValueKey(controller), controller: controller),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final media = MediaQuery.of(context);
+        final policy = AdaptiveLayout.resolve(
+          size: constraints.biggest,
+          padding: EdgeInsets.fromLTRB(
+            math.max(media.padding.left, media.viewInsets.left),
+            math.max(media.padding.top, media.viewInsets.top),
+            math.max(media.padding.right, media.viewInsets.right),
+            math.max(media.padding.bottom, media.viewInsets.bottom),
+          ),
+          displayFeatures: media.displayFeatures,
+          textScale: media.textScaler.scale(1),
+        );
+        var region = policy.primaryRegion;
+        final second = policy.secondaryRegion;
+        if (second != null &&
+            second.width * second.height > region.width * region.height)
+          region = second;
+        return ColoredBox(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Stack(
+            children: [
+              Positioned.fromRect(
+                rect: region,
+                child: MediaQuery(
+                  data: shiftedMedia(
+                    media,
+                    region.topLeft,
+                    region.size,
+                  ).copyWith(viewInsets: EdgeInsets.zero),
+                  child: Scaffold(
+                    resizeToAvoidBottomInset: false,
+                    appBar: AppBar(
+                      title: const Text(
+                        'Stores & prices',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    body: RegionPanel(
+                      key: ValueKey(controller),
+                      controller: controller,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -88,6 +138,7 @@ class _RegionPanelState extends State<RegionPanel> {
             ),
             const SizedBox(height: 12),
             DropdownButtonFormField<int>(
+              isExpanded: true,
               key: ValueKey(radius),
               initialValue: radius,
               decoration: const InputDecoration(labelText: 'Search radius'),
