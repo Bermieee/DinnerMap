@@ -1,7 +1,45 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../lib/features/region/region_models.dart';
+import '../lib/features/region/region_providers.dart';
+import '../lib/features/shopping/shopping_price_screen.dart';
+import '../lib/features/shopping/shopping_engine.dart';
+import 'shopping_pricing_test.dart' show PriceRepository;
+
+class SearchRepository extends PriceRepository {
+  String? lastQuery;
+  @override
+  Future<List<ProductOffer>> search(String id, String query) async {
+    lastQuery = query;
+    return [];
+  }
+}
 import '../lib/features/shopping/product_search.dart';
 
 void main() {
+  testWidgets('Kroger receives cleaned search while recipe name stays intact', (t) async {
+    final repo = SearchRepository();
+    const name = 'boneless chicken breasts, cubed';
+    await t.pumpWidget(ProviderScope(
+      overrides: [regionRepositoryProvider.overrideWithValue(repo)],
+      child: MaterialApp(home: Scaffold(body: GroceryProductPicker(
+        repository: repo,
+        storeId: '123',
+        row: const ShoppingRow(key: 'chicken', name: name, quantity: 1, unit: 'lb'),
+      ))),
+    ));
+    await t.pumpAndSettle();
+    expect(find.text('Price $name'), findsOneWidget);
+    await t.tap(find.text('Search products'));
+    await t.pumpAndSettle();
+    expect(repo.lastQuery, 'boneless chicken breasts');
+    await t.enterText(find.widgetWithText(TextField, 'Search Kroger products'), 'skinless chicken breast');
+    await t.tap(find.text('Search products'));
+    await t.pumpAndSettle();
+    expect(repo.lastQuery, 'skinless chicken breast');
+    expect(t.takeException(), isNull);
+  });
   test('store searches omit preparation and preserve product identity', () {
     const cases = {
       'boneless chicken breasts, cubed': 'boneless chicken breasts',
