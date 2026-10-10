@@ -158,7 +158,7 @@ class AdaptiveStatusBanner extends StatelessWidget {
 }
 
 /// Use the route's live window metrics instead of a page's translated MediaQuery.
-Future<T?> showAdaptiveDialog<T>({
+Future<T?> showDinnerMapDialog<T>({
   required BuildContext context,
   required WidgetBuilder builder,
 }) {

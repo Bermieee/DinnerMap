@@ -70,7 +70,7 @@ Future<String?> promptText(
   int lines = 1,
 }) async {
   final controller = TextEditingController(text: initial);
-  final result = await showAdaptiveDialog<String>(
+  final result = await showDinnerMapDialog<String>(
     context: context,
     builder: (context) => AdaptiveAlertDialog(
       title: Text(title),
@@ -408,7 +408,7 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                                                         null) ...[
                                                   TextButton(
                                                     onPressed: () async {
-                                                      await showAdaptiveDialog<
+                                                      await showDinnerMapDialog<
                                                         void
                                                       >(
                                                         context: context,
@@ -460,7 +460,7 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                                                         null)
                                                   TextButton(
                                                     onPressed: () async {
-                                                      final apply = await showAdaptiveDialog<bool>(
+                                                      final apply = await showDinnerMapDialog<bool>(
                                                         context: context,
                                                         builder: (ctx) => AdaptiveAlertDialog(
                                                           title: const Text(
@@ -564,7 +564,7 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                                             raw,
                                           );
                                           final confirmed =
-                                              await showAdaptiveDialog<bool>(
+                                              await showDinnerMapDialog<bool>(
                                                 context: context,
                                                 builder: (ctx) =>
                                                     AdaptiveAlertDialog(

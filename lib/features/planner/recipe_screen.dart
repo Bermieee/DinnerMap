@@ -11,7 +11,7 @@ import 'planner_controller.dart';
 Future<Recipe?> chooseRecipe(
   BuildContext context,
   PlannerSnapshot snapshot,
-) async => showAdaptiveDialog<Recipe>(
+) async => showDinnerMapDialog<Recipe>(
   context: context,
   builder: (_) => RecipePicker(snapshot: snapshot),
 );
@@ -91,7 +91,7 @@ Future<void> editRecipe(
   );
   final instructions = TextEditingController(text: recipe?.instructions ?? '');
   String? error;
-  await showAdaptiveDialog<void>(
+  await showDinnerMapDialog<void>(
     context: context,
     builder: (context) => StatefulBuilder(
       builder: (context, setState) => AdaptiveAlertDialog(
@@ -385,7 +385,7 @@ Future<void> showRecipe(
   Recipe recipe,
 ) async {
   final editingController = ref.read(plannerProvider.notifier);
-  await showAdaptiveDialog<void>(
+  await showDinnerMapDialog<void>(
     context: context,
     builder: (context) => Consumer(
       builder: (context, modalRef, _) {

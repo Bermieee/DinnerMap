@@ -174,7 +174,7 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
               button('Create invitation', () async {
                 final token = await c.createInvitation();
                 if (token == null || !context.mounted) return;
-                await showAdaptiveDialog<void>(
+                await showDinnerMapDialog<void>(
                   context: context,
                   builder: (ctx) => AdaptiveAlertDialog(
                     title: const Text('Invite a household member'),
@@ -203,7 +203,7 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
                 );
               }),
               button('Leave household', () async {
-                final leave = await showAdaptiveDialog<bool>(
+                final leave = await showDinnerMapDialog<bool>(
                   context: context,
                   builder: (ctx) => AdaptiveAlertDialog(
                     title: const Text('Leave this household?'),
