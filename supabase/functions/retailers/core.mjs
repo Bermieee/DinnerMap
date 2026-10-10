@@ -13,7 +13,7 @@ function parseSize(size){
 export function normalizeProducts(products,storeId,now=new Date()) {
  return products.flatMap(p=>{
   if(!p || typeof p.productId!=='string')return [];
-  const items=Array.isArray(p.items) && p.items.length?p.items:[{}];
+  const items=Array.isArray(p.items) && p.items.length?p.items.filter(i=>i && typeof i==='object' && !Array.isArray(i)):[{}];
   return items.map((item,index)=>{
    const promo=item.price?.promo,regular=item.price?.regular;
    // Kroger commonly uses promo=0 to mean no promotion; regular=0 remains a known price.
@@ -76,7 +76,7 @@ export function createRetailerService({fetch:request=globalThis.fetch,clientId='
    const url=new URL('https://api.kroger.com/v1/locations');
    url.search=new URLSearchParams({'filter.zipCode.near':args.zip,'filter.radiusInMiles':String(radius),'filter.limit':'50'}).toString();
    const locations=await kroger(url.toString());
-   return locations.filter(p=>typeof p?.locationId==='string' && /^[0-9]{1,30}$/.test(p.locationId)).map(p=>({retailer:'kroger',id:p.locationId,name:p.name||'Kroger',address:[p.address?.addressLine1,p.address?.city,p.address?.state,p.address?.zipCode].filter(Boolean).join(', '),state:p.address?.state||''}));
+   return locations.filter(p=>typeof p?.locationId==='string' && /^[0-9]{1,30}$/.test(p.locationId)).map(p=>({retailer:'kroger',id:p.locationId,name:typeof p.name==='string' && p.name?p.name:'Kroger',address:[p.address?.addressLine1,p.address?.city,p.address?.state,p.address?.zipCode].filter(v=>typeof v==='string' && v).join(', '),state:typeof p.address?.state==='string'?p.address.state:''}));
   }
   if(action==='products'){
    if(typeof args.storeId!=='string'|| !/^[0-9]{1,30}$/.test(args.storeId))throw new RetailerError('Select a valid Kroger location.',400);

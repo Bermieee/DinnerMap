@@ -84,6 +84,11 @@ Future<void> main() async {
   await c.discover();
   await c.selectStore(c.state.stores.first);
   check(c.state.profile!.selectedStoreId == '123', 'selected store saved');
+  await c.search('rice');
+  check(
+    c.state.searchedQuery == 'rice' && c.state.offers.isEmpty,
+    'completed empty search identified',
+  );
   await c.saveProfile('00501', 25);
   check(
     c.state.profile!.selectedStoreId == null && c.state.stores.isEmpty,

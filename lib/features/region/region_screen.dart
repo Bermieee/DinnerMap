@@ -225,6 +225,16 @@ class _RegionPanelState extends State<RegionPanel> {
                 ),
               ),
             ],
+            if (s.searchedQuery != null &&
+                s.offers.isEmpty &&
+                !s.busy &&
+                s.error == null)
+              Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: Text(
+                  'No products returned for “${s.searchedQuery}”. Try a different search.',
+                ),
+              ),
             if (s.offers.isNotEmpty) ...[
               const SizedBox(height: 16),
               DropdownButtonFormField<OfferSort>(
@@ -234,19 +244,35 @@ class _RegionPanelState extends State<RegionPanel> {
                 items: const [
                   DropdownMenuItem(
                     value: OfferSort.packageLow,
-                    child: Text('Package price: lowest first'),
+                    child: Text(
+                      'Package price: lowest first',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   DropdownMenuItem(
                     value: OfferSort.packageHigh,
-                    child: Text('Package price: highest first'),
+                    child: Text(
+                      'Package price: highest first',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   DropdownMenuItem(
                     value: OfferSort.unitLow,
-                    child: Text('Unit price: lowest first'),
+                    child: Text(
+                      'Unit price: lowest first',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   DropdownMenuItem(
                     value: OfferSort.unitHigh,
-                    child: Text('Unit price: highest first'),
+                    child: Text(
+                      'Unit price: highest first',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
                 onChanged: (v) => setState(() => sort = v!),
@@ -260,15 +286,27 @@ class _RegionPanelState extends State<RegionPanel> {
                   items: const [
                     DropdownMenuItem(
                       value: 'mass',
-                      child: Text('Weight (per lb)'),
+                      child: Text(
+                        'Weight (per lb)',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     DropdownMenuItem(
                       value: 'volume',
-                      child: Text('Volume (per fl oz)'),
+                      child: Text(
+                        'Volume (per fl oz)',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     DropdownMenuItem(
                       value: 'count',
-                      child: Text('Count (each)'),
+                      child: Text(
+                        'Count (each)',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                   onChanged: (v) => setState(() => unitFamily = v!),

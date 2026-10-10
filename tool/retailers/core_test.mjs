@@ -47,3 +47,12 @@ test('401 token is renewed once; secret upstream errors never reach clients',asy
  }});
  assert.deepEqual(await s.dispatch('products',{storeId:'123',query:'milk'}),[]);assert.equal(tokens,2);
 });
+test('malformed product items do not hide valid package variants',()=>{
+ const offers=normalizeProducts([{productId:'p',description:'Rice',items:[null,'bad',{itemId:'good',size:'1 lb',price:{regular:4}}]}],'123');
+ assert.equal(offers.length,1);assert.equal(offers[0].price,4);
+});
+test('malformed optional location strings retain a usable typed store',async()=>{
+ const s=createRetailerService({clientId:'id',clientSecret:'secret',fetch:async(url)=>url.includes('/token')?json({access_token:'t',expires_in:1000}):json({data:[{locationId:'123',name:{bad:1},address:{state:55,addressLine1:{bad:2},city:'Town'}}]})});
+ const stores=await s.dispatch('stores',{zip:'40165',radius:25});
+ assert.equal(stores[0].name,'Kroger');assert.equal(stores[0].state,'');assert.equal(stores[0].address,'Town');
+});

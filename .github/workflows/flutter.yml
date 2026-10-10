@@ -31,6 +31,18 @@ jobs:
         working-directory: tool/database
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+  retailers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tool/retailers/*.mjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: '2.9.6'
+      - run: deno check supabase/functions/retailers/index.ts
   checks:
     runs-on: ubuntu-latest
     steps:
@@ -51,14 +63,13 @@ jobs:
       - run: dart tool/shared_check.dart
       - run: dart tool/layout_check.dart
       - run: dart tool/region_check.dart
-      - run: node --test tool/retailers/*.mjs
       - run: flutter build web
       - uses: actions/upload-artifact@v4
         with:
           name: dinnermap-web
           path: build/web
   android:
-    needs: [checks, database]
+    needs: [checks, database, retailers]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

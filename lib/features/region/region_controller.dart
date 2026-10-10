@@ -8,7 +8,7 @@ class RegionState {
   final List<StoreLocation> stores;
   final List<ProductOffer> offers;
   final bool busy;
-  final String? error;
+  final String? error, searchedQuery;
   const RegionState({
     this.profile,
     this.region,
@@ -16,6 +16,7 @@ class RegionState {
     this.offers = const [],
     this.busy = false,
     this.error,
+    this.searchedQuery,
   });
 }
 
@@ -47,6 +48,7 @@ class RegionController {
         stores: state.stores,
         offers: clearOffers ? const [] : state.offers,
         busy: true,
+        searchedQuery: clearOffers ? null : state.searchedQuery,
       ),
     );
     try {
@@ -61,6 +63,7 @@ class RegionController {
             stores: state.stores,
             offers: state.offers,
             error: '$e',
+            searchedQuery: state.searchedQuery,
           ),
         );
     }
@@ -82,6 +85,7 @@ class RegionController {
       region: changed ? null : state.region,
       stores: changed ? const [] : state.stores,
       offers: changed ? const [] : state.offers,
+      searchedQuery: changed ? null : state.searchedQuery,
     );
   });
   Future<void> discover() => _run(() async {
@@ -104,6 +108,7 @@ class RegionController {
       region: region,
       stores: stores,
       offers: stillPresent ? state.offers : const [],
+      searchedQuery: stillPresent ? state.searchedQuery : null,
     );
   });
   Future<void> selectStore(StoreLocation store) => _run(() async {
@@ -138,6 +143,7 @@ class RegionController {
       region: state.region,
       stores: state.stores,
       offers: offers,
+      searchedQuery: term,
     );
   }, clearOffers: true);
   void dispose() {
