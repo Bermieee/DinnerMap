@@ -22,7 +22,7 @@ The security advisor reports intentional authenticated SECURITY DEFINER RPC endp
 
 - Android callback com.dinnermap://auth-callback/ added by the user on 2026-10-10. Reported complete; live email-return flow remains untested.
 - Web published privately at https://dinnermap-web.lushsnail1.chatgpt.site (Sites version 1; deployment appgdep_6aca864702408191ac761612b3867c8e succeeded). User reports fixing the web verification return URL.
-- User reports wife joined the household on Fold5, adaptive layout worked, and calendar edits synchronized in both directions. Recipe meals were blocked by an empty shared recipe library; takeout synchronized. No real accounts or emails were created by the agent.
+- User reports wife joined the household on Fold5, adaptive layout worked, and calendar edits synchronized in both directions. User subsequently reports shared recipes are visible and accessible across accounts. No real accounts or emails were created by the agent.
 - Kroger client credentials remain pending; ZIP resolution has not yet been tested with a verified user.
 - Google Play release signing/upload remains pending. Debug APK is for development testing.
 
@@ -35,7 +35,7 @@ Use shared household mode on both clients; local device plans do not sync automa
 | Web registration/verification/reset | Email returns to exact hosted origin | User reports verification fixed; reset acceptance pending |
 | Android verification/reset | Email returns to DinnerMap | User added callback; test pending |
 | Household join | Two verified Supabase accounts see the same household | User reports pass on Fold5 |
-| Meal edits both directions | Web edit appears on Android and vice versa | User reports takeout pass; recipe repair deployed, device acceptance pending |
+| Meal edits both directions | Web edit appears on Android and vice versa | User reports calendar sync and shared recipe access pass |
 | Grocery generation/checkoffs | Shared totals and checks update on both | Pending |
 | Conflict/offline/sign-out | Conflicts require review; offline shared edits disabled; cache isolation | Pending |
 | Layout/input | Phone, desktop, landscape, keyboard, large text, touch/mouse | Automated checks pass; user reports foldable layout adapts |
@@ -58,3 +58,15 @@ First published web source: Sites commit b3e69dd7b5dec6d16a1cecac66a06909db72556
 - Advisor review: 3 intentional private RLS tables without read policies and 10 authenticated, identity/membership-checked SECURITY DEFINER RPCs. Supabase breached-password protection is disabled and requires dashboard configuration: https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection . Existing performance advisories remain (13 uncovered audit/relationship foreign keys and region profile RLS initplan); no new performance finding from this migration.
 - Android artifact 11680016488 ZIP SHA256 c83c5bed1e085a25a11a85fea9fe428ec84e327cbcb0034dead8c462341c94da verified before extraction. APK is DinnerMap-0.4.1-test.apk (168431972 bytes), SHA256 4046a97f95b382b5101f2997a0e241b9c2a4b91a1849e37a0c87c5144920b9cf.
 - Debug signing certificate differs from 0.4.0 (new SHA256 8aca19def94bbc94e342f81f06a906c0b130fc9101e50671ce0dc3301d8e09f0; previous 49d08518a59a0cee4c75dc2410036606105a3d0cfd1d4eeda1b1a3829f42140c). Android requires removing the older test install first; export any local-only plans before uninstalling, then sign back into the existing shared account. Shared household data stays on Supabase. Stable release signing/Google Play distribution remains pending.
+
+## 0.4.2 browser recipe discovery
+
+- User confirmed recipes cross accounts and can be accessed by both household members.
+- Recipe library and Choose a dinner use the same multi-term name/region/ingredient search, region dropdown and Vegan/Vegetarian/Meal prep filters. Library retains category/favorites filters and adds an expandable Explore food ideas section.
+- Three source-checked vegan recipes bring the bundled and live shared catalogues to 108. Source links remain available; no cooking directions were copied. Curated dietary labels disappear after unreviewed ingredient/direction changes.
+- Existing local snapshots receive only missing new starter IDs, preserving edited recipes, calendar entries and preferences. The additive upgrade persists through the existing save queue and is idempotent.
+- Live recipe discovery migration succeeded. Recipes and starter catalogue both total 108; before/after calendar and membership fingerprints match exactly.
+- Review found and fixed missing test fixture entries and the existing-local-library upgrade gap. Fourteen standalone discovery/upgrade checks pass; saved-plan storage and month-length checks also pass. PostgreSQL migration and retailer CI jobs pass. All 93 Flutter tests, formatter/analyzer, standalone domain/adaptive checks and configured web build passed at https://github.com/Bermieee/DinnerMap/actions/runs/38081848548 (code f687b4c880bfa2f905a1d4a54b1de0a49f067448).
+- New filter interactions still need live device acceptance; managed interactive browser QA is unavailable.
+- Web 0.4.2 publication succeeded at the existing URL, preserving owner-private access. Sites source commit 5b4f661846ec3dfa6361923d8c6a5d5811a62e7a; deployment appgdep_6aca99ac88b88191961fd9ce797b9fac. Artifact 11680434364 ZIP SHA256 2230bb4213f04384cf7d341e1c3f1cade1404fd91b2ed684c33887a019c6326c verified before extraction; compiled recipe controls, public configuration and 108 bundled recipes checked.
+- Regression testing exposed an expansion/scroll PageStorage collision; the ideas section now uses its own key. Offline recipe access, search across tabs/resize, account replacement, existing backup saves and narrow large-text picker checks pass.
