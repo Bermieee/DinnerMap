@@ -47,7 +47,12 @@ void main() {
     await navigate(tester, 'Recipes');
     await tester.tap(find.text('Add recipe'));
     await tester.pumpAndSettle();
-    await tester.enterText(find.byType(TextField).first, 'Old account draft');
+    await tester.enterText(
+      find.byWidgetPredicate(
+        (w) => w is TextField && w.decoration?.labelText == 'Recipe name',
+      ),
+      'Old account draft',
+    );
     final container = ProviderScope.containerOf(
       tester.element(find.byType(DinnerMapShell)),
     );

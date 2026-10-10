@@ -42,7 +42,15 @@ class _PlannerState extends ConsumerState<PlannerScreen> {
         selected: selected,
         month: month,
       );
-      if (policy.canSplitCalendar) {
+      final scale = math.max(1.0, media.textScaler.scale(1));
+      final secondRegion = policy.secondaryRegion;
+      final canSplit =
+          policy.canSplitCalendar &&
+          (secondRegion == null
+              ? math.min(constraints.maxWidth, 1440.0) - 24 >= 880 * scale + 24
+              : policy.primaryRegion.width - 16 >= 560 * scale &&
+                    secondRegion.width - 16 >= 320 * scale);
+      if (canSplit) {
         final second = policy.secondaryRegion;
         if (second != null) {
           return Stack(

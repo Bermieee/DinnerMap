@@ -223,6 +223,8 @@ void main() {
     );
     await tester.runAsync(c.refresh);
     await tester.pump();
+    await tester.ensureVisible(find.text('Save recipe'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Save recipe'));
     await tester.pumpAndSettle();
     expect(repo.sent, isNull);
