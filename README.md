@@ -1,6 +1,6 @@
 # DinnerMap
 
-Flutter meal planning and grocery lists for Android and web. Optional Supabase accounts and household sharing are implemented in the sharing branch; official Kroger/Walmart connections are the next stage.
+Flutter meal planning and grocery lists for Android and web. Optional Supabase accounts and household sharing are implemented in the sharing branch; official Kroger/Walmart connections and Amazon eligibility work are the next stage.
 
 ## Foundation features
 
@@ -17,6 +17,12 @@ Without backend configuration, this version runs as a **local demo** and data st
 The optional Supabase backend adds email/password accounts, verified household membership, single-use invitations, shared meal/recipe edits and grocery checkoffs. Every member can edit and invite. Choose local or shared mode explicitly; local data never uploads on sign-in. Import into an empty household requires a preview/confirmation. Shared edits require connectivity, with cached data and reviewed conflicts.
 
 See [household setup](docs/household-setup.md) for migrations, free-project configuration, redirect URLs and configured builds. Default CI artifacts contain no Supabase project configuration, so sharing is not live in those APKs. No paid billing has been enabled. One calendar and one saved grocery list per household are supported initially.
+
+## Adaptive layouts
+
+Version 0.3.0 adapts navigation, calendar panes, recipe cards and dialogs to available window space, safe insets, keyboard and separating folds. Tabs retain selections, searches, shopping options and scroll positions. Shared read-only mode allows browsing and exports while mutation controls stay disabled.
+
+See [layout validation](docs/adaptive-layout-validation.md) for automated evidence and remaining device checks.
 
 ## Run
 
@@ -38,6 +44,9 @@ flutter analyze
 flutter test
 dart tool/domain_check.dart
 dart tool/storage_check.dart
+dart tool/account_check.dart
+dart tool/shared_check.dart
+dart tool/layout_check.dart
 flutter build web
 flutter build apk --debug
 ```
@@ -62,8 +71,8 @@ Flutter is free. No paid service has been configured. Supabase is the selected o
 
 ## Verification status
 
-The initial local foundation passed Flutter tests and Android/web builds, and the user confirmed meal editing and grocery generation on an Android phone. The sharing branch adds database security/concurrency and Flutter sync regressions; inspect its latest [CI run](https://github.com/Bermieee/DinnerMap/pull/2/checks) for current results.
+The initial local foundation passed Flutter tests and Android/web builds, and the user confirmed meal editing and grocery generation on an Android phone. The sharing branch adds database security/concurrency and Flutter sync regressions. The adaptive branch adds window, fold, accessibility and account-lifetime regressions; inspect [adaptive checks](https://github.com/Bermieee/DinnerMap/pull/3/checks) and [recorded validation](docs/adaptive-layout-validation.md) for exact build evidence.
 
 Hosted Supabase Auth/Realtime, email delivery/redirects and a live two-account flow require a configured project and remain unverified. Local Flutter bootstrap was blocked by automatic approval review; validation uses isolated GitHub CI and safe standalone Dart checks.
 
-Known limitations: Shared offline mode currently blocks browsing interactions as well as edits; refining mutation-only disabled controls is deferred. Printing/system sharing dialogs still need manual phone verification. No live retailer prices/cart transfer or public deployment is provided.
+Known limitations: Physical fold transitions, keyboard behavior and printing/system sharing dialogs still need manual device verification. No live retailer prices/cart transfer or public deployment is provided.

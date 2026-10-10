@@ -91,16 +91,19 @@ void main() {
       200,
       scrollable: find.byType(Scrollable).first,
     );
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Replace meal'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Soup'));
     await tester.pumpAndSettle();
     expect(repo.snapshot.entries.single.recipeId, 'soup');
     await tester.ensureVisible(find.text('Undo'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Undo'));
     await tester.pumpAndSettle();
     expect(repo.snapshot.entries.single.recipeId, 'r');
     await tester.ensureVisible(find.text('Takeout'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Takeout'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Shopping'));

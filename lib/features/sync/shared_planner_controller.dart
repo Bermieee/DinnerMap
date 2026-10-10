@@ -84,6 +84,7 @@ class SharedPlannerController extends PlannerController {
   }
   @override
   bool get canEdit =>
+      mounted &&
       online &&
       !busy &&
       !_refreshing &&
@@ -422,7 +423,18 @@ class SharedPlannerController extends PlannerController {
     await refresh();
   }
 
+  bool get canReapplyConflict =>
+      mounted &&
+      online &&
+      !busy &&
+      !_refreshing &&
+      view != null &&
+      conflictChanges != null &&
+      pendingChanges == null &&
+      pendingGeneration == null;
+
   Future<void> reapplyConflict() async {
+    if (!canReapplyConflict) return;
     final changes = conflictChanges;
     if (changes == null || view == null) return;
     final next = changes.map((c) {
@@ -444,7 +456,7 @@ class SharedPlannerController extends PlannerController {
 
   @override
   Future<void> importBackup(String raw) async {
-    if (!canEdit) throw StateError('Reconnect before importing.');
+    if (!mounted || !canEdit) throw StateError('Reconnect before importing.');
     final snapshot = PlannerSnapshot.decode(raw);
     busy = true;
     _notify();
