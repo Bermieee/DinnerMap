@@ -7,7 +7,8 @@ import 'package:dinnermap/data/planner_repository.dart';
 import 'package:dinnermap/features/planner/models.dart';
 import 'package:dinnermap/features/planner/recipe_screen.dart';
 import 'package:dinnermap/features/planner/planner_controller.dart';
-import '../tool/export_starter_recipes.dart' show loadRecipes;
+import 'package:dinnermap/features/planner/starter_recipes.dart'
+    show loadRecipes;
 import 'widget_test.dart' show MemoryRepository;
 
 const chicken = Recipe(
@@ -57,6 +58,8 @@ void main() {
           ),
         ),
       );
+      await tester.tap(find.text('Explore food ideas'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Vegan').first);
       await tester.pumpAndSettle();
       expect(find.text('Sweet Potato & Bean Chilli'), findsOneWidget);

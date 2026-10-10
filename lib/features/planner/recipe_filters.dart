@@ -128,10 +128,9 @@ class RecipeIdeas extends StatelessWidget {
     required this.onSelected,
   });
   @override
-  Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context) => ExpansionTile(
+    title: const Text('Explore food ideas'),
     children: [
-      Text('Explore food ideas', style: Theme.of(context).textTheme.titleLarge),
       const SizedBox(height: 8),
       LayoutBuilder(
         builder: (context, constraints) => Wrap(
