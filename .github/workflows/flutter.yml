@@ -68,6 +68,9 @@ jobs:
       - run: dart tool/shared_check.dart
       - run: dart tool/layout_check.dart
       - run: dart tool/region_check.dart
+      - run: dart tool/pricing_check.dart
+      - run: dart compile js -O2 -o /tmp/pricing_check.js tool/pricing_check.dart
+      - run: node /tmp/pricing_check.js
       - run: flutter build web --dart-define-from-file=config/dinnermap-test.json
       - uses: actions/upload-artifact@v4
         with:

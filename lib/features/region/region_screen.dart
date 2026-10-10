@@ -384,7 +384,11 @@ class _RegionPanelState extends State<RegionPanel> {
                         Text(o.size.isEmpty ? 'Package size unknown' : o.size),
                         Text(
                           o.knownPrice
-                              ? '\$${o.price!.toStringAsFixed(2)} per package'
+                              ? '\$${o.price!.toStringAsFixed(2)} ${o.soldBy == 'UNIT'
+                                    ? 'per package'
+                                    : o.soldBy == 'WEIGHT'
+                                    ? '(variable weight)'
+                                    : '(price basis unknown)'}'
                               : 'Price unavailable',
                         ),
                         if (o.unitPrice != null)

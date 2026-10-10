@@ -51,11 +51,25 @@ Future<void> main() async {
     check(rejected, 'reject radius $radius');
   }
   final offers = [
-    ProductOffer('a', 'Apple', price: 4, amount: 16, unit: 'oz'),
-    ProductOffer('b', 'Banana', price: 3, amount: 1, unit: 'lb'),
+    ProductOffer(
+      'a',
+      'Apple',
+      price: 4,
+      amount: 16,
+      unit: 'oz',
+      soldBy: 'UNIT',
+    ),
+    ProductOffer(
+      'b',
+      'Banana',
+      price: 3,
+      amount: 1,
+      unit: 'lb',
+      soldBy: 'UNIT',
+    ),
     ProductOffer('c', 'Unknown'),
-    ProductOffer('d', 'Milk', price: 2, amount: 1, unit: 'gal'),
-    ProductOffer('e', 'Free', price: 0, amount: 1, unit: 'lb'),
+    ProductOffer('d', 'Milk', price: 2, amount: 1, unit: 'gal', soldBy: 'UNIT'),
+    ProductOffer('e', 'Free', price: 0, amount: 1, unit: 'lb', soldBy: 'UNIT'),
   ];
   check(
     sortProductOffers(offers, OfferSort.packageHigh).last.id == 'c',

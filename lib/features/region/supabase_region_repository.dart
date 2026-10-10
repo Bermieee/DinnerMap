@@ -100,6 +100,7 @@ class SupabaseRegionRepository implements RegionRepository {
             size: r['size'] as String? ?? '',
             availability: r['availability'] as String? ?? 'Unknown',
             storeId: r['store_id'] as String,
+            soldBy: r['sold_by'] as String? ?? 'UNKNOWN',
             retrievedAt: DateTime.tryParse(r['retrieved_at'] as String? ?? ''),
           ),
         )

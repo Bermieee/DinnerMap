@@ -21,7 +21,7 @@ export function normalizeProducts(products,storeId,now=new Date()) {
    const size=typeof item.size==='string'?item.size:'';
    const stock=item.inventory?.stockLevel;
    return {id:`${p.productId}:${typeof item.itemId==='string'?item.itemId:index}`,name:typeof p.description==='string'?p.description:p.productId,
-    price,size,...parseSize(size),store_id:storeId,retailer:'kroger',
+    price,size,...parseSize(size),sold_by:['UNIT','WEIGHT'].includes(item.soldBy)?item.soldBy:'UNKNOWN',store_id:storeId,retailer:'kroger',
     availability:typeof stock==='string'?stock:'Unknown',retrieved_at:now.toISOString()};
   });
  });

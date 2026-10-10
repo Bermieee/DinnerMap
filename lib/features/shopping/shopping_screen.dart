@@ -11,6 +11,7 @@ import 'shopping_models.dart';
 import 'shopping_engine.dart';
 import 'shopping_export.dart';
 import 'shopping_actions.dart';
+import 'shopping_price_screen.dart';
 
 class ShoppingScreen extends ConsumerStatefulWidget {
   final PlannerSnapshot snapshot;
@@ -108,6 +109,15 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
               ),
             ),
           if (list != null) ...[
+            OutlinedButton.icon(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const ShoppingPriceScreen(),
+                ),
+              ),
+              icon: const Icon(Icons.price_check),
+              label: const Text('Price this list at Kroger'),
+            ),
             Text(
               'Saved list: ${dateKey(list.start)} • ${list.weeks} week(s) • ${list.rows.length + list.manualItems.length} items',
             ),

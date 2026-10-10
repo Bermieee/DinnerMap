@@ -23,3 +23,11 @@ This milestone searches offers; it does not choose products automatically, trans
 ## Acceptance still required
 
 Hosted verified login, migration application, function deployment, ZIP resolution for 40165, selected-store prices and two-account profile isolation need live testing. Offline behavior shows an error while preserving saved ZIP preferences; store results are session-only. Google Play testing and physical foldables remain deferred.
+
+## Reviewed grocery-list estimates (0.5.0)
+
+Generate a shopping list, then choose **Price this list at Kroger**. Select a store, search for a product for each grocery item, review the package size, and confirm the number of packages. Compatible known fixed-package quantities suggest a rounded-up package count. Unknown sizes or units require a manual count; unknown price basis also requires explicit fixed-package confirmation. Variable-weight products are displayed but excluded from fixed-package estimates.
+
+The displayed total is partial until every item is priced. Unpriced items are excluded, and an entirely unpriced list shows a dash rather than zero. The estimate includes checked list items and manual items; it excludes tax, delivery fees, coupons and variable-weight checkout adjustments. Store or ingredient quantity changes invalidate selections; a stale shopping list must be regenerated. Selections currently last only while the pricing screen is open and are not shared between household members.
+
+Live acceptance remains pending Kroger application registration and backend credentials. Register a DinnerMap application at https://developer.kroger.com/ and add `KROGER_CLIENT_ID` and `KROGER_CLIENT_SECRET` under Supabase **Edge Functions → Secrets** for project `cmrfydajyhoctunacdvi`. Do not put the client secret in Flutter/web configuration or GitHub source. Once configured, verify ZIP lookup, selected-store product prices, package sizes and account isolation with real results. No cart or checkout integration is included in this milestone.

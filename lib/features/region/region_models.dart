@@ -42,7 +42,7 @@ class ProductOffer {
   final String id, name;
   final double? price, amount;
   final String? unit;
-  final String size, availability, storeId;
+  final String size, availability, storeId, soldBy;
   final DateTime? retrievedAt;
   const ProductOffer(
     this.id,
@@ -53,6 +53,7 @@ class ProductOffer {
     this.size = '',
     this.availability = 'Unknown',
     this.storeId = '',
+    this.soldBy = 'UNKNOWN',
     this.retrievedAt,
   });
   bool get knownPrice => price != null && price!.isFinite && price! >= 0;
@@ -75,7 +76,8 @@ class ProductOffer {
     };
   }
 
-  double? get unitPrice => knownPrice && normalizedAmount != null
+  double? get unitPrice =>
+      soldBy == 'UNIT' && knownPrice && normalizedAmount != null
       ? price! / normalizedAmount!
       : null;
   String? get unitFamily => switch (unit?.toLowerCase()) {

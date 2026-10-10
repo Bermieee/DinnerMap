@@ -56,3 +56,7 @@ test('malformed optional location strings retain a usable typed store',async()=>
  const stores=await s.dispatch('stores',{zip:'40165',radius:25});
  assert.equal(stores[0].name,'Kroger');assert.equal(stores[0].state,'');assert.equal(stores[0].address,'Town');
 });
+test('normalization retains unit versus variable-weight sale basis for quote safety',()=>{
+ const offers=normalizeProducts([{productId:'p',items:[{itemId:'u',soldBy:'UNIT',size:'2 lb',price:{regular:4.99}},{itemId:'w',soldBy:'WEIGHT',size:'1 lb',price:{regular:2.49}},{itemId:'unknown',size:'2 lb',price:{regular:4.99}}]}],'123');
+ assert.equal(offers[0].sold_by,'UNIT');assert.equal(offers[1].sold_by,'WEIGHT');assert.equal(offers[2].sold_by,'UNKNOWN');
+});
