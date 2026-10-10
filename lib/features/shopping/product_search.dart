@@ -26,11 +26,12 @@ String productSearchTerm(String ingredient) {
     ),
     ' ',
   );
-  term = term.replaceAll(
-    RegExp(r'\b(?:and|then)\b', caseSensitive: false),
-    ' ',
-  );
   term = term.replaceAll(RegExp(r'[,;()]'), ' ');
+  term = term.replaceAll(RegExp(r'\s+'), ' ').trim();
+  term = term.replaceAll(
+    RegExp(r'^(?:and|then)\s+|\s+(?:and|then)$', caseSensitive: false),
+    '',
+  );
   for (final entry in productForms.entries) {
     term = term.replaceAll(entry.key, entry.value);
   }

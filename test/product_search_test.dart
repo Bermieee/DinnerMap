@@ -6,6 +6,7 @@ import '../lib/features/region/region_providers.dart';
 import '../lib/features/shopping/shopping_price_screen.dart';
 import '../lib/features/shopping/shopping_engine.dart';
 import 'shopping_pricing_test.dart' show PriceRepository;
+import '../lib/features/shopping/product_search.dart';
 
 class SearchRepository extends PriceRepository {
   String? lastQuery;
@@ -15,26 +16,41 @@ class SearchRepository extends PriceRepository {
     return [];
   }
 }
-import '../lib/features/shopping/product_search.dart';
 
 void main() {
-  testWidgets('Kroger receives cleaned search while recipe name stays intact', (t) async {
+  testWidgets('Kroger receives cleaned search while recipe name stays intact', (
+    t,
+  ) async {
     final repo = SearchRepository();
     const name = 'boneless chicken breasts, cubed';
-    await t.pumpWidget(ProviderScope(
-      overrides: [regionRepositoryProvider.overrideWithValue(repo)],
-      child: MaterialApp(home: Scaffold(body: GroceryProductPicker(
-        repository: repo,
-        storeId: '123',
-        row: const ShoppingRow(key: 'chicken', name: name, quantity: 1, unit: 'lb'),
-      ))),
-    ));
+    await t.pumpWidget(
+      ProviderScope(
+        overrides: [regionRepositoryProvider.overrideWithValue(repo)],
+        child: MaterialApp(
+          home: Scaffold(
+            body: GroceryProductPicker(
+              repository: repo,
+              storeId: '123',
+              row: const ShoppingRow(
+                key: 'chicken',
+                name: name,
+                quantity: 1,
+                unit: 'lb',
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
     await t.pumpAndSettle();
     expect(find.text('Price $name'), findsOneWidget);
     await t.tap(find.text('Search products'));
     await t.pumpAndSettle();
     expect(repo.lastQuery, 'boneless chicken breasts');
-    await t.enterText(find.widgetWithText(TextField, 'Search Kroger products'), 'skinless chicken breast');
+    await t.enterText(
+      find.widgetWithText(TextField, 'Search Kroger products'),
+      'skinless chicken breast',
+    );
     await t.tap(find.text('Search products'));
     await t.pumpAndSettle();
     expect(repo.lastQuery, 'skinless chicken breast');
@@ -57,6 +73,8 @@ void main() {
       'cilantro, chopped (optional)': 'cilantro',
       'salt, to taste': 'salt',
       'cubed': 'cubed',
+      'half and half': 'half and half',
+      'macaroni and cheese': 'macaroni and cheese',
     };
     for (final entry in cases.entries) {
       expect(productSearchTerm(entry.key), entry.value, reason: entry.key);
