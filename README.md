@@ -49,6 +49,7 @@ flutter run
 flutter analyze
 flutter test
 dart tool/domain_check.dart
+dart tool/month_plan_check.dart
 dart tool/storage_check.dart
 dart tool/account_check.dart
 dart tool/shared_check.dart
@@ -66,7 +67,7 @@ GitHub Actions validates an ephemeral PostgreSQL database, generates platform fi
 
 Recipes retain source links and original ingredient measurements. Full cooking directions are at the linked source. Most imported base serving counts are unknown: quantities stay at the original recipe yield until users confirm that count in the recipe editor. Ambiguous amounts remain visible with warnings. Volume does not convert to mass without a density. Count weights are estimates.
 
-The demo starts with 28 offline recipes, selected from the prototype's curated library, rather than fetching its online starter calendar. The exact original prototype remains in `reference/`. Review recipe redistribution rights before public release.
+New local plans cover every day of the phone's current month using offline recipes. Shuffle month fills missing days in the displayed month while preserving takeout and leftovers. The exact original prototype remains in `reference/`. Review recipe redistribution rights before public release.
 
 ## Design and plan
 

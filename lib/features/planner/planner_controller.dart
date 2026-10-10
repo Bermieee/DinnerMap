@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/planner_repository.dart';
 import 'models.dart';
+import 'month_plan.dart';
 import '../shopping/shopping_engine.dart';
 import '../shopping/shopping_models.dart';
 
@@ -72,15 +73,15 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
           }).toList(),
         );
       }).toList();
-      final today = dateOnly(DateTime.now());
+      final dates = monthDates(DateTime.now());
       state = AsyncValue.data(
         PlannerSnapshot(
           recipes: {for (final r in recipes) r.id: r},
           entries: [
-            for (var i = 0; i < 28; i++)
+            for (var i = 0; i < dates.length; i++)
               PlanEntry(
-                id: 'day-$i',
-                date: DateTime(today.year, today.month, today.day + i),
+                id: 'day-${dateKey(dates[i])}',
+                date: dates[i],
                 recipeId: recipes[i % recipes.length].id,
               ),
           ],
@@ -168,19 +169,26 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     final random = Random();
     commitSnapshot(
       s.copyWith(
-        entries: s.entries
-            .map(
-              (e) =>
-                  e.kind == EntryKind.recipe &&
-                      !e.date.isBefore(start) &&
-                      e.date.isBefore(end)
-                  ? e.copyWith(
-                      recipeId: available[random.nextInt(available.length)].id,
-                      cooked: false,
-                    )
-                  : e,
-            )
-            .toList(),
+        entries:
+            fillPlanRange(
+                  s.entries,
+                  start,
+                  days,
+                  () => available[random.nextInt(available.length)].id,
+                )
+                .map(
+                  (e) =>
+                      e.kind == EntryKind.recipe &&
+                          !e.date.isBefore(start) &&
+                          e.date.isBefore(end)
+                      ? e.copyWith(
+                          recipeId:
+                              available[random.nextInt(available.length)].id,
+                          cooked: false,
+                        )
+                      : e,
+                )
+                .toList(),
       ),
       mealChange: true,
     );
