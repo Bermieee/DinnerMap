@@ -1,7 +1,7 @@
 # Regional shopping validation
 
 ## Scope
-Private account ZIP/radius preferences, ZIP metadata resolution/cache, Kroger location discovery and selected-store product search. Local device ZIP saving is available without a backend. Walmart and Amazon are explicitly unavailable. The existing Supabase backend is deployed; Kroger credentials remain pending.
+Private account ZIP/radius preferences, ZIP metadata resolution/cache, Kroger location discovery and selected-store product search. Local device ZIP saving is available without a backend. Walmart and Amazon are explicitly unavailable. The existing Supabase backend is deployed; Kroger credentials are configured and initial live discovery/pricing was confirmed by the user.
 
 ## Automated evidence
 Version **0.4.0+4**, code commit `f3faf09972d284845aac68a9887623bf221e6bfa` (local `e275cd8`), is validated by [CI 38021996737](https://github.com/Bermieee/DinnerMap/actions/runs/38021996737).
@@ -48,3 +48,15 @@ Supabase retailers function version 2 deployed ACTIVE with JWT verification reta
 The web source was packaged from Sites commit `fe24363628f9806a58e874d03bf18eef49c823cd`; only HTML/manifest metadata differs from the compiled CI assets. Managed interactive browser QA was unavailable; no live Kroger provider acceptance is claimed.
 
 DinnerMap0.5.0 published successfully at https://dinnermap-web.lushsnail1.chatgpt.site with audience preserved. Deployment `appgdep_6acabe4cfb048191abc0363a0eaa3c1b`, version `appgprj_6aca85cdb0208191af6166428b56d663~appgver_dc61993d5da08191ac6c4dae1f1c7fae`.
+
+## Consumer grocery model — 0.5.1+9
+
+Source `37765ef5b05ac37491228b89ea7b185a5d9192e3` (local `11ad101`) replaces raw internal ml display with shared cooking-unit formatting. A RED native check reproduced 78.8627455 ml flour displaying as ml; after implementation it shows 1/3 cup and a reviewed 5 lb fixed flour bag suggests one package. Thirteen consumer checks cover fractions, retained cooking weights/instructions, density variants, exports, whole eggs/cartons, rounding noise and upward loose shopping weights. Native and compiled JavaScript checks passed locally before CI.
+
+Reviewed products now survive closing the estimate screen and appear in the grocery list and exports during the app session. Scope remains personal and in-memory; app reloads clear quotes. Independent review caught a pending piece-weight dialog returning an old package count after a shared estimate update. The result-generation guard now invalidates on piece-weight changes; a Flutter regression covers 18 pieces at 6→12 ounces while the dialog remains open. Follow-up review found no Important issues.
+
+User live acceptance on 2026-10-10: Kroger credentials were configured, initial secret-name mismatch corrected, and nearby store lookup/selection succeeded. User then reported the integration working before raising consumer-quantity feedback. No secrets were recorded in source or documentation. Full two-account regional privacy and physical-device purchase-flow acceptance remain pending.
+
+[CI 38093771564](https://github.com/Bermieee/DinnerMap/actions/runs/38093771564) passed formatting, analysis, 102 Flutter tests, native/compiled-JavaScript consumer and pricing checks, PostgreSQL, Node retailer tests and Deno checking. The catalogue regression covers all 108 starter recipes; phone/desktop shopping screens and exported reviewed choices pass. Web artifact 11685710251 ZIP SHA256 `d69ec01097646ddcdf9c05e41492a2b410eca5e09b06e1ab3197b2cbafd92dae` verified before extraction. Android CI remains in progress at this documentation checkpoint.
+
+Published successfully at https://dinnermap-web.lushsnail1.chatgpt.site from Sites source `b6b38152b899b75a9921051117e0fa03c41507b2`. Deployment `appgdep_6acac5889f188191b676bb8f052de8a1`, version `appgprj_6aca85cdb0208191af6166428b56d663~appgver_b2f09dc4f6b48191963c596d252541b6`. Audience preserved. Original compiled assets unchanged; HTML/manifest metadata adjusted. Interactive live browser QA was unavailable. No backend or database changes were needed.
