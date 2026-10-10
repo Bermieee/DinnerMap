@@ -71,7 +71,7 @@ Flutter is free. No paid service has been configured. Supabase is the selected o
 
 ## Verification status
 
-The initial local foundation passed Flutter tests and Android/web builds, and the user confirmed meal editing and grocery generation on an Android phone. The sharing branch adds database security/concurrency and Flutter sync regressions; inspect its latest [CI run](https://github.com/Bermieee/DinnerMap/pull/2/checks) for current results.
+The initial local foundation passed Flutter tests and Android/web builds, and the user confirmed meal editing and grocery generation on an Android phone. The sharing branch adds database security/concurrency and Flutter sync regressions. The adaptive branch adds window, fold, accessibility and account-lifetime regressions; inspect [adaptive checks](https://github.com/Bermieee/DinnerMap/pull/3/checks) and [recorded validation](docs/adaptive-layout-validation.md) for exact build evidence.
 
 Hosted Supabase Auth/Realtime, email delivery/redirects and a live two-account flow require a configured project and remain unverified. Local Flutter bootstrap was blocked by automatic approval review; validation uses isolated GitHub CI and safe standalone Dart checks.
 
