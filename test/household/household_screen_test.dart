@@ -7,6 +7,50 @@ import 'dart:async';
 import 'package:dinnermap/features/household/household_screen.dart';
 
 void main() {
+  testWidgets('password confirmation prevents a mismatched change', (
+    tester,
+  ) async {
+    final repo = TestAccounts();
+    final controller = AccountController(repo);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: HouseholdScreen(
+            state: const AccountState(
+              session: AccountSession('u', 'a@example.com', true),
+            ),
+            controller: controller,
+          ),
+        ),
+      ),
+    );
+    await tester.ensureVisible(find.text('Change password'));
+    await tester.tap(find.text('Change password'));
+    await tester.pumpAndSettle();
+    expect(find.text('Account security'), findsOneWidget);
+    await tester.enterText(
+      find.widgetWithText(TextField, 'New password'),
+      'Asecurepassword123',
+    );
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Confirm new password'),
+      'Differentpassword123',
+    );
+    await tester.ensureVisible(find.text('Save new password'));
+    await tester.tap(find.text('Save new password'));
+    await tester.pumpAndSettle();
+    expect(find.text('Passwords do not match.'), findsOneWidget);
+    expect(repo.savedPassword, isNull);
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Confirm new password'),
+      'Asecurepassword123',
+    );
+    await tester.tap(find.text('Save new password'));
+    await tester.pumpAndSettle();
+    expect(repo.savedPassword, 'Asecurepassword123');
+    expect(find.text('Confirm new password'), findsNothing);
+    controller.dispose();
+  });
   testWidgets('unconfigured accounts retain local mode', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
@@ -37,6 +81,7 @@ void main() {
 }
 
 class TestAccounts implements AccountRepository {
+  String? savedPassword;
   @override
   AccountSession? get currentSession => null;
   @override
@@ -56,7 +101,10 @@ class TestAccounts implements AccountRepository {
   @override
   Future<void> resetPassword(String e) async {}
   @override
-  Future<void> updatePassword(String p) async {}
+  Future<void> updatePassword(String p) async {
+    savedPassword = p;
+  }
+
   @override
   Future<Household> createHousehold(String n) async => Household('h', n);
   @override

@@ -26,13 +26,40 @@ class HouseholdScreen extends StatefulWidget {
 class _HouseholdScreenState extends State<HouseholdScreen> {
   final email = TextEditingController(),
       password = TextEditingController(),
+      confirmation = TextEditingController(),
       name = TextEditingController(),
       invite = TextEditingController();
   bool register = false, changingPassword = false;
+  String? passwordError;
+  @override
+  void didUpdateWidget(covariant HouseholdScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.state.session?.userId != widget.state.session?.userId ||
+        !identical(oldWidget.controller, widget.controller)) {
+      password.clear();
+      confirmation.clear();
+      invite.clear();
+      name.clear();
+      changingPassword = false;
+      passwordError = null;
+    }
+  }
+
+  bool validPassword() {
+    final error = password.text.length < 8
+        ? 'Use at least 8 characters.'
+        : password.text != confirmation.text
+        ? 'Passwords do not match.'
+        : null;
+    setState(() => passwordError = error);
+    return error == null;
+  }
+
   @override
   void dispose() {
     email.dispose();
     password.dispose();
+    confirmation.dispose();
     name.dispose();
     invite.dispose();
     super.dispose();
@@ -94,11 +121,35 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
             TextField(
               controller: password,
               obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              autofillHints: [
+                register ? AutofillHints.newPassword : AutofillHints.password,
+              ],
               decoration: const InputDecoration(labelText: 'Password'),
             ),
+            if (register) ...[
+              const SizedBox(height: 12),
+              TextField(
+                controller: confirmation,
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                autofillHints: const [AutofillHints.newPassword],
+                decoration: InputDecoration(
+                  labelText: 'Confirm password',
+                  errorText: passwordError,
+                ),
+              ),
+              const Text(
+                'Use at least 8 characters. A longer, unique password is safer.',
+              ),
+            ],
             button(register ? 'Create account' : 'Sign in', () async {
+              if (register && !validPassword()) return;
               final p = password.text;
               password.clear();
+              confirmation.clear();
               if (register) {
                 await c.signUp(email.text, p);
               } else {
@@ -108,7 +159,12 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
             TextButton(
               onPressed: s.busy
                   ? null
-                  : () => setState(() => register = !register),
+                  : () => setState(() {
+                      register = !register;
+                      password.clear();
+                      confirmation.clear();
+                      passwordError = null;
+                    }),
               child: Text(
                 register
                     ? 'Already have an account? Sign in'
@@ -123,18 +179,55 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
             Text(s.session!.email),
             const SizedBox(height: 12),
             if (s.session!.passwordRecovery || changingPassword) ...[
+              Text(
+                'Account security',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const Text('Set a unique password with at least 8 characters.'),
               TextField(
                 controller: password,
                 obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                autofillHints: const [AutofillHints.newPassword],
                 decoration: const InputDecoration(labelText: 'New password'),
               ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: confirmation,
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                autofillHints: const [AutofillHints.newPassword],
+                decoration: InputDecoration(
+                  labelText: 'Confirm new password',
+                  errorText: passwordError,
+                ),
+              ),
               button('Save new password', () async {
+                if (!validPassword()) return;
                 final p = password.text;
                 password.clear();
+                confirmation.clear();
                 await c.updatePassword(p);
-                if (mounted && c.state.error == null)
+                if (mounted &&
+                    identical(widget.controller, c) &&
+                    widget.state.session?.userId == s.session?.userId &&
+                    c.state.error == null)
                   setState(() => changingPassword = false);
               }),
+              if (!s.session!.passwordRecovery)
+                TextButton(
+                  onPressed: s.busy
+                      ? null
+                      : () => setState(() {
+                          password.clear();
+                          confirmation.clear();
+                          passwordError = null;
+                          changingPassword = false;
+                        }),
+                  child: const Text('Cancel password change'),
+                ),
             ] else if (!s.session!.verified) ...[
               const Text(
                 'Verify your email using the link in your inbox, then refresh.',
@@ -150,7 +243,8 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
               TextField(
                 controller: invite,
                 decoration: const InputDecoration(
-                  labelText: 'Invitation token',
+                  labelText: 'Invitation code',
+                  hintText: 'ABCD-EFGH-JKLM',
                 ),
               ),
               button('Join household', () async {
@@ -191,7 +285,7 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const Text(
-                          'Single use; expires in 24 hours. Anyone you give this token can edit your household.',
+                          'Share this code with your family member. Single use; expires in 24 hours. Anyone with this code can join and edit your household.',
                         ),
                         const SizedBox(height: 12),
                         SelectableText(token),
@@ -242,13 +336,35 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
                 }
               }),
             ],
-            if (!changingPassword && !s.session!.passwordRecovery)
+            if (!changingPassword && !s.session!.passwordRecovery) ...[
+              const SizedBox(height: 24),
+              Text(
+                'Account security',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Text(
+                s.session!.verified
+                    ? 'Email verified'
+                    : 'Email verification pending',
+              ),
               TextButton(
                 onPressed: s.busy
                     ? null
-                    : () => setState(() => changingPassword = true),
+                    : () => setState(() {
+                        password.clear();
+                        confirmation.clear();
+                        passwordError = null;
+                        changingPassword = true;
+                      }),
                 child: const Text('Change password'),
               ),
+              TextButton(
+                onPressed: s.busy
+                    ? null
+                    : () => c.resetPassword(s.session!.email),
+                child: const Text('Send password reset email'),
+              ),
+            ],
             button('Sign out', () async {
               widget.onUseLocal?.call();
               await c.signOut();
