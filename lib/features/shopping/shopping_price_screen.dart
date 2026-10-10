@@ -11,6 +11,7 @@ import 'shopping_models.dart';
 import 'shopping_pricing.dart';
 import 'shopping_quote_provider.dart';
 import 'consumer_amounts.dart';
+import 'product_search.dart';
 
 class ShoppingPriceScreen extends ConsumerWidget {
   const ShoppingPriceScreen({super.key});
@@ -281,7 +282,9 @@ class GroceryProductPicker extends ConsumerStatefulWidget {
 }
 
 class _GroceryProductPickerState extends ConsumerState<GroceryProductPicker> {
-  late final query = TextEditingController(text: widget.row.name);
+  late final query = TextEditingController(
+    text: productSearchTerm(widget.row.name),
+  );
   final packages = TextEditingController();
   List<ProductOffer> offers = [];
   ProductOffer? selected;
