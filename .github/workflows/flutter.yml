@@ -51,7 +51,7 @@ jobs:
       - run: dart tool/shared_check.dart
       - run: dart tool/layout_check.dart
       - run: dart tool/region_check.dart
-      - run: node --test tool/retailers/core_test.mjs
+      - run: node --test tool/retailers/*.mjs
       - run: flutter build web
       - uses: actions/upload-artifact@v4
         with:

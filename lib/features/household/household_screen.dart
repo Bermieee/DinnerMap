@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'account_controller.dart';
 import 'account_models.dart';
+import '../region/region_screen.dart';
 
 class HouseholdScreen extends StatefulWidget {
   final AccountState state;
@@ -57,6 +58,14 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
           Text(
             'Your household',
             style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 16),
+          OutlinedButton.icon(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const RegionScreen()),
+            ),
+            icon: const Icon(Icons.store_outlined),
+            label: const Text('Stores & prices'),
           ),
           const SizedBox(height: 16),
           if (s.busy) const LinearProgressIndicator(),

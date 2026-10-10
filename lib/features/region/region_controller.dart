@@ -26,10 +26,7 @@ class RegionController {
   bool _disposed = false;
   int _generation = 0;
   RegionController(this.repository);
-  Stream<RegionState> get changes async* {
-    yield state;
-    yield* _changes.stream;
-  }
+  Stream<RegionState> get changes => _changes.stream;
 
   void _emit(RegionState next) {
     if (_disposed) return;

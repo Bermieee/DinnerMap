@@ -6,14 +6,22 @@ import 'region_controller.dart';
 import 'local_region_repository.dart';
 import 'supabase_region_repository.dart';
 
+final regionalIdentityProvider = Provider<({String? userId, bool verified})>((
+  ref,
+) {
+  final controller = ref.watch(accountControllerProvider);
+  final state =
+      ref.watch(accountStateProvider).asData?.value ?? controller?.state;
+  return (
+    userId: state?.session?.userId,
+    verified: state?.session?.verified ?? false,
+  );
+});
 final regionRepositoryProvider = Provider<RegionRepository>((ref) {
-  final account = ref.watch(accountControllerProvider);
-  final session =
-      ref.watch(accountStateProvider).asData?.value.session ??
-      account?.state.session;
+  final identity = ref.watch(regionalIdentityProvider);
   final repository = ref.watch(accountRepositoryProvider);
-  if (session?.verified == true && repository is SupabaseAccountRepository) {
-    return SupabaseRegionRepository(repository.client, session!.userId);
+  if (identity.verified && repository is SupabaseAccountRepository) {
+    return SupabaseRegionRepository(repository.client, identity.userId!);
   }
   return LocalRegionRepository(ref.watch(preferencesProvider));
 });
