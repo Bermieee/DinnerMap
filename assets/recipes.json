@@ -6704,5 +6704,238 @@
     "type": "favorite",
     "yieldNote": "Serves 4; makes 28\u201330",
     "dishStyle": "dumplings"
+  },
+  {
+    "id": "vegan-01",
+    "name": "Sweet Potato & Bean Chilli",
+    "area": "International",
+    "category": "Plant based",
+    "type": "favorite",
+    "original": "https://www.bbcgoodfoodme.com/recipes/vegan-chilli/",
+    "yieldNote": "Serves 4; use the cooking source for directions. Choose vegan toppings.",
+    "ingredients": [
+      {
+        "measure": "3 tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "2",
+        "name": "sweet potatoes"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "smoked paprika"
+      },
+      {
+        "measure": "2 tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "1",
+        "name": "onion"
+      },
+      {
+        "measure": "2",
+        "name": "carrots"
+      },
+      {
+        "measure": "2",
+        "name": "celery stalks"
+      },
+      {
+        "measure": "2 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1\u20132 tsp",
+        "name": "chilli powder"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "dried oregano"
+      },
+      {
+        "measure": "1 tbsp",
+        "name": "tomato puree"
+      },
+      {
+        "measure": "1",
+        "name": "red bell pepper"
+      },
+      {
+        "measure": "2 cans (400 g each)",
+        "name": "chopped tomatoes"
+      },
+      {
+        "measure": "1 can (400 g), drained",
+        "name": "black beans"
+      },
+      {
+        "measure": "1 can (400 g), drained",
+        "name": "kidney beans"
+      },
+      {
+        "measure": "200 ml",
+        "name": "water"
+      },
+      {
+        "measure": "to serve",
+        "name": "lime, guacamole, coriander and rice"
+      }
+    ]
+  },
+  {
+    "id": "vegan-02",
+    "name": "Coconut Chickpea & Spinach Curry",
+    "area": "Indian",
+    "category": "Plant based",
+    "type": "favorite",
+    "original": "https://www.bbcgoodfoodme.com/recipes/kadala-curry/",
+    "yieldNote": "Serves 4; use the cooking source for directions. Choose vegan rice or dhal sides.",
+    "ingredients": [
+      {
+        "measure": "2 tbsp",
+        "name": "vegetable oil"
+      },
+      {
+        "measure": "1",
+        "name": "onion"
+      },
+      {
+        "measure": "1 tsp",
+        "name": "fresh or dried chilli"
+      },
+      {
+        "measure": "9 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "thumb-sized piece",
+        "name": "ginger"
+      },
+      {
+        "measure": "1 tbsp",
+        "name": "ground coriander"
+      },
+      {
+        "measure": "2 tbsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "1 tbsp",
+        "name": "garam masala"
+      },
+      {
+        "measure": "2 tbsp",
+        "name": "tomato puree"
+      },
+      {
+        "measure": "2 cans (400 g each), drained",
+        "name": "chickpeas"
+      },
+      {
+        "measure": "1 can (400 g)",
+        "name": "chopped tomatoes"
+      },
+      {
+        "measure": "100 g",
+        "name": "creamed coconut"
+      },
+      {
+        "measure": "half a small pack",
+        "name": "fresh coriander"
+      },
+      {
+        "measure": "100 g",
+        "name": "spinach"
+      },
+      {
+        "measure": "to serve",
+        "name": "rice or dhal"
+      },
+      {
+        "measure": "as needed",
+        "name": "water"
+      },
+      {
+        "measure": "to taste",
+        "name": "salt"
+      }
+    ]
+  },
+  {
+    "id": "vegan-03",
+    "name": "Vegan Lentil & Kale Soup",
+    "area": "International",
+    "category": "Plant based",
+    "type": "favorite",
+    "original": "https://www.loveandlemons.com/lentil-soup/",
+    "yieldNote": "Serves 4\u20136; source serving range is unconfirmed for scaling. Vegan version omits the optional Parmesan topping.",
+    "ingredients": [
+      {
+        "measure": "2 tbsp",
+        "name": "olive oil"
+      },
+      {
+        "measure": "1",
+        "name": "yellow onion"
+      },
+      {
+        "measure": "4",
+        "name": "carrots"
+      },
+      {
+        "measure": "2",
+        "name": "celery stalks"
+      },
+      {
+        "measure": "6 small or 3 large leaves",
+        "name": "kale"
+      },
+      {
+        "measure": "heaping 1/2 tsp",
+        "name": "ground cumin"
+      },
+      {
+        "measure": "1.5 tsp",
+        "name": "sea salt"
+      },
+      {
+        "measure": "to taste",
+        "name": "black pepper"
+      },
+      {
+        "measure": "4 cloves",
+        "name": "garlic"
+      },
+      {
+        "measure": "1 can (14 oz)",
+        "name": "fire-roasted diced tomatoes"
+      },
+      {
+        "measure": "3/4 cup",
+        "name": "dry green lentils"
+      },
+      {
+        "measure": "2 tbsp",
+        "name": "white wine vinegar"
+      },
+      {
+        "measure": "12 sprigs",
+        "name": "fresh thyme"
+      },
+      {
+        "measure": "6 cups",
+        "name": "vegetable broth"
+      },
+      {
+        "measure": "1/2 cup",
+        "name": "fresh parsley"
+      },
+      {
+        "measure": "to taste",
+        "name": "red pepper flakes"
+      }
+    ]
   }
 ]

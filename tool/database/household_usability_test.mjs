@@ -23,10 +23,11 @@ await q('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'rec
 const entry={id:'dinner',date:'2026-10-10',recipeId:null,targetServings:4,kind:'takeout',cooked:false,notes:'Keep our meal'};
 await q('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'entry',id:entry.id,expectedRevision:-1,value:entry}]);
 await db.exec('reset role');
-for(const f of (await readdir(dir)).filter(f=>f.endsWith('_household_usability.sql')).sort()) await db.exec(await readFile(new URL(f,dir),'utf8'));
+for(const f of (await readdir(dir)).filter(f=>f.endsWith('_household_usability.sql')||f.endsWith('_recipe_discovery.sql')).sort()) await db.exec(await readFile(new URL(f,dir),'utf8'));
 await as(1);
 let view=(await q('select public.read_shared_plan() as v')).v;
 assert.ok(view.snapshot.recipes.length>100,'existing households get the recipe library');
+assert.equal(view.snapshot.recipes.find(r=>r.id==='vegan-01')?.title,'Sweet Potato & Bean Chilli','shared households get planable vegan ideas');
 assert.deepEqual(view.snapshot.entries,[entry],'migration preserves existing calendar');
 assert.deepEqual(view.snapshot.recipes.find(r=>r.id==='us-01'),custom,'migration preserves edited recipes with starter IDs');
 const recipe=view.snapshot.recipes.find(r=>r.id!=='us-01');

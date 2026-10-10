@@ -59,6 +59,7 @@ jobs:
       - run: flutter test
       - run: dart tool/domain_check.dart
       - run: dart tool/month_plan_check.dart
+      - run: dart tool/discovery_check.dart
       - run: dart tool/storage_check.dart
       - run: dart tool/account_check.dart
       - run: dart tool/shared_check.dart
