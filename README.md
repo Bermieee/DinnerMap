@@ -1,6 +1,6 @@
 # DinnerMap
 
-Flutter meal planning and grocery lists for Android and web. Optional Supabase accounts and household sharing are implemented in the sharing branch; official Kroger/Walmart connections and Amazon eligibility work are the next stage.
+Flutter meal planning and grocery lists for Android and web. Optional Supabase accounts and household sharing are implemented in the sharing branch; the regional-shopping branch adds ZIP profiles and a server-side Kroger connector. Walmart and Amazon access remain pending.
 
 ## Foundation features
 
@@ -8,7 +8,7 @@ Flutter meal planning and grocery lists for Android and web. Optional Supabase a
 - 105 attributed offline recipes, recipe search, favorites, shuffle avoidance and manual recipe editing.
 - Cumulative 1–4 week shopping totals, compatible unit conversion, pounds/ounces and editable per-piece weight estimates.
 - Local saved data, checklist items, manual groceries, regeneration, TXT/CSV export and JSON backup/restore.
-- Retailer interfaces and tested lowest/highest price sorting logic; live product results and cart transfer are not connected.
+- Private ZIP/radius preferences, Kroger store discovery and store-specific searches when the backend is configured; package/unit price sorting in both directions. Cart transfer remains pending.
 
 Without backend configuration, this version runs as a **local demo** and data stays on the current browser/device. Browser storage can be cleared; export backups for important plans.
 
@@ -23,6 +23,12 @@ See [household setup](docs/household-setup.md) for migrations, free-project conf
 Version 0.3.0 adapts navigation, calendar panes, recipe cards and dialogs to available window space, safe insets, keyboard and separating folds. Tabs retain selections, searches, shopping options and scroll positions. Shared read-only mode allows browsing and exports while mutation controls stay disabled.
 
 See [layout validation](docs/adaptive-layout-validation.md) for automated evidence and remaining device checks.
+
+## Regional shopping
+
+Version 0.4.0 adds **Household → Stores & prices**. Save a US ZIP and radius, discover nearby Kroger locations, select a store and search products. Local mode saves device location preferences; verified configured accounts save private account preferences. Walmart and Amazon display access-pending status. Unknown quantities/prices stay unknown, and unit comparison separates weight, volume and count.
+
+The [regional setup guide](docs/regional-shopping-setup.md) describes the new migration, Edge Function and Kroger backend secrets. Nothing has been deployed; default CI APKs cannot fetch live prices. See [regional validation](docs/regional-shopping-validation.md) for tests and outstanding live checks.
 
 ## Run
 
@@ -47,6 +53,9 @@ dart tool/storage_check.dart
 dart tool/account_check.dart
 dart tool/shared_check.dart
 dart tool/layout_check.dart
+dart tool/region_check.dart
+node --test tool/retailers/*.mjs
+deno check supabase/functions/retailers/index.ts
 flutter build web
 flutter build apk --debug
 ```

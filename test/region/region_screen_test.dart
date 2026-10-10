@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui' show DisplayFeature, DisplayFeatureType, DisplayFeatureState;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -156,4 +157,29 @@ void main() {
       expect(t.takeException(), isNull);
     });
   }
+  testWidgets(
+    'store page selects larger lower fold region for its header and form',
+    (t) async {
+      await mount(
+        t,
+        const Size(800, 800),
+        features: const [
+          DisplayFeature(
+            bounds: Rect.fromLTWH(0, 400, 800, 24),
+            type: DisplayFeatureType.hinge,
+            state: DisplayFeatureState.postureHalfOpened,
+          ),
+        ],
+      );
+      expect(
+        t.getRect(find.text('Stores & prices')).top,
+        greaterThanOrEqualTo(424),
+      );
+      expect(
+        t.getRect(find.byKey(const Key('region-zip'))).top,
+        greaterThanOrEqualTo(424),
+      );
+      expect(t.takeException(), isNull);
+    },
+  );
 }
