@@ -32,6 +32,7 @@ const salad = Recipe(
   ingredients: [Ingredient(name: 'rice')],
 );
 final snapshot = PlannerSnapshot(
+  entries: const [],
   recipes: {'j': chicken, 'g': soup, 's': salad},
 );
 
@@ -43,6 +44,7 @@ void main() {
         jsonDecode(File('assets/recipes.json').readAsStringSync()) as List,
       );
       final library = PlannerSnapshot(
+        entries: const [],
         recipes: {for (final r in recipes) r.id: r},
       );
       await tester.pumpWidget(

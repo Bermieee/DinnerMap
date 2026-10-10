@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import '../lib/data/planner_repository.dart';
+import '../lib/features/planner/starter_recipes.dart' show addDiscoveryStarters;
 import '../lib/features/planner/models.dart';
 import '../lib/features/planner/recipe_discovery.dart';
 import 'export_starter_recipes.dart' show loadRecipes;
@@ -12,6 +14,47 @@ void check(bool condition, String message) {
 void main() {
   final recipes = loadRecipes(
     jsonDecode(File('assets/recipes.json').readAsStringSync()) as List,
+  );
+  final old = PlannerSnapshot(
+    entries: [
+      PlanEntry(id: 'saved', date: DateTime(2026, 10, 10), recipeId: 'custom'),
+    ],
+    recipes: {
+      'custom': const Recipe(id: 'custom', title: 'My dinner', ingredients: []),
+    },
+    revision: 7,
+    favorites: {'custom'},
+    avoided: {'us-01'},
+    pieceWeights: {'onion': 4},
+  );
+  final upgraded = addDiscoveryStarters(old, recipes);
+  check(
+    upgraded.recipes.length == 4 &&
+        upgraded.recipes['custom'] == old.recipes['custom'] &&
+        identical(upgraded.entries, old.entries) &&
+        identical(upgraded.favorites, old.favorites) &&
+        identical(upgraded.avoided, old.avoided) &&
+        identical(upgraded.pieceWeights, old.pieceWeights) &&
+        upgraded.revision == 8,
+    'local upgrade adds only new starters and preserves saved plans and preferences',
+  );
+  check(
+    identical(addDiscoveryStarters(upgraded, recipes), upgraded),
+    'local upgrade runs only once',
+  );
+  final edited = upgraded.copyWith(
+    recipes: {
+      ...upgraded.recipes,
+      'vegan-01': const Recipe(
+        id: 'vegan-01',
+        title: 'My edited recipe',
+        ingredients: [],
+      ),
+    },
+  );
+  check(
+    identical(addDiscoveryStarters(edited, recipes), edited),
+    'local upgrade preserves edited starter IDs',
   );
   check(
     discoverRecipes(
