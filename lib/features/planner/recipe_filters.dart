@@ -129,6 +129,7 @@ class RecipeIdeas extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) => ExpansionTile(
+    key: const PageStorageKey('recipe-ideas-expanded'),
     title: const Text('Explore food ideas'),
     children: [
       const SizedBox(height: 8),
