@@ -20,6 +20,7 @@ void main() {
       PlanEntry(id: 'saved', date: DateTime(2026, 10, 10), recipeId: 'custom'),
     ],
     recipes: {
+      'us-01': recipes.firstWhere((r) => r.id == 'us-01'),
       'custom': const Recipe(id: 'custom', title: 'My dinner', ingredients: []),
     },
     revision: 7,
@@ -29,7 +30,7 @@ void main() {
   );
   final upgraded = addDiscoveryStarters(old, recipes);
   check(
-    upgraded.recipes.length == 4 &&
+    upgraded.recipes.length == 5 &&
         upgraded.recipes['custom'] == old.recipes['custom'] &&
         identical(upgraded.entries, old.entries) &&
         identical(upgraded.favorites, old.favorites) &&

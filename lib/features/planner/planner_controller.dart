@@ -40,6 +40,7 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
   Future<void> load() async {
     try {
       final saved = await repository.load();
+      if (saved != null) state = AsyncValue.data(saved);
       final recipes = loadRecipes(
         jsonDecode(await rootBundle.loadString('assets/recipes.json')) as List,
       );

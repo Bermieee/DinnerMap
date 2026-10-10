@@ -37,6 +37,11 @@ PlannerSnapshot addDiscoveryStarters(
   List<Recipe> bundled,
 ) {
   const additions = {'vegan-01', 'vegan-02', 'vegan-03'};
+  // Preserve deliberately empty or entirely custom libraries.
+  if (!bundled.any(
+    (r) => !additions.contains(r.id) && saved.recipes.containsKey(r.id),
+  ))
+    return saved;
   final missing = bundled
       .where(
         (r) => additions.contains(r.id) && !saved.recipes.containsKey(r.id),
