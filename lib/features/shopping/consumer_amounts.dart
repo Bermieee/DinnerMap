@@ -111,7 +111,10 @@ String purchaseHint(ShoppingRow row, {String massUnit = 'lb'}) {
   final grams = estimatedPurchaseGrams(row);
   if (grams != null)
     return 'Buy enough for about ${readableAmount(grams, 'g', massUnit: massUnit)}; choose a package';
-  if (family(row.unit) == 'mass')
-    return 'Buy at least ${readableAmount(q, row.unit, massUnit: massUnit)}';
+  if (family(row.unit) == 'mass') {
+    final target = massUnit == 'lb' && row.amountIn('lb') < 1 ? 'oz' : massUnit;
+    final roundedUp = (row.amountIn(target) * 100).ceil() / 100;
+    return 'Buy at least ${readableAmount(roundedUp, target, massUnit: target)}';
+  }
   return 'Choose a package to calculate how many to buy';
 }

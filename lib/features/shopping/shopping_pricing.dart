@@ -33,7 +33,9 @@ int? suggestPackages(
   // Avoid an extra package caused only by floating-point conversion noise.
   final ratio = requiredAmount / amount;
   final nearest = ratio.round();
-  final packages = (ratio - nearest).abs() < 1e-10 ? nearest : ratio.ceil();
+  final packages = nearest >= 1 && (ratio - nearest).abs() < 1e-10
+      ? nearest
+      : ratio.ceil();
   return packages >= 1 && packages <= 999 ? packages : null;
 }
 

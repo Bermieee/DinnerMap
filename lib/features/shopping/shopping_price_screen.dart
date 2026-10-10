@@ -66,7 +66,11 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
   void didUpdateWidget(covariant ShoppingPricePanel oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!identical(oldWidget.list, widget.list) ||
-        oldWidget.stale != widget.stale) {
+        oldWidget.stale != widget.stale ||
+        oldWidget.pieceWeights.length != widget.pieceWeights.length ||
+        oldWidget.pieceWeights.entries.any(
+          (e) => widget.pieceWeights[e.key] != e.value,
+        )) {
       pickerGeneration++;
       final list = widget.list, stale = widget.stale;
       WidgetsBinding.instance.addPostFrameCallback((_) {

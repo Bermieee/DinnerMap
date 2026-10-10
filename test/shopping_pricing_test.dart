@@ -42,24 +42,27 @@ class PriceRepository implements RegionRepository {
 }
 
 void main() {
-  SavedShoppingList list(double quantity) => SavedShoppingList(
-    start: DateTime(2026, 10, 10),
-    weeks: 1,
-    sourceRevision: 1,
-    rows: [
-      ShoppingRow(
-        key: 'chicken|mass',
-        name: 'chicken',
-        quantity: quantity,
-        unit: 'lb',
-      ),
-    ],
-  );
+  SavedShoppingList list(double quantity, {String unit = 'lb'}) =>
+      SavedShoppingList(
+        start: DateTime(2026, 10, 10),
+        weeks: 1,
+        sourceRevision: 1,
+        rows: [
+          ShoppingRow(
+            key: 'chicken|mass',
+            name: 'chicken',
+            quantity: quantity,
+            unit: unit,
+          ),
+        ],
+      );
   Future<void> mount(
     WidgetTester t,
     PriceRepository repo,
-    double quantity,
-  ) async {
+    double quantity, {
+    bool pieces = false,
+    Map<String, double> pieceWeights = const {},
+  }) async {
     t.view.physicalSize = const Size(1280, 1000);
     t.view.devicePixelRatio = 1;
     await t.pumpWidget(
@@ -70,7 +73,11 @@ void main() {
         ],
         child: MaterialApp(
           home: Scaffold(
-            body: ShoppingPricePanel(repository: repo, list: list(quantity)),
+            body: ShoppingPricePanel(
+              repository: repo,
+              list: list(quantity, unit: pieces ? 'count' : 'lb'),
+              pieceWeights: pieceWeights,
+            ),
           ),
         ),
       ),
@@ -164,4 +171,32 @@ void main() {
     );
     expect(t.takeException(), isNull);
   });
+  testWidgets(
+    'an open picker cannot restore a count calculated before a piece-weight update',
+    (t) async {
+      addTearDown(t.view.resetPhysicalSize);
+      addTearDown(t.view.resetDevicePixelRatio);
+      final repo = PriceRepository();
+      await mount(t, repo, 18, pieces: true, pieceWeights: {'chicken|mass': 6});
+      await t.tap(find.text('Find Kroger product'));
+      await t.pumpAndSettle();
+      await t.tap(find.text('Search products'));
+      await t.pumpAndSettle();
+      await t.tap(find.text('Two-pound chicken'));
+      await t.pumpAndSettle();
+      expect(find.text('Line estimate: \$19.96'), findsOneWidget);
+      await mount(
+        t,
+        repo,
+        18,
+        pieces: true,
+        pieceWeights: {'chicken|mass': 12},
+      );
+      await t.tap(find.text('Use product estimate'));
+      await t.pumpAndSettle();
+      expect(find.text('Estimated list total: —'), findsOneWidget);
+      expect(find.text('0 of 1 items priced'), findsOneWidget);
+      expect(t.takeException(), isNull);
+    },
+  );
 }

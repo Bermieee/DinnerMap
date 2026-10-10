@@ -164,4 +164,16 @@ void main() {
         1,
     'conversion noise does not add an unnecessary package',
   );
+  check(
+    purchaseHint(
+          const ShoppingRow(
+            key: 'beef',
+            name: 'beef',
+            unit: 'lb',
+            quantity: 1.004,
+          ),
+        ) ==
+        'Buy at least 1.01 lb',
+    'loose shopping weight rounds up rather than under-buying',
+  );
 }

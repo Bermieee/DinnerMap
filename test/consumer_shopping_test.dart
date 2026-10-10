@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:dinnermap/data/planner_repository.dart';
 import 'package:dinnermap/features/planner/planner_controller.dart';
 import 'package:dinnermap/features/region/region_models.dart';
+import 'package:dinnermap/features/region/region_providers.dart';
 import 'package:dinnermap/features/shopping/shopping_engine.dart';
 import 'package:dinnermap/features/shopping/shopping_models.dart';
 import 'package:dinnermap/features/shopping/shopping_pricing.dart';
@@ -142,6 +143,9 @@ void main() {
         await t.pumpAndSettle();
         expect(copied, contains('Buy 1 × 5 lb'));
         expect(copied, contains('1/3 cup'));
+        container.read(regionalStoreProvider.notifier).state = '456';
+        await t.pumpAndSettle();
+        expect(container.read(shoppingQuoteProvider).selections, isEmpty);
         expect(t.takeException(), isNull);
       },
     );
