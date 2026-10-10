@@ -45,17 +45,16 @@ Future<MemoryRepository> mountLayout(
       ],
       child: MaterialApp(
         theme: ThemeData(useMaterial3: true),
-        home: Builder(
-          builder: (context) => MediaQuery(
-            data: MediaQuery.of(context).copyWith(
-              textScaler: TextScaler.linear(scale),
-              displayFeatures: features,
-              padding: padding,
-              viewInsets: keyboard ?? MediaQuery.of(context).viewInsets,
-            ),
-            child: const DinnerMapShell(),
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: TextScaler.linear(scale),
+            displayFeatures: features,
+            padding: padding,
+            viewInsets: keyboard ?? MediaQuery.of(context).viewInsets,
           ),
+          child: child!,
         ),
+        home: const DinnerMapShell(),
       ),
     ),
   );
@@ -64,6 +63,9 @@ Future<MemoryRepository> mountLayout(
 }
 
 Future<void> navigate(WidgetTester tester, String label) async {
-  await tester.tap(find.text(label).last);
+  final tooltip = find.byTooltip(label);
+  await tester.tap(
+    tooltip.evaluate().isNotEmpty ? tooltip.last : find.text(label).last,
+  );
   await tester.pumpAndSettle();
 }

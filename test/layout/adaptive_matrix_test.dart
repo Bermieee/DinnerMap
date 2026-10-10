@@ -36,6 +36,7 @@ void main() {
           180,
           scrollable: scroll,
         );
+        await tester.pumpAndSettle();
         expect(find.text('Takeout').hitTestable(), findsOneWidget);
         expect(tester.takeException(), isNull);
       });
