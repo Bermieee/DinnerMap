@@ -95,7 +95,9 @@ void main() {
   );
   if (bestDeal(butter, [peanut], '123') != null)
     throw StateError('Reject peanut butter for cooking butter');
-  if (suitableProduct('butter', 'Butter Cookies') ||
+  if (suitableProduct('butter', 'Apple Butter') ||
+      suitableProduct('chicken', 'Chicken Salad') ||
+      suitableProduct('butter', 'Butter Cookies') ||
       suitableProduct('chicken', 'Chicken Dog Treats') ||
       suitableProduct('milk', 'Chocolate Milk') ||
       suitableProduct('flour', 'Flour Tortillas'))

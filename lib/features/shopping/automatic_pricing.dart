@@ -72,7 +72,119 @@ bool suitableProduct(String ingredient, String product) {
     'seasoning',
   };
   if (forms.any((w) => found.contains(w) && !wanted.contains(w))) return false;
-  return true;
+  // Unknown food qualifiers are not evidence of an ingredient match. This
+  // intentionally leaves unfamiliar brands/forms for manual product review.
+  const neutral = {
+    'kroger',
+    'simple',
+    'truth',
+    'private',
+    'selection',
+    'organic',
+    'natural',
+    'fresh',
+    'raw',
+    'premium',
+    'original',
+    'pure',
+    'brand',
+    'farm',
+    'oz',
+    'ounce',
+    'lb',
+    'pound',
+    'g',
+    'kg',
+    'ml',
+    'l',
+    'fl',
+    'ct',
+    'count',
+    'pack',
+    'package',
+    'bag',
+    'bottle',
+    'carton',
+    'can',
+    'jar',
+    'size',
+  };
+  const specific = {
+    'peanut': {'creamy', 'crunchy', 'smooth', 'skippy', 'jif'},
+    'butter': {
+      'salted',
+      'unsalted',
+      'sweet',
+      'cream',
+      'cultured',
+      'stick',
+      'land',
+      'lake',
+      'kerrygold',
+      'irish',
+      'challenge',
+    },
+    'chicken': {
+      'boneless',
+      'skinless',
+      'breast',
+      'thigh',
+      'tenderloin',
+      'whole',
+      'frozen',
+      'tyson',
+      'perdue',
+    },
+    'milk': {
+      'whole',
+      'skim',
+      'nonfat',
+      'fat',
+      'lowfat',
+      'reduced',
+      'percent',
+      'homogenized',
+      'pasteurized',
+      'horizon',
+      'fairlife',
+    },
+    'sugar': {'white', 'granulated', 'cane', 'refined', 'domino'},
+    'flour': {
+      'all',
+      'purpose',
+      'allpurpose',
+      'unbleached',
+      'bleached',
+      'enriched',
+      'wheat',
+      'king',
+      'arthur',
+      'gold',
+      'medal',
+    },
+    'rice': {'white', 'long', 'grain', 'jasmine', 'basmati', 'dry', 'uncooked'},
+    'beef': {'ground', 'fresh', 'angus', 'chuck', 'round', 'sirloin', 'lean'},
+    'egg': {
+      'large',
+      'medium',
+      'small',
+      'white',
+      'brown',
+      'grade',
+      'a',
+      'cage',
+      'free',
+      'range',
+      'dozen',
+    },
+  };
+  final allowed = {...wanted, ...neutral};
+  for (final word in wanted) {
+    allowed.addAll(specific[word] ?? const <String>{});
+  }
+  return found.every(
+    (word) => allowed.contains(word) || RegExp(r'^\d+$').hasMatch(word),
+  );
 }
 
 /// Lowest whole-package cost among returned, compatible fixed-unit offers.
