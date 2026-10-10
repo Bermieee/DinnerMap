@@ -28,7 +28,7 @@ flutter build apk --debug --dart-define=SUPABASE_URL=https://YOUR_PROJECT.supaba
 flutter build web --dart-define=SUPABASE_URL=https://YOUR_PROJECT.supabase.co --dart-define=SUPABASE_ANON_KEY=YOUR_PUBLIC_CLIENT_KEY
 ```
 
-Default GitHub artifacts are unconfigured unless build configuration is explicitly supplied. They exercise local mode and present a setup notice on Household. The Android setup script adds the auth callback intent and Internet permission. Serve web output using HTTPS. Do not distribute debug APKs as a production release.
+GitHub test artifacts now use config/dinnermap-test.json to connect to the configured DinnerMap test project. This file contains only public client configuration; it must never contain secret/service-role keys. A build without these defines remains in local mode. The Android setup script adds the auth callback intent and Internet permission. Serve web output using HTTPS. Do not distribute debug APKs as a production release.
 
 ## Household flow
 

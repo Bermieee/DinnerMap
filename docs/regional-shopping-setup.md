@@ -10,7 +10,7 @@ DinnerMap 0.4 saves a five-digit US ZIP and search radius, separately from share
 4. Deploy supabase/functions/retailers with the Supabase CLI after setting KROGER_CLIENT_ID and KROGER_CLIENT_SECRET using Supabase project secrets. The function uses the existing SUPABASE_URL, SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY provided to deployed functions. Retain JWT verification; the handler also checks the user and verified email server-side.
 5. Build with your SUPABASE_URL and SUPABASE_ANON_KEY as described in the household guide. Sign in, verify the email, save ZIP/radius and use Find nearby stores. Select a returned location, then search a product.
 
-No backend has been deployed by this change, and no credentials have been configured. CI APKs stay in local mode. No Google Play upload is performed.
+The DinnerMap test project now has all three schemas installed, shared-table Realtime enabled, and the authenticated retailers function deployed. CI uses config/dinnermap-test.json, containing only the public project URL and publishable client key. Kroger credentials are still pending. No Google Play upload is performed.
 
 ## Behavior and limitations
 
