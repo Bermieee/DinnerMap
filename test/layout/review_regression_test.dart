@@ -103,21 +103,24 @@ void main() {
   }
   testWidgets('calendar days expose screen reader activation', (tester) async {
     final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
-    await mountLayout(tester, const Size(390, 844));
-    await tester.ensureVisible(find.byKey(const ValueKey('day-14')));
-    await tester.pumpAndSettle();
-    final node = tester.getSemantics(find.byKey(const ValueKey('day-14')));
-    expect(node.getSemanticsData().hasAction(SemanticsAction.tap), isTrue);
-    node.owner!.performAction(node.id, SemanticsAction.tap);
-    await tester.pumpAndSettle();
-    expect(
-      tester
-          .getSemantics(find.byKey(const ValueKey('day-14')))
-          .getSemanticsData()
-          .hasFlag(SemanticsFlag.isSelected),
-      isTrue,
-    );
+    try {
+      await mountLayout(tester, const Size(390, 844));
+      await tester.ensureVisible(find.byKey(const ValueKey('day-14')));
+      await tester.pumpAndSettle();
+      final node = tester.getSemantics(find.byKey(const ValueKey('day-14')));
+      expect(node.getSemanticsData().hasAction(SemanticsAction.tap), isTrue);
+      node.owner!.performAction(node.id, SemanticsAction.tap);
+      await tester.pumpAndSettle();
+      expect(
+        tester
+            .getSemantics(find.byKey(const ValueKey('day-14')))
+            .getSemanticsData()
+            .hasFlag(SemanticsFlag.isSelected),
+        isTrue,
+      );
+    } finally {
+      semantics.dispose();
+    }
   });
   testWidgets('single page uses larger asymmetric fold region', (tester) async {
     await mountLayout(
