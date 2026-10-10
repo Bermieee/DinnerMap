@@ -1,7 +1,7 @@
 # Regional shopping validation
 
 ## Scope
-Private account ZIP/radius preferences, ZIP metadata resolution/cache, Kroger location discovery and selected-store product search. Local device ZIP saving is available without a backend. Walmart and Amazon are explicitly unavailable. No deployed backend or retailer credentials have been configured.
+Private account ZIP/radius preferences, ZIP metadata resolution/cache, Kroger location discovery and selected-store product search. Local device ZIP saving is available without a backend. Walmart and Amazon are explicitly unavailable. The existing Supabase backend is deployed; Kroger credentials remain pending.
 
 ## Automated evidence
 Version **0.4.0+4**, code commit `f3faf09972d284845aac68a9887623bf221e6bfa` (local `e275cd8`), is validated by [CI 38021996737](https://github.com/Bermieee/DinnerMap/actions/runs/38021996737).
@@ -34,3 +34,17 @@ Configure Supabase migration/function and Kroger credentials using docs/regional
 - Malformed optional location fields normalize to strings: `malformed optional location strings retain a usable typed store` RED→GREEN; Node suite 14/14.
 - Empty searches have explicit completion feedback: `completed empty search identified` RED→GREEN; standalone regional checks 16/16 and widget regression green.
 - Small large-text dropdown and fold-region header regressions RED→GREEN; Flutter suite 86/86. No deferred reviewer findings remain.
+
+## Grocery-list pricing milestone — 0.5.0+8
+
+Source commit `bf58141097e4b0880f29769421944cb40dbd1ed7` (local `763a9f2`) adds reviewed Kroger product selections and partial grocery-list package estimates. Sixteen pricing checks pass natively and the pricing calculation suite also compiles/runs as JavaScript. Fifteen Node retailer/handler tests pass, including `sold_by` preservation for fixed-unit, variable-weight and unknown price bases. Regional checks pass after restricting calculated unit prices to declared fixed packages.
+
+Independent review identified hidden selections returning after grocery quantities reverted. The fix permanently removes changed/removed row selections, clears stale-list estimates, invalidates pending picker results on list/profile changes and keys the panel by planner and regional repository identity. A 5→7→5 quantity regression verifies the old quote stays discarded. Follow-up review found no remaining Important issues.
+
+Supabase retailers function version 2 deployed ACTIVE with JWT verification retained. An unauthenticated deployed POST returned HTTP 401. No database migration was needed. Real Kroger product/price acceptance remains blocked on developer application registration and `KROGER_CLIENT_ID` / `KROGER_CLIENT_SECRET` configuration. No cart/checkout or purchase action was performed.
+
+[CI 38091890843](https://github.com/Bermieee/DinnerMap/actions/runs/38091890843) passed formatting, analysis (no warning/error), 97 Flutter tests, all standalone native/JavaScript checks, PostgreSQL checks, 15 Node retailer tests and Deno function type checking. The configured web build passed; artifact 11684477017 has ZIP SHA-256 `d6a784c30ac75a072834a58bd91129d22125385319cb99a248de6c9e47d5849b`. Digest, 108 starter recipes, public Supabase config and new pricing strings verified before packaging. Android build verification is still running at this checkpoint.
+
+The web source was packaged from Sites commit `fe24363628f9806a58e874d03bf18eef49c823cd`; only HTML/manifest metadata differs from the compiled CI assets. Managed interactive browser QA was unavailable; no live Kroger provider acceptance is claimed.
+
+DinnerMap0.5.0 published successfully at https://dinnermap-web.lushsnail1.chatgpt.site with audience preserved. Deployment `appgdep_6acabe4cfb048191abc0363a0eaa3c1b`, version `appgprj_6aca85cdb0208191af6166428b56d663~appgver_dc61993d5da08191ac6c4dae1f1c7fae`.
