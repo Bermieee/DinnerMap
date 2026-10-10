@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../lib/features/region/region_models.dart';
-import '../lib/features/region/region_providers.dart';
-import '../lib/features/shopping/shopping_price_screen.dart';
-import '../lib/features/shopping/shopping_engine.dart';
+import 'package:dinnermap/features/region/region_models.dart';
+import 'package:dinnermap/features/region/region_providers.dart';
+import 'package:dinnermap/features/shopping/shopping_price_screen.dart';
+import 'package:dinnermap/features/shopping/shopping_engine.dart';
 import 'shopping_pricing_test.dart' show PriceRepository;
-import '../lib/features/shopping/product_search.dart';
+import 'package:dinnermap/features/shopping/product_search.dart';
 
 class SearchRepository extends PriceRepository {
   String? lastQuery;
