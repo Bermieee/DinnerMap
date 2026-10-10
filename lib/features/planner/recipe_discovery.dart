@@ -20,10 +20,16 @@ Map<String, Object>? recipeGuide(Recipe recipe) {
       recipe.title != guide['title'] ||
       recipe.instructions != guide['instructions'])
     return null;
-  return jsonEncode(recipe.ingredients.map((i) => i.toJson()).toList()) ==
-          guide['ingredientRecord']
-      ? guide
-      : null;
+  final expected = jsonDecode(guide['ingredientRecord'] as String) as List;
+  if (recipe.ingredients.length != expected.length) return null;
+  for (var index = 0; index < expected.length; index++) {
+    final actual = recipe.ingredients[index].toJson();
+    final record = expected[index] as Map;
+    if (actual.entries.any((entry) => record[entry.key] != entry.value)) {
+      return null;
+    }
+  }
+  return guide;
 }
 
 bool inCollection(Recipe recipe, RecipeCollection collection) {
@@ -37,6 +43,10 @@ bool inCollection(Recipe recipe, RecipeCollection collection) {
     RecipeCollection.mealPrep => (guide['mealPrep'] as String).isNotEmpty,
   };
 }
+
+bool showVeganLabel(Recipe recipe) =>
+    inCollection(recipe, RecipeCollection.vegan) &&
+    !RegExp(r'\bvegan\b', caseSensitive: false).hasMatch(recipe.title);
 
 List<String> recipeRegions(Iterable<Recipe> recipes) =>
     recipes

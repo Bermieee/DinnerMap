@@ -108,6 +108,47 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+  testWidgets('vegan recipe titles do not repeat the diet badge', (
+    tester,
+  ) async {
+    final recipes = loadRecipes(
+      jsonDecode(File('assets/recipes.json').readAsStringSync()) as List,
+    );
+    final fixture = PlannerSnapshot(
+      entries: const [],
+      recipes: {
+        for (final r in recipes.where(
+          (r) => r.id == 'vegan-01' || r.id == 'vegan-03',
+        ))
+          r.id: r,
+      },
+    );
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(body: RecipePicker(snapshot: fixture)),
+      ),
+    );
+    final soupTile = find.widgetWithText(ListTile, 'Vegan Lentil & Kale Soup');
+    final soupLabels = tester
+        .widgetList<Text>(
+          find.descendant(of: soupTile, matching: find.byType(Text)),
+        )
+        .where((w) => (w.data ?? '').contains('Vegan'));
+    expect(soupLabels.length, 1);
+    final chilliTile = find.widgetWithText(
+      ListTile,
+      'Sweet Potato & Bean Chilli',
+    );
+    expect(
+      tester
+          .widgetList<Text>(
+            find.descendant(of: chilliTile, matching: find.byType(Text)),
+          )
+          .any((w) => (w.data ?? '').contains('Vegan')),
+      isTrue,
+    );
+    expect(tester.takeException(), isNull);
+  });
   testWidgets('dinner search finds an ingredient and a region', (tester) async {
     await tester.pumpWidget(
       MaterialApp(

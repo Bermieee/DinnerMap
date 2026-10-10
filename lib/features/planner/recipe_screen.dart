@@ -84,8 +84,7 @@ class _PickerState extends State<RecipePicker> {
                   subtitle: Text(
                     [
                       recipes[i].region,
-                      if (inCollection(recipes[i], RecipeCollection.vegan))
-                        'Vegan',
+                      if (showVeganLabel(recipes[i])) 'Vegan',
                       if (inCollection(recipes[i], RecipeCollection.mealPrep))
                         'Meal prep',
                     ].where((s) => s.isNotEmpty).join(' • '),
@@ -404,8 +403,7 @@ class _RecipesState extends ConsumerState<RecipeScreen> {
                                   Text(
                                     '${r.region} • ${r.baseServings == null ? 'servings unknown' : 'serves ${r.baseServings}'}${s.avoided.contains(r.id) ? ' • avoided in shuffle' : ''}',
                                   ),
-                                  if (inCollection(r, RecipeCollection.vegan))
-                                    const Text('Vegan'),
+                                  if (showVeganLabel(r)) const Text('Vegan'),
                                   if (inCollection(
                                     r,
                                     RecipeCollection.mealPrep,
