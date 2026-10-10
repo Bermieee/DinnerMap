@@ -45,10 +45,11 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
         jsonDecode(await rootBundle.loadString('assets/recipes.json')) as List,
       );
       if (saved != null) {
-        final upgraded = addDiscoveryStarters(saved, recipes);
-        state = AsyncValue.data(upgraded);
-        if (!identical(saved, upgraded)) {
-          commitSnapshot(upgraded, remember: false);
+        if (!mounted || _restoring) return;
+        final current = state.asData?.value ?? saved;
+        final upgraded = addDiscoveryStarters(current, recipes);
+        if (!identical(current, upgraded)) {
+          commitSnapshot(upgraded, mealChange: true, remember: false);
           await _queue;
         }
         return;
