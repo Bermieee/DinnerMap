@@ -4,7 +4,7 @@ String productSearchTerm(String ingredient) {
   var term = ingredient.trim();
   final productForms = <String, String>{};
   final forms = RegExp(
-    r'\b(diced tomatoes?|crushed tomatoes?|sliced bread|sliced cheese|shredded [\w -]*cheese|minced garlic|chopped nuts|chopped walnuts|chopped pecans)\b',
+    r'\b(diced tomatoes?|crushed tomatoes?|sliced bread|sliced cheese|shredded [\w -]*cheese|minced garlic|chopped nuts|chopped walnuts|chopped pecans|diced green chil(?:es|ies)|peeled(?: and)? deveined shrimp)\b',
     caseSensitive: false,
   );
   term = term.replaceAllMapped(forms, (match) {
@@ -12,6 +12,10 @@ String productSearchTerm(String ingredient) {
     productForms[key] = match.group(0)!;
     return key;
   });
+  term = term.replaceAll(
+    RegExp(r'\(\s*\d+(?:\.\d+)?\s*(?:g|kg|oz|lb)\s*\)', caseSensitive: false),
+    ' ',
+  );
   term = term.replaceAll(
     RegExp(
       r'\([^)]*(?:optional|to taste|for serving|for garnish)[^)]*\)',
@@ -21,7 +25,7 @@ String productSearchTerm(String ingredient) {
   );
   term = term.replaceAll(
     RegExp(
-      r'\b(?:cut into (?:cubes|pieces|strips)|(?:finely|roughly|coarsely|thinly|freshly)\s+(?:chopped|diced|sliced|minced|grated)|cubed|chopped|diced|sliced|minced|peeled|drained|rinsed|divided|trimmed|thawed|patted dry|to taste|for serving|for garnish|optional)\b',
+      r'\b(?:thin-sliced|cut into (?:cubes|pieces|strips)|(?:finely|roughly|coarsely|thinly|freshly)\s+(?:chopped|diced|sliced|minced|grated)|cubed|chopped|diced|sliced|minced|peeled|drained|rinsed|divided|trimmed|melted|beaten|halved|julienned|thawed|patted dry|to taste|for serving|for garnish|optional)\b',
       caseSensitive: false,
     ),
     ' ',

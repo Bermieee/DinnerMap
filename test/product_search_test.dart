@@ -73,6 +73,12 @@ void main() {
       'cilantro, chopped (optional)': 'cilantro',
       'salt, to taste': 'salt',
       'cubed': 'cubed',
+      'thin-sliced pork belly': 'pork belly',
+      'butter, melted': 'butter',
+      'egg, beaten': 'egg',
+      'carrot (120 g)': 'carrot',
+      'peeled and deveined shrimp': 'peeled and deveined shrimp',
+      'diced green chiles': 'diced green chiles',
       'half and half': 'half and half',
       'macaroni and cheese': 'macaroni and cheese',
     };
