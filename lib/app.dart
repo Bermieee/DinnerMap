@@ -317,23 +317,25 @@ class _ShellState extends ConsumerState<DinnerMapShell> {
                             error: (e, st) => tab == 3
                                 ? householdFallback
                                 : Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(24),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Icon(
-                                            Icons.warning_amber,
-                                            size: 48,
-                                          ),
-                                          const Text(
-                                            'Your saved data could not be loaded.',
-                                          ),
-                                          Text('$e'),
-                                          const Text(
-                                            'The saved payload has been preserved. Export it or restore a valid backup using the menu.',
-                                          ),
-                                        ],
+                                    child: SingleChildScrollView(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(24),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Icon(
+                                              Icons.warning_amber,
+                                              size: 48,
+                                            ),
+                                            const Text(
+                                              'Your saved data could not be loaded.',
+                                            ),
+                                            Text('$e'),
+                                            const Text(
+                                              'The saved payload has been preserved. Export it or restore a valid backup using the menu.',
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

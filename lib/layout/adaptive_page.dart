@@ -157,20 +157,49 @@ class AdaptiveStatusBanner extends StatelessWidget {
   );
 }
 
-/// Use the route's live window metrics instead of a page's translated MediaQuery.
+/// The route leaves region selection to AdaptiveDialog, including after a fold.
 Future<T?> showDinnerMapDialog<T>({
   required BuildContext context,
   required WidgetBuilder builder,
-}) {
-  final theme = Theme.of(context);
-  return showGeneralDialog<T>(
-    context: context,
-    barrierDismissible: true,
-    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-    transitionDuration: const Duration(milliseconds: 200),
-    pageBuilder: (routeContext, animation, secondaryAnimation) => Theme(
+}) => Navigator.of(context, rootNavigator: true).push<T>(
+  _DinnerMapDialogRoute<T>(
+    builder,
+    Theme.of(context),
+    MaterialLocalizations.of(context).modalBarrierDismissLabel,
+  ),
+);
+
+class _DinnerMapDialogRoute<T> extends PopupRoute<T> {
+  final WidgetBuilder builder;
+  final ThemeData theme;
+  @override
+  final String barrierLabel;
+  _DinnerMapDialogRoute(this.builder, this.theme, this.barrierLabel)
+    : super(traversalEdgeBehavior: TraversalEdgeBehavior.closedLoop);
+  @override
+  bool get barrierDismissible => true;
+  @override
+  Color get barrierColor => Colors.black54;
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 200);
+  @override
+  Widget buildPage(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) => Semantics(
+    scopesRoute: true,
+    explicitChildNodes: true,
+    child: Theme(
       data: theme,
       child: Builder(builder: builder),
     ),
   );
+  @override
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) => FadeTransition(opacity: animation, child: child);
 }

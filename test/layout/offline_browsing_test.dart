@@ -134,7 +134,14 @@ void main() {
       expect(checkbox.onChanged, isNull);
     }
     expect(
-      tester.widget<IconButton>(find.byTooltip('Remove manual item')).onPressed,
+      tester
+          .widget<IconButton>(
+            find.ancestor(
+              of: find.byTooltip('Remove manual item'),
+              matching: find.byType(IconButton),
+            ),
+          )
+          .onPressed,
       isNull,
     );
     expect(repo.requests, isEmpty);
