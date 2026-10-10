@@ -12,6 +12,7 @@ import 'shopping_pricing.dart';
 import 'shopping_quote_provider.dart';
 import 'consumer_amounts.dart';
 import 'product_search.dart';
+import 'automatic_pricing.dart';
 
 class ShoppingPriceScreen extends ConsumerWidget {
   const ShoppingPriceScreen({super.key});
@@ -61,6 +62,98 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
       ref.read(shoppingQuoteProvider).selections;
   QuoteSession get quotes => ref.read(shoppingQuoteProvider.notifier);
   bool loading = true;
+  bool automaticBusy = false;
+  int automaticGeneration = 0, completedSearches = 0, searchCount = 0;
+  final Map<String, PriceSelection> suggestions = {};
+  final Map<String, String> searchNotes = {};
+
+  void cancelAutomatic() {
+    automaticGeneration++;
+    automaticBusy = false;
+  }
+
+  bool contextMatches(int request, String store, RegionRepository repository) =>
+      mounted &&
+      request == automaticGeneration &&
+      !widget.stale &&
+      identical(repository, ref.read(regionRepositoryProvider)) &&
+      ref.read(shoppingQuoteProvider).storeId == store &&
+      profile?.selectedStoreId == store;
+
+  Future<void> findBestDeals() async {
+    final store = profile?.selectedStoreId;
+    if (store == null || widget.stale || automaticBusy) return;
+    final repository = widget.repository;
+    final pending = rows.where((row) => selectionFor(row) == null).toList();
+    final request = ++automaticGeneration;
+    setState(() {
+      suggestions.clear();
+      searchNotes.clear();
+      automaticBusy = true;
+      completedSearches = 0;
+      searchCount = pending.length;
+    });
+    for (final row in pending) {
+      if (!contextMatches(request, store, repository)) break;
+      try {
+        final offers = await repository.search(
+          store,
+          productSearchTerm(row.name),
+        );
+        if (!contextMatches(request, store, repository)) break;
+        final best = bestDeal(
+          row,
+          offers,
+          store,
+          pieceWeightOz: widget.pieceWeights[row.key],
+        );
+        setState(() {
+          if (best == null) {
+            searchNotes[row.key] =
+                'Needs review: no suitable priced package with a known quantity.';
+          } else {
+            suggestions[row.key] = best;
+          }
+          completedSearches++;
+        });
+      } catch (e) {
+        if (!contextMatches(request, store, repository)) break;
+        setState(() {
+          searchNotes[row.key] =
+              'Search failed. Use Find Kroger product to retry.';
+          completedSearches++;
+        });
+      }
+      // Pace searches below the existing 30-request/minute account quota.
+      if (completedSearches < searchCount) {
+        await Future<void>.delayed(const Duration(milliseconds: 2200));
+      }
+    }
+    if (mounted && request == automaticGeneration) {
+      setState(() => automaticBusy = false);
+    }
+  }
+
+  void acceptSuggestions() {
+    if (automaticBusy || widget.stale) return;
+    final store = profile?.selectedStoreId;
+    if (store != ref.read(shoppingQuoteProvider).storeId) return;
+    for (final row in rows) {
+      final suggestion = suggestions[row.key];
+      if (suggestion != null &&
+          suggestion.matches(row, store ?? '') &&
+          selectionFor(row) == null)
+        quotes.select(suggestion);
+    }
+    setState(() => suggestions.clear());
+  }
+
+  @override
+  void dispose() {
+    automaticGeneration++;
+    super.dispose();
+  }
+
   String? error;
   int generation = 0, pickerGeneration = 0;
   @override
@@ -73,6 +166,9 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
           (e) => widget.pieceWeights[e.key] != e.value,
         )) {
       pickerGeneration++;
+      cancelAutomatic();
+      suggestions.clear();
+      searchNotes.clear();
       final list = widget.list, stale = widget.stale;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) quotes.reconcile(list, stale: stale);
@@ -89,6 +185,9 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
   Future<void> loadProfile() async {
     final request = ++generation;
     pickerGeneration++;
+    cancelAutomatic();
+    suggestions.clear();
+    searchNotes.clear();
     setState(() {
       loading = true;
       error = null;
@@ -139,13 +238,27 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
       return;
     if (rows.any(
       (current) => result.matches(current, profile?.selectedStoreId ?? ''),
-    ))
+    )) {
       quotes.select(result);
+      setState(() {
+        suggestions.remove(row.key);
+        searchNotes.remove(row.key);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     ref.watch(shoppingQuoteProvider);
+    ref.listen(shoppingQuoteProvider, (previous, next) {
+      if (previous?.storeId != next.storeId) {
+        setState(() {
+          cancelAutomatic();
+          suggestions.clear();
+          searchNotes.clear();
+        });
+      }
+    });
     final valid = rows.map(selectionFor).whereType<PriceSelection>().toList();
     final total = quoteTotalCents(valid);
     final store = profile?.selectedStoreId;
@@ -192,6 +305,38 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
             'Your meal plan changed. Regenerate the shopping list before selecting prices.',
           ),
         const SizedBox(height: 16),
+        FilledButton.icon(
+          onPressed: loading || automaticBusy || store == null || widget.stale
+              ? null
+              : findBestDeals,
+          icon: const Icon(Icons.manage_search),
+          label: const Text('Find best deals at Kroger'),
+        ),
+        const Text(
+          'Finds the lowest cost for enough whole packages among suitable returned products. Suggestions require review. Existing reviewed choices are kept.',
+        ),
+        if (automaticBusy) ...[
+          LinearProgressIndicator(
+            value: searchCount == 0 ? null : completedSearches / searchCount,
+          ),
+          Text('Searching $completedSearches of $searchCount items…'),
+          TextButton(
+            onPressed: () => setState(cancelAutomatic),
+            child: const Text('Stop search'),
+          ),
+        ],
+        if (suggestions.isNotEmpty) ...[
+          Text(
+            '${suggestions.length} suggestions • estimated subtotal: \$${(quoteTotalCents(suggestions.values)! / 100).toStringAsFixed(2)}',
+          ),
+          const Text(
+            'Check ingredients, dietary needs and package sizes before accepting. Items needing review are excluded.',
+          ),
+          OutlinedButton(
+            onPressed: automaticBusy || widget.stale ? null : acceptSuggestions,
+            child: const Text('Accept reviewed suggestions'),
+          ),
+        ],
         Card(
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -224,6 +369,32 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text('Needed for recipes: ${rowAmount(row, 'lb')}'),
+                  if (searchNotes[row.key] case final note?) Text(note),
+                  if (suggestions[row.key] case final suggestion?) ...[
+                    Text('Suggested: ${suggestion.offer.name}'),
+                    Text(
+                      '${buyPackages(suggestion)} • \$${(suggestion.costCents / 100).toStringAsFixed(2)}',
+                    ),
+                    Text(
+                      '\$${suggestion.offer.unitPrice?.toStringAsFixed(2) ?? '—'} ${suggestion.offer.unitLabel ?? ''}',
+                    ),
+                    TextButton(
+                      onPressed: automaticBusy || widget.stale
+                          ? null
+                          : () {
+                              if (suggestion.matches(
+                                    row,
+                                    profile?.selectedStoreId ?? '',
+                                  ) &&
+                                  ref.read(shoppingQuoteProvider).storeId ==
+                                      profile?.selectedStoreId) {
+                                quotes.select(suggestion);
+                                setState(() => suggestions.remove(row.key));
+                              }
+                            },
+                      child: const Text('Use this suggestion'),
+                    ),
+                  ],
                   if (selectionFor(row) case final selected?) ...[
                     Text(
                       buyPackages(selected),
@@ -245,7 +416,11 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
                   ] else
                     Text(purchaseHint(row)),
                   OutlinedButton(
-                    onPressed: !loading && store != null && !widget.stale
+                    onPressed:
+                        !loading &&
+                            !automaticBusy &&
+                            store != null &&
+                            !widget.stale
                         ? () => selectProduct(row)
                         : null,
                     child: Text(

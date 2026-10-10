@@ -71,6 +71,9 @@ jobs:
       - run: dart tool/consumer_check.dart
       - run: dart compile js -O2 -o /tmp/consumer_check.js tool/consumer_check.dart
       - run: node /tmp/consumer_check.js
+      - run: dart tool/automatic_check.dart
+      - run: dart compile js -O2 -o /tmp/automatic_check.js tool/automatic_check.dart
+      - run: node /tmp/automatic_check.js
       - run: dart tool/pricing_check.dart
       - run: dart compile js -O2 -o /tmp/pricing_check.js tool/pricing_check.dart
       - run: node /tmp/pricing_check.js
