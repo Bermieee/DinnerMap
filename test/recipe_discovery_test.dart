@@ -70,12 +70,33 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Sweet Potato & Bean Chilli'), findsOneWidget);
       expect(find.text('Easy Meatloaf'), findsNothing);
-      await tester.ensureVisible(find.text('All regions'));
+      await tester.scrollUntilVisible(
+        find.text('All regions'),
+        -180,
+        scrollable: find
+            .descendant(
+              of: find.byKey(const PageStorageKey('recipes-scroll')),
+              matching: find.byType(Scrollable),
+            )
+            .first,
+      );
+      await tester.pumpAndSettle();
       await tester.tap(find.text('All regions'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Indian').last);
       await tester.pumpAndSettle();
       expect(find.text('Sweet Potato & Bean Chilli'), findsNothing);
+      await tester.scrollUntilVisible(
+        find.text('Coconut Chickpea & Spinach Curry'),
+        180,
+        scrollable: find
+            .descendant(
+              of: find.byKey(const PageStorageKey('recipes-scroll')),
+              matching: find.byType(Scrollable),
+            )
+            .first,
+      );
+      await tester.pumpAndSettle();
       expect(find.text('Coconut Chickpea & Spinach Curry'), findsOneWidget);
       await tester.ensureVisible(find.text('Coconut Chickpea & Spinach Curry'));
       await tester.tap(find.text('Coconut Chickpea & Spinach Curry'));

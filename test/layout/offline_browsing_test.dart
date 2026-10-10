@@ -175,7 +175,12 @@ void main() {
       await tester.scrollUntilVisible(
         soup,
         180,
-        scrollable: find.byType(Scrollable).first,
+        scrollable: find
+            .descendant(
+              of: find.byKey(const PageStorageKey('recipes-scroll')),
+              matching: find.byType(Scrollable),
+            )
+            .first,
       );
       await tester.pumpAndSettle();
       expect(soup, findsOneWidget);
