@@ -53,3 +53,9 @@ Open **Price this list at Kroger**, choose a store, then **Find best deals at Kr
 Review product names, package sizes and dietary suitability, then use individual suggestions or **Accept reviewed suggestions**. Nothing becomes a reviewed grocery-list selection until you accept it. Unmatched or failed searches remain unpriced and offer manual product search. Progress and **Stop search** are available; completed suggestions can be reviewed after stopping. Store/account/list/piece-weight changes reject outdated results. Quotes remain session-only.
 
 “Best” means the lowest calculated line cost among the selected store’s returned suitable products, not a guarantee over Kroger’s entire catalogue, coupons or checkout. The API returns up to 50 offers per search. Requirements are priced per row, without allocating one package across different rows. Estimates exclude tax, fees, coupons and variable-weight checkout adjustments. Conservative matching can leave valid products for manual review; it does not certify dietary/allergen suitability. Shared deal ranking can be reused by future vendor adapters, but only Kroger is integrated now. No cart or purchase is made.
+
+## Clear a saved list (0.6.1)
+
+Use **Clear grocery list** on the grocery screen to remove generated rows, manual items, checkoffs and reviewed product estimates. Meal plans, recipes and per-piece weight preferences remain. Clearing a household list syncs to its members through the existing verified, locked, idempotent mutation path. If someone changed the list meanwhile, reload and review before clearing it. Regenerating normally preserves manual items/checkoffs; clearing starts fresh.
+
+Grocery and pricing headings and exported item names use the shopping product name, leaving preparation such as “cubed” in the underlying recipe instructions. Old saved rows receive the same display cleanup immediately.
