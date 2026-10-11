@@ -59,3 +59,10 @@ Review product names, package sizes and dietary suitability, then use individual
 Use **Clear grocery list** on the grocery screen to remove generated rows, manual items, checkoffs and reviewed product estimates. Meal plans, recipes and per-piece weight preferences remain. Clearing a household list syncs to its members through the existing verified, locked, idempotent mutation path. If someone changed the list meanwhile, reload and review before clearing it. Regenerating normally preserves manual items/checkoffs; clearing starts fresh.
 
 Grocery and pricing headings and exported item names use the shopping product name, leaving preparation such as “cubed” in the underlying recipe instructions. Old saved rows receive the same display cleanup immediately.
+
+
+## Matching diagnostics (0.6.2)
+
+Refresh the web app after deployment, open the current grocery list and rerun Find best deals at Kroger. Existing accepted choices remain; unpriced rows are searched again. Review suggestions before accepting them. Unknown amounts, alternative ingredients, combined ingredients, variable-weight products and incompatible package units now state the specific review needed. Temporary service failures retry once; quota, authentication and configuration errors show their reason. Manual search remains available for unfamiliar brands/forms and package quantities.
+
+The complete static bundled-catalog audit is docs/ingredient-search-audit.csv (108 recipes, 607 distinct names, 1430 lines). Reproduce it with dart tool/catalog_audit.dart; CI verifies it with --check. It is not current store inventory. Recipe quantities and curated dietary records are preserved. Plain BBQ sauce and ground black pepper use sourced approximate weight estimates for shopping; other unknown densities require manual package review.
