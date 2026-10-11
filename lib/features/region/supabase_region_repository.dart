@@ -80,6 +80,7 @@ class SupabaseRegionRepository implements RegionRepository {
             r['name'] as String,
             r['address'] as String,
             r['state'] as String,
+            chain: r['chain'] as String? ?? '',
           ),
         )
         .toList();

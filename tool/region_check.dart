@@ -10,6 +10,9 @@ void check(bool value, String name) {
 
 class MemoryRegion implements RegionRepository {
   RegionProfile? saved;
+  List<StoreLocation> locations = [
+    const StoreLocation('kroger', '123', 'Kroger', '123 Main', 'KY'),
+  ];
   Completer<ZipRegion>? pending;
   @override
   Future<RegionProfile?> load() async => saved;
@@ -23,9 +26,7 @@ class MemoryRegion implements RegionRepository {
       ? ZipRegion(zip, 'Shepherdsville', 'KY')
       : pending!.future;
   @override
-  Future<List<StoreLocation>> stores(String zip, int radius) async => [
-    StoreLocation('kroger', '123', 'Kroger', '123 Main', 'KY'),
-  ];
+  Future<List<StoreLocation>> stores(String zip, int radius) async => locations;
   @override
   Future<List<ProductOffer>> search(String storeId, String query) async => [];
 }
@@ -92,12 +93,58 @@ Future<void> main() async {
     'incompatible units excluded from ranking',
   );
   final repo = MemoryRegion();
+  repo.locations = [
+    const StoreLocation(
+      'kroger',
+      '70100122',
+      'Ballard',
+      '1 Main',
+      'WA',
+      chain: 'FRED MEYER',
+    ),
+    const StoreLocation(
+      'kroger',
+      '70500847',
+      'Ballard',
+      '2 Main',
+      'WA',
+      chain: 'QFC',
+    ),
+  ];
   final c = RegionController(repo);
   await c.load();
   await c.saveProfile('40165', 25);
   await c.discover();
   await c.selectStore(c.state.stores.first);
-  check(c.state.profile!.selectedStoreId == '123', 'selected store saved');
+  check(
+    c.state.profile!.selectedStoreId == '70100122',
+    'family store saved with provider location ID',
+  );
+  check(
+    c.state.selectedStore?.displayName == 'FRED MEYER • Ballard',
+    'selected chain retained with local store name',
+  );
+  check(
+    c.state.stores[1].displayName == 'QFC • Ballard',
+    'nearby family chains distinguished',
+  );
+  check(
+    const StoreLocation(
+          'kroger',
+          '3',
+          'Fred Meyer Ballard',
+          '',
+          'WA',
+          chain: 'FRED MEYER',
+        ).displayName ==
+        'Fred Meyer Ballard',
+    'existing chain name not duplicated',
+  );
+  check(
+    const StoreLocation('kroger', '4', '', '', '').displayName ==
+        'Selected store',
+    'missing metadata does not invent a chain',
+  );
   await c.search('rice');
   check(
     c.state.searchedQuery == 'rice' && c.state.offers.isEmpty,
@@ -105,8 +152,17 @@ Future<void> main() async {
   );
   await c.saveProfile('00501', 25);
   check(
-    c.state.profile!.selectedStoreId == null && c.state.stores.isEmpty,
-    'ZIP change clears stores',
+    c.state.profile!.selectedStoreId == null &&
+        c.state.stores.isEmpty &&
+        c.state.selectedStore == null,
+    'ZIP change clears family store identity',
+  );
+  await c.discover();
+  await c.selectStore(c.state.stores.first);
+  await c.saveProfile('00501', 10);
+  check(
+    c.state.selectedStore == null && c.state.stores.isEmpty,
+    'radius change clears family store identity',
   );
   repo.pending = Completer<ZipRegion>();
   final late = c.discover();

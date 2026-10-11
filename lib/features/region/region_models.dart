@@ -27,13 +27,27 @@ class ZipRegion {
 
 class StoreLocation {
   final String retailer, id, name, address, state;
+  final String chain;
   const StoreLocation(
     this.retailer,
     this.id,
     this.name,
     this.address,
-    this.state,
-  );
+    this.state, {
+    this.chain = '',
+  });
+  String get displayName {
+    final brand = chain.trim(), location = name.trim();
+    if (brand.isEmpty) return location.isEmpty ? 'Selected store' : location;
+    final key = brand.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '');
+    final locationKey = location.toLowerCase().replaceAll(
+      RegExp(r'[^a-z0-9]'),
+      '',
+    );
+    return location.isEmpty || locationKey.contains(key)
+        ? (location.isEmpty ? brand : location)
+        : '$brand • $location';
+  }
 }
 
 enum OfferSort { packageLow, packageHigh, unitLow, unitHigh }

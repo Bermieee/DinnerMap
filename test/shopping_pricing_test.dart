@@ -15,6 +15,8 @@ class PriceRepository implements RegionRepository {
   );
   bool fail = false;
   String basis = 'UNIT';
+  String storeName = 'Kroger';
+  bool unavailableStores = false;
   @override
   Future<RegionProfile?> load() async =>
       RegionProfile('40165', selectedStoreId: '123');
@@ -23,7 +25,11 @@ class PriceRepository implements RegionRepository {
   @override
   Future<ZipRegion> resolve(String zip) async => ZipRegion(zip, 'City', 'KY');
   @override
-  Future<List<StoreLocation>> stores(String zip, int radius) async => [];
+  Future<List<StoreLocation>> stores(String zip, int radius) async {
+    if (unavailableStores) throw StateError('Store lookup unavailable.');
+    return [StoreLocation('kroger', '123', storeName, '1 Main', 'KY')];
+  }
+
   @override
   Future<List<ProductOffer>> search(String id, String query) async {
     if (fail) throw StateError('Kroger connection is not configured.');
@@ -86,13 +92,58 @@ void main() {
   }
 
   testWidgets(
+    'unavailable naming lookup keeps the saved store without inventing a chain',
+    (t) async {
+      addTearDown(t.view.resetPhysicalSize);
+      addTearDown(t.view.resetDevicePixelRatio);
+      final repo = PriceRepository()..unavailableStores = true;
+      await mount(t, repo, 5);
+      expect(find.text('Prices at selected store • store 123'), findsOneWidget);
+      await t.tap(find.text('Find product'));
+      await t.pumpAndSettle();
+      await t.tap(find.text('Search products'));
+      await t.pumpAndSettle();
+      expect(find.text('Two-pound chicken'), findsOneWidget);
+      expect(t.takeException(), isNull);
+    },
+  );
+  testWidgets(
+    'family store identity follows the selected location into product pricing',
+    (t) async {
+      addTearDown(t.view.resetPhysicalSize);
+      addTearDown(t.view.resetDevicePixelRatio);
+      final repo = PriceRepository()..storeName = 'Fred Meyer Ballard';
+      await mount(t, repo, 5);
+      expect(
+        find.text('Prices at Fred Meyer Ballard • store 123'),
+        findsOneWidget,
+      );
+      expect(
+        find.text('Find best deals at Fred Meyer Ballard'),
+        findsOneWidget,
+      );
+      await t.tap(find.text('Find product'));
+      await t.pumpAndSettle();
+      expect(
+        find.textContaining('Needed: 5 lb • Fred Meyer Ballard • store 123'),
+        findsOneWidget,
+      );
+      expect(
+        find.text('Search products at Fred Meyer Ballard'),
+        findsOneWidget,
+      );
+      expect(find.text('Search products at Kroger'), findsNothing);
+      expect(t.takeException(), isNull);
+    },
+  );
+  testWidgets(
     'reviewed packages produce a partial total and changed quantity invalidates it',
     (t) async {
       addTearDown(t.view.resetPhysicalSize);
       addTearDown(t.view.resetDevicePixelRatio);
       final repo = PriceRepository();
       await mount(t, repo, 5);
-      await t.tap(find.text('Find Kroger product'));
+      await t.tap(find.text('Find product'));
       await t.pumpAndSettle();
       await t.tap(find.text('Search products'));
       await t.pumpAndSettle();
@@ -116,7 +167,7 @@ void main() {
     addTearDown(t.view.resetDevicePixelRatio);
     final repo = PriceRepository()..fail = true;
     await mount(t, repo, 5);
-    await t.tap(find.text('Find Kroger product'));
+    await t.tap(find.text('Find product'));
     await t.pumpAndSettle();
     await t.tap(find.text('Search products'));
     await t.pumpAndSettle();
@@ -141,7 +192,7 @@ void main() {
     addTearDown(t.view.resetDevicePixelRatio);
     final repo = PriceRepository()..basis = 'UNKNOWN';
     await mount(t, repo, 5);
-    await t.tap(find.text('Find Kroger product'));
+    await t.tap(find.text('Find product'));
     await t.pumpAndSettle();
     await t.tap(find.text('Search products'));
     await t.pumpAndSettle();
@@ -178,7 +229,7 @@ void main() {
       addTearDown(t.view.resetDevicePixelRatio);
       final repo = PriceRepository();
       await mount(t, repo, 18, pieces: true, pieceWeights: {'chicken|mass': 6});
-      await t.tap(find.text('Find Kroger product'));
+      await t.tap(find.text('Find product'));
       await t.pumpAndSettle();
       await t.tap(find.text('Search products'));
       await t.pumpAndSettle();

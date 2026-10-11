@@ -26,9 +26,9 @@ See [layout validation](docs/adaptive-layout-validation.md) for automated eviden
 
 ## Regional shopping
 
-Version 0.4.0 adds **Household → Stores & prices**. Save a US ZIP and radius, discover nearby Kroger locations, select a store and search products. Local mode saves device location preferences; verified configured accounts save private account preferences. Walmart and Amazon display access-pending status. Unknown quantities/prices stay unknown, and unit comparison separates weight, volume and count.
+Version 0.4.0 adds **Household → Stores & prices**. Save a US ZIP and radius, discover nearby Kroger-family locations, select a store and search products. Local mode saves device location preferences; verified configured accounts save private account preferences. Walmart and Amazon display access-pending status. Unknown quantities/prices stay unknown, and unit comparison separates weight, volume and count.
 
-The [regional setup guide](docs/regional-shopping-setup.md) describes the new migration, Edge Function and Kroger backend secrets. Nothing has been deployed; default CI APKs cannot fetch live prices. See [regional validation](docs/regional-shopping-validation.md) for tests and outstanding live checks.
+The [regional setup guide](docs/regional-shopping-setup.md) describes the new migration, Edge Function and Kroger backend secrets. The existing Supabase backend and configured web app are deployed; the latest release evidence is recorded in the validation guide. See [regional validation](docs/regional-shopping-validation.md) for tests and outstanding live checks.
 
 ## Run
 
@@ -86,3 +86,7 @@ The initial local foundation passed Flutter tests and Android/web builds, and th
 Hosted Supabase Auth/Realtime, email delivery/redirects and a live two-account flow require a configured project and remain unverified. Local Flutter bootstrap was blocked by automatic approval review; validation uses isolated GitHub CI and safe standalone Dart checks.
 
 Known limitations: Physical fold transitions, keyboard behavior and printing/system sharing dialogs still need manual device verification. No live retailer prices/cart transfer or public deployment is provided.
+
+## Kroger-family stores — 0.6.3
+
+Nearby discovery includes every chain returned by the Kroger Locations API for the account ZIP and radius. Store selection and product/pricing screens preserve the actual chain and location name, including Fred Meyer or QFC where returned. Changing ZIP/radius clears the previous search and selection. This uses the existing Kroger credentials; no separate chain registration is needed. Discovery still returns up to 50 locations, and price coverage depends on the provider response.

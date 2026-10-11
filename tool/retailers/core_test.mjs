@@ -54,9 +54,31 @@ test('malformed product items do not hide valid package variants',()=>{
 test('malformed optional location strings retain a usable typed store',async()=>{
  const s=createRetailerService({clientId:'id',clientSecret:'secret',fetch:async(url)=>url.includes('/token')?json({access_token:'t',expires_in:1000}):json({data:[{locationId:'123',name:{bad:1},address:{state:55,addressLine1:{bad:2},city:'Town'}}]})});
  const stores=await s.dispatch('stores',{zip:'40165',radius:25});
- assert.equal(stores[0].name,'Kroger');assert.equal(stores[0].state,'');assert.equal(stores[0].address,'Town');
+ assert.equal(stores[0].name,'Kroger-family store');assert.equal(stores[0].state,'');assert.equal(stores[0].address,'Town');
 });
 test('normalization retains unit versus variable-weight sale basis for quote safety',()=>{
  const offers=normalizeProducts([{productId:'p',items:[{itemId:'u',soldBy:'UNIT',size:'2 lb',price:{regular:4.99}},{itemId:'w',soldBy:'WEIGHT',size:'1 lb',price:{regular:2.49}},{itemId:'unknown',size:'2 lb',price:{regular:4.99}}]}],'123');
  assert.equal(offers[0].sold_by,'UNIT');assert.equal(offers[1].sold_by,'WEIGHT');assert.equal(offers[2].sold_by,'UNKNOWN');
+});
+test('nearby family chains retain their identities and are not filtered to Kroger',async()=>{
+ const s=createRetailerService({clientId:'id',clientSecret:'secret',fetch:async(url)=>{
+  if(url.includes('/token'))return json({access_token:'t',expires_in:1000});
+  const u=new URL(url);
+  assert.equal(u.searchParams.get('filter.zipCode.near'),'98107');
+  assert.equal(u.searchParams.get('filter.radiusInMiles'),'10');
+  assert.equal(u.searchParams.has('filter.chain'),false);
+  return json({data:[{locationId:'70100122',chain:'FRED MEYER',name:'Ballard'},{locationId:'70500847',chain:'QFC',name:'Ballard'},{locationId:'123',chain:'KROGER',name:'Kroger Market'}]});
+ }});
+ const stores=await s.dispatch('stores',{zip:'98107',radius:10});
+ assert.deepEqual(stores.map(s=>s.chain),['FRED MEYER','QFC','KROGER']);
+ assert.deepEqual(stores.map(s=>s.name),['Ballard','Ballard','Kroger Market']);
+ assert.ok(stores.every(s=>s.retailer==='kroger'));
+});
+test('missing or malformed chain metadata does not invent a local brand',async()=>{
+ const s=createRetailerService({clientId:'id',clientSecret:'secret',fetch:async(url)=>url.includes('/token')?json({access_token:'t',expires_in:1000}):json({data:[{locationId:'1',chain:{bad:1}},{locationId:'2',chain:' FRED MEYER ',name:''}]})});
+ const stores=await s.dispatch('stores',{zip:'98107',radius:10});
+ assert.equal(stores[0].chain,'');
+ assert.equal(stores[0].name,'Kroger-family store');
+ assert.equal(stores[1].chain,'FRED MEYER');
+ assert.equal(stores[1].name,'FRED MEYER');
 });

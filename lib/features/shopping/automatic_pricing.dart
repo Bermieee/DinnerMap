@@ -313,7 +313,8 @@ String automaticReviewReason(
   final preflight = automaticPreflightReason(row);
   if (preflight != null) return preflight;
   final all = offers.toList();
-  if (all.isEmpty) return 'Kroger returned no products. Try a broader search.';
+  if (all.isEmpty)
+    return 'The selected store returned no products. Try a broader search.';
   final local = all.where((o) => o.storeId == storeId).toList();
   if (local.isEmpty) return 'No offers for the selected store. Search again.';
   final named = local.where((o) => suitableProduct(row.name, o.name)).toList();

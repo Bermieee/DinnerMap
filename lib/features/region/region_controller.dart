@@ -18,6 +18,13 @@ class RegionState {
     this.error,
     this.searchedQuery,
   });
+  StoreLocation? get selectedStore {
+    final id = profile?.selectedStoreId;
+    for (final store in stores) {
+      if (store.id == id) return store;
+    }
+    return null;
+  }
 }
 
 class RegionController {

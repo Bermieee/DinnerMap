@@ -142,7 +142,7 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
                 ),
               ),
               icon: const Icon(Icons.price_check),
-              label: const Text('Price this list at Kroger'),
+              label: const Text('Price this list'),
             ),
             Text(
               'Saved list: ${dateKey(list.start)} • ${list.weeks} week(s) • ${list.rows.length + list.manualItems.length} items',

@@ -21,7 +21,7 @@ class ShoppingPriceScreen extends ConsumerWidget {
     final repository = ref.watch(regionRepositoryProvider);
     final snapshot = ref.watch(plannerProvider).asData?.value;
     return Scaffold(
-      appBar: AppBar(title: const Text('Kroger list estimate')),
+      appBar: AppBar(title: const Text('Grocery list estimate')),
       body: snapshot?.list == null
           ? const Center(child: Text('Generate a shopping list first.'))
           : AdaptivePage(
@@ -58,6 +58,8 @@ class ShoppingPricePanel extends ConsumerStatefulWidget {
 
 class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
   RegionProfile? profile;
+  StoreLocation? selectedStore;
+  String get storeName => selectedStore?.displayName ?? 'selected store';
   Map<String, PriceSelection> get selections =>
       ref.read(shoppingQuoteProvider).selections;
   QuoteSession get quotes => ref.read(shoppingQuoteProvider.notifier);
@@ -127,7 +129,7 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
         if (!contextMatches(request, store, repository)) break;
         setState(() {
           searchNotes[row.key] = e is StateError
-              ? 'Search failed: ${e.message}. Use Find Kroger product to retry.'
+              ? 'Search failed: ${e.message}. Use Find product to retry.'
               : 'Search failed. Check your connection and retry.';
           completedSearches++;
         });
@@ -199,13 +201,32 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
     setState(() {
       loading = true;
       error = null;
+      selectedStore = null;
     });
     try {
       final next = await widget.repository.load();
+      StoreLocation? details;
+      if (next?.selectedStoreId != null) {
+        try {
+          final nearby = await widget.repository.stores(
+            next!.zip,
+            next.radiusMiles,
+          );
+          for (final store in nearby) {
+            if (store.id == next.selectedStoreId) {
+              details = store;
+              break;
+            }
+          }
+        } catch (_) {
+          // Naming lookup must not fabricate a banner or hide saved estimates.
+        }
+      }
       if (!mounted || request != generation) return;
       setState(() {
         quotes.selectStore(next?.selectedStoreId);
         profile = next;
+        selectedStore = details;
         loading = false;
       });
     } catch (e) {
@@ -235,6 +256,7 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
       builder: (_) => GroceryProductPicker(
         repository: widget.repository,
         storeId: store,
+        storeName: storeName,
         row: row,
         pieceWeightOz: widget.pieceWeights[row.key],
       ),
@@ -294,9 +316,7 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
                   if (mounted) await loadProfile();
                 },
           icon: const Icon(Icons.store),
-          label: Text(
-            store == null ? 'Select a Kroger store' : 'Change Kroger store',
-          ),
+          label: Text(store == null ? 'Select a nearby store' : 'Change store'),
         ),
         if (loading) const LinearProgressIndicator(),
         if (error != null) ...[
@@ -305,9 +325,9 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
         ],
         if (!loading && store == null)
           const Text(
-            'Save your ZIP and select a store in Stores & prices. Live prices require the Kroger connection to be configured.',
+            'Save your ZIP and select a nearby store in Stores & prices. Kroger-family locations use the existing connection.',
           ),
-        if (store != null) Text('Prices at Kroger store $store'),
+        if (store != null) Text('Prices at $storeName • store $store'),
         if (widget.stale)
           const Text(
             'Your meal plan changed. Regenerate the shopping list before selecting prices.',
@@ -318,7 +338,7 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
               ? null
               : findBestDeals,
           icon: const Icon(Icons.manage_search),
-          label: const Text('Find best deals at Kroger'),
+          label: Text('Find best deals at $storeName'),
         ),
         const Text(
           'Finds the lowest cost for enough whole packages among suitable returned products. Suggestions require review. Existing reviewed choices are kept.',
@@ -435,7 +455,7 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
                         : null,
                     child: Text(
                       selectionFor(row) == null
-                          ? 'Find Kroger product'
+                          ? 'Find product'
                           : 'Change product',
                     ),
                   ),
@@ -452,12 +472,14 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
 class GroceryProductPicker extends ConsumerStatefulWidget {
   final RegionRepository repository;
   final String storeId;
+  final String storeName;
   final ShoppingRow row;
   final double? pieceWeightOz;
   const GroceryProductPicker({
     super.key,
     required this.repository,
     required this.storeId,
+    this.storeName = 'selected store',
     required this.row,
     this.pieceWeightOz,
   });
@@ -536,7 +558,7 @@ class _GroceryProductPickerState extends ConsumerState<GroceryProductPicker> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Needed: ${rowAmount(widget.row, 'lb')} • Kroger store ${widget.storeId}',
+              'Needed: ${rowAmount(widget.row, 'lb')} • ${widget.storeName} • store ${widget.storeId}',
             ),
             if (accountChanged)
               const Text('Account changed. Close this search and try again.'),
@@ -550,8 +572,8 @@ class _GroceryProductPickerState extends ConsumerState<GroceryProductPicker> {
                 selected = null;
                 error = null;
               }),
-              decoration: const InputDecoration(
-                labelText: 'Search Kroger products',
+              decoration: InputDecoration(
+                labelText: 'Search products at ${widget.storeName}',
               ),
               onSubmitted: (_) {
                 if (!accountChanged && !busy) search();

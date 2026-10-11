@@ -76,7 +76,10 @@ export function createRetailerService({fetch:request=globalThis.fetch,clientId='
    const url=new URL('https://api.kroger.com/v1/locations');
    url.search=new URLSearchParams({'filter.zipCode.near':args.zip,'filter.radiusInMiles':String(radius),'filter.limit':'50'}).toString();
    const locations=await kroger(url.toString());
-   return locations.filter(p=>typeof p?.locationId==='string' && /^[0-9]{1,30}$/.test(p.locationId)).map(p=>({retailer:'kroger',id:p.locationId,name:typeof p.name==='string' && p.name?p.name:'Kroger',address:[p.address?.addressLine1,p.address?.city,p.address?.state,p.address?.zipCode].filter(v=>typeof v==='string' && v).join(', '),state:typeof p.address?.state==='string'?p.address.state:''}));
+   return locations.filter(p=>typeof p?.locationId==='string' && /^[0-9]{1,30}$/.test(p.locationId)).map(p=>{
+    const chain=typeof p.chain==='string'?p.chain.trim():'';
+    return {retailer:'kroger',id:p.locationId,chain,name:typeof p.name==='string' && p.name.trim()?p.name.trim():chain||'Kroger-family store',address:[p.address?.addressLine1,p.address?.city,p.address?.state,p.address?.zipCode].filter(v=>typeof v==='string' && v).join(', '),state:typeof p.address?.state==='string'?p.address.state:''};
+   });
   }
   if(action==='products'){
    if(typeof args.storeId!=='string'|| !/^[0-9]{1,30}$/.test(args.storeId))throw new RetailerError('Select a valid Kroger location.',400);

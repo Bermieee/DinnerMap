@@ -48,7 +48,7 @@ void main() {
     await t.pumpAndSettle();
     expect(repo.lastQuery, 'boneless chicken breasts');
     await t.enterText(
-      find.widgetWithText(TextField, 'Search Kroger products'),
+      find.widgetWithText(TextField, 'Search products at selected store'),
       'skinless chicken breast',
     );
     await t.tap(find.text('Search products'));

@@ -212,7 +212,7 @@ class _RegionPanelState extends State<RegionPanel> {
               ),
             const SizedBox(height: 12),
             const Text(
-              'Kroger: nearby locations and store-specific prices when connected.',
+              'Find Kroger-family stores and local prices using your saved ZIP and radius. Only returned nearby locations are shown.',
             ),
             const Text('Walmart: partner access pending.'),
             const Text('Amazon: comparison access pending.'),
@@ -223,7 +223,7 @@ class _RegionPanelState extends State<RegionPanel> {
               const Padding(
                 padding: EdgeInsets.only(top: 16),
                 child: Text(
-                  'No Kroger locations returned within this radius. Try a wider search.',
+                  'No Kroger-family locations returned within this radius. Try a wider search.',
                 ),
               ),
             if (s.stores.isNotEmpty) ...[
@@ -232,7 +232,7 @@ class _RegionPanelState extends State<RegionPanel> {
               ...s.stores.map(
                 (store) => Card(
                   child: ListTile(
-                    title: Text(store.name),
+                    title: Text(store.displayName),
                     subtitle: Text(store.address),
                     trailing: Icon(
                       selected == store.id
@@ -252,7 +252,9 @@ class _RegionPanelState extends State<RegionPanel> {
             ],
             if (selected != null) ...[
               const SizedBox(height: 16),
-              Text('Products at store $selected'),
+              Text(
+                'Products at ${s.selectedStore?.displayName ?? 'selected store'} • store $selected',
+              ),
               const SizedBox(height: 8),
               TextField(
                 key: const Key('product-query'),
@@ -396,7 +398,7 @@ class _RegionPanelState extends State<RegionPanel> {
                             '\$${o.unitPrice!.toStringAsFixed(2)} ${o.unitLabel}',
                           ),
                         Text(
-                          'Kroger • store ${o.storeId} • availability: ${o.availability}',
+                          '${s.selectedStore?.displayName ?? 'Selected store'} • store ${o.storeId} • availability: ${o.availability}',
                         ),
                         if (o.retrievedAt != null)
                           Text('Retrieved ${o.retrievedAt!.toLocal()}'),

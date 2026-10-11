@@ -375,7 +375,7 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
             child: Padding(
               padding: EdgeInsets.all(16),
               child: Text(
-                'Kroger and Walmart are not connected yet. Live product prices and cart transfer follow household sharing.',
+                'Use Stores & prices to find nearby Kroger-family locations and search local products. Walmart and Amazon access is pending.',
               ),
             ),
           ),
