@@ -14,7 +14,6 @@ Future<void> main() async {
     'black pepper': 'McCormick Pure Ground Black Pepper',
     'all-purpose flour': 'King Arthur All Purpose Unbleached Flour',
     'jalapeño peppers': 'Kroger Jalapeno Peppers',
-    'potatoes': 'Kroger Potatoes',
     'bay leaves': 'Kroger Bay Leaves',
     'scallions': 'Kroger Green Onions',
     'plain breadcrumbs': 'Kroger Plain Bread Crumbs',
@@ -23,6 +22,9 @@ Future<void> main() async {
     'cumin': 'McCormick Ground Cumin',
     'ground cumin': 'Kroger Cumin',
     'egg': 'Kroger Large Brown Cage Free Eggs',
+    'onion': 'Kroger Yellow Onions',
+    'potatoes': 'Kroger Russet Potatoes',
+    'tomatoes': 'Kroger Roma Tomatoes',
   };
   for (final entry in matches.entries) {
     if (!suitableProduct(entry.key, entry.value)) {
@@ -34,6 +36,9 @@ Future<void> main() async {
     ['ginger', 'McCormick Ground Ginger'],
     ['black pepper', 'Kroger Whole Black Peppercorns'],
     ['all-purpose flour', 'Kroger Almond Flour'],
+    ['potato', 'Kroger Sweet Potatoes'],
+    ['red onion', 'Kroger Yellow Onions'],
+    ['tomato', 'Kroger Cherry Tomatoes'],
     ['milk', 'Kroger Chocolate Milk'],
   ]) {
     if (suitableProduct(pair[0], pair[1]))

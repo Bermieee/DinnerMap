@@ -160,6 +160,19 @@ bool suitableProduct(String ingredient, String product) {
     'size',
   };
   const specific = {
+    'onion': {'yellow', 'white', 'red', 'sweet'},
+    'potato': {
+      'russet',
+      'yukon',
+      'gold',
+      'golden',
+      'red',
+      'white',
+      'yellow',
+      'baking',
+    },
+    'tomato': {'roma', 'plum', 'vine', 'ripe'},
+    'parsley': {'flat', 'leaf', 'italian', 'curly'},
     'peanut': {'creamy', 'crunchy', 'smooth', 'skippy', 'jif'},
     'butter': {
       'salted',
