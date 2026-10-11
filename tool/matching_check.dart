@@ -70,7 +70,7 @@ Future<void> main() async {
   if (suggestPackages(row, offer) != 1)
     throw StateError('Pepper spoon to retail weight');
   if (automaticReviewReason(row, [], 's') !=
-      'Kroger returned no products. Try a broader search.')
+      'The selected store returned no products. Try a broader search.')
     throw StateError('Empty search reason');
   if (!automaticReviewReason(row, [offer], 'other').contains('selected store'))
     throw StateError('Store mismatch reason');
