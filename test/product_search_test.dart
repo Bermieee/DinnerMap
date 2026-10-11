@@ -43,7 +43,7 @@ void main() {
       ),
     );
     await t.pumpAndSettle();
-    expect(find.text('Price $name'), findsOneWidget);
+    expect(find.text('Price boneless chicken breasts'), findsOneWidget);
     await t.tap(find.text('Search products'));
     await t.pumpAndSettle();
     expect(repo.lastQuery, 'boneless chicken breasts');

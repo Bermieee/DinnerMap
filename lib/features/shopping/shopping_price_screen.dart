@@ -330,337 +330,254 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
             '${suggestions.length} suggestions • estimated subtotal: \$${(quoteTotalCents(suggestions.values)! / 100).toStringAsFixed(2)}',
           ),
           const Text(
-            'Check ingredients, dietary needs and package sizes before accepting. Items needing review are excluded.',
-          ),
-          OutlinedButton(
-            onPressed: automaticBusy || widget.stale ? null : acceptSuggestions,
-            child: const Text('Accept reviewed suggestions'),
-          ),
-        ],
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  total == null || widget.stale
-                      ? 'Estimated list total: —'
-                      : 'Estimated list total: \$${(total / 100).toStringAsFixed(2)}',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Text('${valid.length} of ${rows.length} items priced'),
-                const Text(
-                  'Unpriced items are excluded. Taxes, fees, coupons and final variable weights are not included. Prices may change.',
-                ),
-              ],
-            ),
-          ),
-        ),
-        for (final row in rows)
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    row.name,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Text('Needed for recipes: ${rowAmount(row, 'lb')}'),
-                  if (searchNotes[row.key] case final note?) Text(note),
-                  if (suggestions[row.key] case final suggestion?) ...[
-                    Text('Suggested: ${suggestion.offer.name}'),
-                    Text(
-                      '${buyPackages(suggestion)} • \$${(suggestion.costCents / 100).toStringAsFixed(2)}',
-                    ),
-                    Text(
-                      '\$${suggestion.offer.unitPrice?.toStringAsFixed(2) ?? '—'} ${suggestion.offer.unitLabel ?? ''}',
-                    ),
-                    TextButton(
-                      onPressed: automaticBusy || widget.stale
-                          ? null
-                          : () {
-                              if (suggestion.matches(
-                                    row,
-                                    profile?.selectedStoreId ?? '',
-                                  ) &&
-                                  ref.read(shoppingQuoteProvider).storeId ==
-                                      profile?.selectedStoreId) {
-                                quotes.select(suggestion);
-                                setState(() => suggestions.remove(row.key));
-                              }
-                            },
-                      child: const Text('Use this suggestion'),
-                    ),
-                  ],
-                  if (selectionFor(row) case final selected?) ...[
-                    Text(
-                      buyPackages(selected),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Text(selected.offer.name),
-                    Text(
-                      '${selected.packages} package(s) × \$${selected.offer.price!.toStringAsFixed(2)} = \$${(selected.costCents / 100).toStringAsFixed(2)}',
-                    ),
-                    Text(selected.offer.size),
-                    if (selected.offer.retrievedAt != null)
-                      Text(
-                        'Price retrieved ${selected.offer.retrievedAt!.toLocal()}',
-                      ),
-                    TextButton(
-                      onPressed: () => quotes.remove(row.key),
-                      child: const Text('Remove product'),
-                    ),
-                  ] else
-                    Text(purchaseHint(row)),
-                  OutlinedButton(
-                    onPressed:
-                        !loading &&
-                            !automaticBusy &&
-                            store != null &&
-                            !widget.stale
-                        ? () => selectProduct(row)
-                        : null,
-                    child: Text(
-                      selectionFor(row) == null
-                          ? 'Find Kroger product'
-                          : 'Change product',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        if (rows.isEmpty) const Text('No groceries to price.'),
-      ],
-    );
-  }
-}
-
-class GroceryProductPicker extends ConsumerStatefulWidget {
-  final RegionRepository repository;
-  final String storeId;
-  final ShoppingRow row;
-  final double? pieceWeightOz;
-  const GroceryProductPicker({
-    super.key,
-    required this.repository,
-    required this.storeId,
-    required this.row,
-    this.pieceWeightOz,
-  });
-  @override
-  ConsumerState<GroceryProductPicker> createState() =>
-      _GroceryProductPickerState();
-}
-
-class _GroceryProductPickerState extends ConsumerState<GroceryProductPicker> {
-  late final query = TextEditingController(
-    text: productSearchTerm(widget.row.name),
-  );
-  final packages = TextEditingController();
-  List<ProductOffer> offers = [];
-  ProductOffer? selected;
-  bool busy = false, confirmed = false, searched = false;
-  String? error;
-  int generation = 0;
-  @override
-  void dispose() {
-    generation++;
-    query.dispose();
-    packages.dispose();
-    super.dispose();
+            'Check ingredients, dietary needs and package sizes before …10837 tokens truncated…> retryPending() async {
+    if (!online || busy || _refreshing || pendingChanges == null) return;
+    final changes = pendingChanges!;
+    final id = _pendingRequestId;
+    pendingChanges = null;
+    _pendingRequestId = null;
+    await _send(changes, requestId: id);
   }
 
-  Future<void> search() async {
-    final term = query.text.trim();
-    if (term.length < 2 || term.length > 100) {
-      setState(() => error = 'Search must contain 2–100 characters.');
+  void discardPending() {
+    pendingChanges = null;
+    _pendingRequestId = null;
+    status = null;
+    _notify();
+  }
+
+  @override
+  void commitSnapshot(
+    PlannerSnapshot snapshot, {
+    bool mealChange = false,
+    bool remember = true,
+  }) {
+    if (!canEdit) return;
+    _send(changesBetween(view!, snapshot), remember: remember);
+  }
+
+  @override
+  void updateEntry(PlanEntry entry, {PlanEntry? expectedEntry}) {
+    final current = view?.snapshot.entries
+        .where((e) => e.id == entry.id)
+        .firstOrNull;
+    if (expectedEntry != null &&
+        current != null &&
+        jsonEncode(current.toJson()) != jsonEncode(expectedEntry.toJson())) {
+      conflictChanges = [
+        {
+          'op': 'entry',
+          'id': entry.id,
+          'value': entry.toJson(),
+          'expectedRevision': view!.revisions['entry:${entry.id}'] ?? -1,
+        },
+      ];
+      status =
+          'This meal changed while you were editing. Review both versions.';
+      _notify();
       return;
     }
-    final request = ++generation;
-    setState(() {
-      busy = true;
-      error = null;
-      offers = [];
-      selected = null;
-      confirmed = false;
-      packages.clear();
-    });
+    super.updateEntry(entry, expectedEntry: expectedEntry);
+  }
+
+  @override
+  void updateRecipe(Recipe recipe, {Recipe? expectedRecipe}) {
+    if (!canEdit) return;
+    final current = view?.snapshot.recipes[recipe.id];
+    if (expectedRecipe != null &&
+        current != null &&
+        jsonEncode(current.toJson()) != jsonEncode(expectedRecipe.toJson())) {
+      conflictChanges = [
+        {
+          'op': 'recipe',
+          'id': recipe.id,
+          'value': recipe.toJson(),
+          'expectedRevision': view!.revisions['recipe:${recipe.id}'] ?? -1,
+        },
+      ];
+      status =
+          'This recipe changed while you were editing. Review both versions.';
+      _notify();
+      return;
+    }
+    super.updateRecipe(recipe, expectedRecipe: expectedRecipe);
+  }
+
+  @override
+  void undo() {
+    final commands = _inverse;
+    _inverse = null;
+    if (commands != null) _send(commands, remember: false);
+  }
+
+  @override
+  void generate(DateTime start, int weeks) {
+    _generate(start, weeks);
+  }
+
+  Future<void> _generate(DateTime start, int weeks) async {
+    if (!canEdit) return;
+    final before = view!;
+    final result = ShoppingEngine.generate(
+      entries: before.snapshot.entries,
+      recipes: before.snapshot.recipes,
+      start: start,
+      weeks: weeks,
+    );
+    await _sendGeneration(
+      PendingGeneration(
+        const Uuid().v4(),
+        before.snapshot.revision,
+        start,
+        weeks,
+        result.rows.map((r) => r.toJson()).toList(),
+        result.warnings,
+      ),
+    );
+  }
+
+  Future<void> _sendGeneration(PendingGeneration proposal) async {
+    if (!online || busy || _refreshing) return;
+    busy = true;
+    status = null;
+    generationMessage = null;
+    _notify();
+    final epoch = _epoch;
     try {
-      final results = await widget.repository.search(widget.storeId, term);
-      if (results.any((offer) => offer.storeId != widget.storeId))
-        throw StateError('Results did not match the selected store.');
-      if (mounted && request == generation)
-        setState(() {
-          offers = sortProductOffers(results, OfferSort.packageLow);
-          searched = true;
-          busy = false;
-        });
+      final next = await shared.regenerate(
+        proposal.requestId,
+        proposal.revision,
+        proposal.start,
+        proposal.weeks,
+        proposal.rows,
+        proposal.warnings,
+      );
+      await _accept(next, epoch);
+      if (mounted && epoch == _epoch) {
+        pendingGeneration = null;
+        generationMessage = null;
+      }
     } catch (e) {
-      if (mounted && request == generation)
-        setState(() {
-          error = '$e';
-          busy = false;
-        });
+      if (mounted && epoch == _epoch) {
+        pendingGeneration = proposal;
+        proposal.recompute = e is SharedConflict;
+        generationMessage = e is SharedConflict
+            ? '${e.toString()}. Reloaded the calendar; retry groceries to use its latest meals.'
+            : 'Grocery generation has an uncertain result. Reload, then retry groceries safely.';
+        if (e is! SharedConflict) online = false;
+      }
+    } finally {
+      if (mounted && epoch == _epoch) {
+        busy = false;
+        _notify();
+        await refresh();
+      }
+    }
+  }
+
+  Future<void> retryGeneration() async {
+    final proposal = pendingGeneration;
+    if (proposal == null || !online || busy || _refreshing) return;
+    if (proposal.recompute) {
+      pendingGeneration = null;
+      generationMessage = null;
+      await _generate(proposal.start, proposal.weeks);
+    } else {
+      // Reusing the original payload/request makes an accepted-but-lost reply safe.
+      await _sendGeneration(proposal);
+    }
+  }
+
+  void discardGeneration() {
+    pendingGeneration = null;
+    generationMessage = null;
+    status = null;
+    _notify();
+  }
+
+  String conflictPreview() {
+    final snapshot = view?.snapshot;
+    final records = (conflictChanges ?? pendingChanges ?? []).map((c) {
+      final id = c['id'];
+      final op = c['op'];
+      Object? current;
+      if (op == 'entry')
+        current = snapshot?.entries
+            .where((e) => e.id == id)
+            .firstOrNull
+            ?.toJson();
+      if (op == 'recipe') current = snapshot?.recipes[id]?.toJson();
+      if (op == 'favorites') current = snapshot?.favorites.toList();
+      if (op == 'avoided') current = snapshot?.avoided.toList();
+      if (op == 'clearList') current = snapshot?.list?.toJson();
+      if (op == 'weights') current = snapshot?.pieceWeights;
+      return {'record': id, 'current': current, 'proposed': c['value']};
+    }).toList();
+    return const JsonEncoder.withIndent('  ').convert(records);
+  }
+
+  Future<void> discardConflict() async {
+    conflictChanges = null;
+    status = null;
+    await refresh();
+  }
+
+  bool get canReapplyConflict =>
+      mounted &&
+      online &&
+      !busy &&
+      !_refreshing &&
+      view != null &&
+      conflictChanges != null &&
+      !conflictChanges!.any((c) => c['op'] == 'clearList') &&
+      pendingChanges == null &&
+      pendingGeneration == null;
+
+  Future<void> reapplyConflict() async {
+    if (!canReapplyConflict) return;
+    final changes = conflictChanges;
+    if (changes == null || view == null) return;
+    final next = changes.map((c) {
+      final op = c['op'];
+      final key = op == 'entry'
+          ? 'entry:${c['id']}'
+          : op == 'recipe'
+          ? 'recipe:${c['id']}'
+          : 'preference:${c['id']}';
+      return {
+        ...c,
+        if (c.containsKey('expectedRevision'))
+          'expectedRevision': view!.revisions[key] ?? -1,
+      };
+    }).toList();
+    conflictChanges = null;
+    await _send(next);
+  }
+
+  @override
+  Future<void> importBackup(String raw) async {
+    if (!mounted || !canEdit) throw StateError('Reconnect before importing.');
+    final snapshot = PlannerSnapshot.decode(raw);
+    busy = true;
+    _notify();
+    final epoch = _epoch;
+    try {
+      await shared.importLocal(snapshot);
+      final next = await shared.fetch();
+      await _accept(next, epoch);
+    } finally {
+      if (mounted && epoch == _epoch) {
+        busy = false;
+        _notify();
+      }
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    final accountChanged = !identical(
-      ref.watch(regionRepositoryProvider),
-      widget.repository,
-    );
-    final count = int.tryParse(packages.text);
-    return AdaptiveAlertDialog(
-      title: Text('Price ${widget.row.name}'),
-      content: SizedBox(
-        width: 600,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Needed: ${rowAmount(widget.row, 'lb')} • Kroger store ${widget.storeId}',
-            ),
-            if (accountChanged)
-              const Text('Account changed. Close this search and try again.'),
-            TextField(
-              controller: query,
-              onChanged: (_) => setState(() {
-                generation++;
-                searched = false;
-                busy = false;
-                offers = [];
-                selected = null;
-                error = null;
-              }),
-              decoration: const InputDecoration(
-                labelText: 'Search Kroger products',
-              ),
-              onSubmitted: (_) {
-                if (!accountChanged && !busy) search();
-              },
-            ),
-            TextButton(
-              onPressed: busy || accountChanged ? null : search,
-              child: const Text('Search products'),
-            ),
-            if (busy) const LinearProgressIndicator(),
-            if (error != null) Text(error!),
-            if (!busy && offers.isNotEmpty && !accountChanged)
-              SizedBox(
-                height: 230,
-                child: ListView(
-                  children: [
-                    for (final offer in offers)
-                      ListTile(
-                        title: Text(offer.name),
-                        subtitle: Text(
-                          '${offer.size.isEmpty ? 'Size unknown' : offer.size} • ${offer.knownPrice ? '\$${offer.price!.toStringAsFixed(2)}' : 'Price unavailable'}\n${offer.soldBy == 'WEIGHT'
-                              ? 'Variable weight: package quote unavailable'
-                              : offer.soldBy == 'UNIT'
-                              ? 'Fixed package'
-                              : 'Confirm package basis before pricing'} • ${offer.availability}',
-                        ),
-                        selected: identical(offer, selected),
-                        onTap: !offer.knownPrice || offer.soldBy == 'WEIGHT'
-                            ? null
-                            : () => setState(() {
-                                selected = offer;
-                                confirmed = offer.soldBy == 'UNIT';
-                                packages.text =
-                                    suggestPackages(
-                                      widget.row,
-                                      offer,
-                                      pieceWeightOz: widget.pieceWeightOz,
-                                    )?.toString() ??
-                                    '';
-                              }),
-                      ),
-                  ],
-                ),
-              ),
-            if (!busy && error == null && offers.isEmpty)
-              Text(
-                searched
-                    ? 'No matching products found. Try another search.'
-                    : 'Search for a product, then review its size and price.',
-              ),
-            if (selected != null && !accountChanged) ...[
-              if (estimatedPurchaseGrams(widget.row) != null &&
-                  selected!.unitFamily == 'mass')
-                Text(
-                  'Estimated shopping weight: ${readableAmount(estimatedPurchaseGrams(widget.row)!, 'g')}. Uses an ingredient-specific cup-to-weight estimate; review the package.',
-                ),
-              Text('Selected: ${selected!.name}'),
-              if (suggestPackages(
-                    widget.row,
-                    selected!,
-                    pieceWeightOz: widget.pieceWeightOz,
-                  ) ==
-                  null)
-                const Text(
-                  'Package count cannot be calculated reliably. Enter the number of fixed packages you want.',
-                ),
-              if (widget.pieceWeightOz != null)
-                const Text(
-                  'Any weight-based suggestion uses your estimated ounces per piece.',
-                ),
-              TextField(
-                controller: packages,
-                keyboardType: TextInputType.number,
-                onChanged: (_) => setState(() {}),
-                decoration: const InputDecoration(
-                  labelText: 'Packages to buy (1–999)',
-                ),
-              ),
-              if (selected!.soldBy != 'UNIT')
-                CheckboxListTile(
-                  value: confirmed,
-                  onChanged: (v) => setState(() => confirmed = v ?? false),
-                  title: const Text(
-                    'I confirm this price is for one fixed package',
-                  ),
-                ),
-              if (count != null && count >= 1 && count <= 999)
-                Text(
-                  'Line estimate: \$${((selected!.price! * 100).round() * count / 100).toStringAsFixed(2)}',
-                ),
-            ],
-          ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
-        ),
-        FilledButton(
-          onPressed:
-              selected != null &&
-                  confirmed &&
-                  !accountChanged &&
-                  !busy &&
-                  count != null &&
-                  count >= 1 &&
-                  count <= 999
-              ? () => Navigator.pop(
-                  context,
-                  PriceSelection(
-                    row: widget.row,
-                    offer: selected!,
-                    packages: count,
-                    packageBasisConfirmed: confirmed,
-                  ),
-                )
-              : null,
-          child: const Text('Use product estimate'),
-        ),
-      ],
-    );
+  void dispose() {
+    ++_epoch;
+    _subscription?.cancel();
+    shared.dispose();
+    super.dispose();
   }
 }

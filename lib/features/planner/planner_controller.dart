@@ -183,6 +183,12 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     }
   }
 
+  void clearShoppingList() {
+    final current = state.asData?.value;
+    if (current?.list == null || !canEdit) return;
+    commitSnapshot(current!.copyWith(clearList: true));
+  }
+
   void generate(DateTime start, int weeks) {
     final s = state.asData!.value;
     final result = ShoppingEngine.generate(

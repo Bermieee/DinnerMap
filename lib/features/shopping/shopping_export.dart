@@ -1,3 +1,4 @@
+import 'product_search.dart';
 import '../planner/models.dart';
 import 'shopping_models.dart';
 import 'shopping_engine.dart';
@@ -13,7 +14,7 @@ String shoppingText(
   'DinnerMap • ${dateKey(list.start)} • ${list.weeks} week(s)',
   ...list.rows.map(
     (r) =>
-        '${list.checked.contains(r.key) ? '[x]' : '[ ]'} ${r.name}${r.preparation.isEmpty ? '' : ' (${r.preparation})'}: ${purchaseExport(r, massUnit, pieceWeights, selections[r.key])}',
+        '${list.checked.contains(r.key) ? '[x]' : '[ ]'} ${productSearchTerm(r.name)}${r.preparation.isEmpty ? '' : ' (${r.preparation})'}: ${purchaseExport(r, massUnit, pieceWeights, selections[r.key])}',
   ),
   ...list.manualItems.map(
     (m) =>
@@ -33,7 +34,7 @@ String shoppingCsv(
     ['Item', 'Buy / Recipe amount', 'Checked', 'Notes'],
     ...list.rows.map(
       (r) => [
-        r.name,
+        productSearchTerm(r.name),
         purchaseExport(r, massUnit, pieceWeights, selections[r.key]),
         list.checked.contains(r.key) ? 'yes' : 'no',
         [
