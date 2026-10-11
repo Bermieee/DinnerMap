@@ -88,3 +88,7 @@ PGlite RED without migration reproduced unsupported clear; all database suites G
 Configured web artifact11686857450 digest7374a57db2a7e739db1db9637f07fe3ca57025b0691b161cdbc8095f09721c27 verified;108 recipe assets, public config and compiled clear control checked. Managed interactive browser QA unavailable. Android CI was running at checkpoint.
 
 NOT PUBLISHED: Supabase apply_migration failed twice and transactional execute_sql once with `McpServerError: Invalid or expired requestState`. Read-only inspection confirms live private.apply_one has no clearList/conflict guard. No user grocery data was cleared. Migration file supabase/migrations/20261011001500_clear_shopping_list.sql is ready for the project SQL editor. Apply it, verify function support, then publish prepared archive `/workspace/sites/dinnermap-web-0.6.1-deploy.tar.gz`. Existing live0.6.0 remains.
+
+### Clear-list deployment completed
+
+User applied the supplied SQL update on2026-10-10(local). Read-only live function verification confirms clearList support and changed-list conflict guard. Prepared0.6.1 published successfully from Sites source `d1ff362b04b737124debd6f7a4ce663729d0eeec`, deployment `appgdep_6acadd896020819193036d4d7b9d8359`, version `appgprj_6aca85cdb0208191af6166428b56d663~appgver_fe0c8023c4f481918c3dc3e15f8f73a8` at https://dinnermap-web.lushsnail1.chatgpt.site/. Earlier backend blocker is resolved. Audience preserved. No actual user list was cleared by the assistant; button/device acceptance remains for the user.
