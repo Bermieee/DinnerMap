@@ -30,6 +30,11 @@ String productSearchTerm(String ingredient) {
     ),
     ' ',
   );
+  // A recipe's use of an ingredient is not part of its retail identity.
+  term = term.replaceAll(
+    RegExp(r'\s+for\s+[^,;()]+$', caseSensitive: false),
+    ' ',
+  );
   term = term.replaceAll(RegExp(r'[,;()]'), ' ');
   term = term.replaceAll(RegExp(r'\s+'), ' ').trim();
   term = term.replaceAll(

@@ -22,7 +22,7 @@ int? suggestPackages(
       offer.unitFamily == 'mass' &&
       estimatedPurchaseGrams(row) != null) {
     requiredAmount = estimatedPurchaseGrams(row)! / 453.59237;
-  } else if (['count', 'large', 'medium', 'small'].contains(row.unit) &&
+  } else if (['count', 'large', 'medium', 'small'].contains(family(row.unit)) &&
       offer.unitFamily == 'count') {
     requiredAmount = quantity;
   } else if (pieceWeightOz != null && offer.unitFamily == 'mass') {

@@ -73,17 +73,49 @@ const massFactors = {
 const volumeFactors = {
   'ml': 1.0,
   'l': 1000.0,
+  'qt': 946.352946,
+  'pt': 473.176473,
+  'gal': 3785.411784,
   'cup': 236.5882365,
   'tbsp': 14.78676478125,
   'tsp': 4.92892159375,
   'fl oz': 29.5735295625,
 };
-String family(String unit) => massFactors.containsKey(unit)
-    ? 'mass'
-    : volumeFactors.containsKey(unit)
-    ? 'volume'
-    : unit;
-double factor(String unit) => massFactors[unit] ?? volumeFactors[unit] ?? 1;
+String canonicalRecipeUnit(String unit) {
+  final cleaned = unit.trim().toLowerCase().replaceFirst(
+    RegExp(r'\s+(?:\(optional\)|optional)$'),
+    '',
+  );
+  return const {
+        'cups': 'cup',
+        'tablespoon': 'tbsp',
+        'tablespoons': 'tbsp',
+        'teaspoon': 'tsp',
+        'teaspoons': 'tsp',
+        'quart': 'qt',
+        'quarts': 'qt',
+        'pint': 'pt',
+        'pints': 'pt',
+        'gallon': 'gal',
+        'gallons': 'gal',
+        'extra large': 'large',
+      }[cleaned] ??
+      cleaned;
+}
+
+String family(String rawUnit) {
+  final unit = canonicalRecipeUnit(rawUnit);
+  return massFactors.containsKey(unit)
+      ? 'mass'
+      : volumeFactors.containsKey(unit)
+      ? 'volume'
+      : unit;
+}
+
+double factor(String unit) =>
+    massFactors[canonicalRecipeUnit(unit)] ??
+    volumeFactors[canonicalRecipeUnit(unit)] ??
+    1;
 String ingredientIdentity(Ingredient i) =>
     '${i.name.trim().toLowerCase().replaceAll(RegExp(r'\s+'), ' ')}|${i.preparation.trim().toLowerCase()}';
 
@@ -107,7 +139,7 @@ class ShoppingRow {
 
   double? estimatedOz(double perPiece) =>
       quantity != null &&
-          ['count', 'large', 'medium', 'small'].contains(unit) &&
+          ['count', 'large', 'medium', 'small'].contains(family(unit)) &&
           perPiece.isFinite &&
           perPiece > 0
       ? quantity! * perPiece

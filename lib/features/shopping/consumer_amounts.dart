@@ -1,5 +1,6 @@
 import '../planner/models.dart';
 import 'shopping_engine.dart';
+import 'product_search.dart';
 
 // Display only. Stored amounts retain full precision for package calculations.
 String friendlyNumber(double value) {
@@ -68,7 +69,12 @@ String recipeIngredientAmount(Ingredient ingredient) {
         : ingredient.originalText;
   if (family(ingredient.unit) == 'mass')
     return '${friendlyNumber(q)} ${ingredient.unit}';
-  return readableAmount(q, ingredient.unit);
+  final amount = readableAmount(q, ingredient.unit);
+  final optional = RegExp(
+    r'\boptional\b',
+    caseSensitive: false,
+  ).hasMatch('${ingredient.unit} ${ingredient.originalText}');
+  return optional ? '$amount (optional)' : amount;
 }
 
 // Estimated purchase conversion only, not a replacement for recipe measurements.
@@ -77,13 +83,21 @@ String recipeIngredientAmount(Ingredient ingredient) {
 // Exact names avoid assuming cooked rice, flour blends, or prepared foods match.
 double? gramsPerCup(String name, {String preparation = ''}) {
   if (preparation.trim().isNotEmpty) return null;
-  final normalized = name.toLowerCase().trim().replaceAll(RegExp(r'\s+'), ' ');
+  final normalized = productSearchTerm(
+    name,
+  ).toLowerCase().trim().replaceAll(RegExp(r'\s+'), ' ');
   return switch (normalized) {
     'flour' ||
     'all-purpose flour' ||
     'all purpose flour' ||
     'plain flour' ||
     'bread flour' => 120,
+    // USDA SR28: ground black pepper 2.3 g per tsp (48 tsp/cup).
+    // https://ods.od.nih.gov/pubs/usdandb/EPA-Content.pdf
+    'black pepper' || 'ground black pepper' => 2.3 * 48,
+    // Health Canada common foods: plain barbecue sauce 16 g per 15 ml.
+    // https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/nutrient-data/table-18-miscellaneous-nutrient-value-some-common-foods-2008.html
+    'barbecue sauce' || 'bbq sauce' => 16 / 15 * factor('cup'),
     'sugar' || 'white sugar' || 'granulated sugar' => 198,
     'cornstarch' || 'corn starch' => 112,
     'butter' || 'salted butter' || 'unsalted butter' => 226,

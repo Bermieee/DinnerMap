@@ -92,3 +92,16 @@ NOT PUBLISHED: Supabase apply_migration failed twice and transactional execute_s
 ### Clear-list deployment completed
 
 User applied the supplied SQL update on2026-10-10(local). Read-only live function verification confirms clearList support and changed-list conflict guard. Prepared0.6.1 published successfully from Sites source `d1ff362b04b737124debd6f7a4ce663729d0eeec`, deployment `appgdep_6acadd896020819193036d4d7b9d8359`, version `appgprj_6aca85cdb0208191af6166428b56d663~appgver_fe0c8023c4f481918c3dc3e15f8f73a8` at https://dinnermap-web.lushsnail1.chatgpt.site/. Earlier backend blocker is resolved. Audience preserved. No actual user list was cleared by the assistant; button/device acceptance remains for the user.
+
+
+## 0.6.2 ingredient matching audit (2026-10-11 UTC)
+
+User reported flour request failure and rejected barbecue sauce, black pepper, and boneless chicken. A native executable reproduction rejected legitimate chicken because generic trailing-s removal corrupted `boneless` and `skinless`; it also rejected BBQ alias and ground pepper and could not convert pepper spoon quantities to package mass. New regression checks failed before the corresponding fixes and now pass.
+
+`tool/catalog_audit.dart` audits all 108 bundled recipes, 607 distinct ingredient names and 1,430 ingredient lines into `docs/ingredient-search-audit.csv`. It checks nonempty searches, identity matches, quantity/unit limitations, alternative/combined ingredients, and every curated recipe guide against the actual starter loader. This is a complete static catalog audit, not a live store-inventory sweep or a guarantee of supplier availability.
+
+Known plurals and aliases replace indiscriminate suffix stripping; cooking-use suffixes no longer pollute searches. Preserve food-form guards, explicit recipe alternatives, and user confirmation. Ground black pepper uses USDA SR28's 2.3 g/tsp estimate; plain barbecue sauce uses Health Canada's 16 g/15 ml estimate. These are approximate shopping conversions; recipes keep their cooking quantities, and suggestions still need review. Unknown ingredient densities remain manual. Quarts/pints/gallons and saved optional units work during calculation without rewriting starter records or curated dietary guide signatures. Optional cooking labels remain visible.
+
+Every rejected row now distinguishes empty results, mismatched names, missing price, unavailable stock, variable weight, unknown package basis/size and incompatible quantities. Request failures retain the backend's reason; a temporary service failure gets one paced retry. Authentication/configuration/quota errors do not retry. Changed account/store/list or cancellation prevents accepting a late result.
+
+Native matching, automatic, consumer, pricing, domain and discovery checks passed; matching checks also compiled and passed in JavaScript. Review found and resolved curated-guide and optional-display regressions. Full CI/build/publication evidence follows after completion. No backend schema or secret changes required.

@@ -96,9 +96,17 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
     for (final row in pending) {
       if (!contextMatches(request, store, repository)) break;
       try {
-        final offers = await repository.search(
-          store,
-          productSearchTerm(row.name),
+        final preflight = automaticPreflightReason(row);
+        if (preflight != null) {
+          setState(() {
+            searchNotes[row.key] = preflight;
+            completedSearches++;
+          });
+          continue;
+        }
+        final offers = await searchWithTransientRetry(
+          () => repository.search(store, productSearchTerm(row.name)),
+          isCurrent: () => contextMatches(request, store, repository),
         );
         if (!contextMatches(request, store, repository)) break;
         final best = bestDeal(
@@ -109,8 +117,7 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
         );
         setState(() {
           if (best == null) {
-            searchNotes[row.key] =
-                'Needs review: no suitable priced package with a known quantity.';
+            searchNotes[row.key] = automaticReviewReason(row, offers, store);
           } else {
             suggestions[row.key] = best;
           }
@@ -119,8 +126,9 @@ class _ShoppingPricePanelState extends ConsumerState<ShoppingPricePanel> {
       } catch (e) {
         if (!contextMatches(request, store, repository)) break;
         setState(() {
-          searchNotes[row.key] =
-              'Search failed. Use Find Kroger product to retry.';
+          searchNotes[row.key] = e is StateError
+              ? 'Search failed: ${e.message}. Use Find Kroger product to retry.'
+              : 'Search failed. Check your connection and retry.';
           completedSearches++;
         });
       }

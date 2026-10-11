@@ -3,16 +3,59 @@ import 'shopping_engine.dart';
 import 'shopping_pricing.dart';
 import 'product_search.dart';
 
-Set<String> _words(String text) => RegExp(r'[a-z0-9]+')
-    .allMatches(text.toLowerCase())
-    .map((m) {
-      final word = m.group(0)!;
-      return word.length > 3 && word.endsWith('s')
-          ? word.substring(0, word.length - 1)
-          : word;
-    })
-    .where((w) => !{'and', 'or', 'the'}.contains(w))
-    .toSet();
+// Normalize only known aliases/plurals. Removing every trailing "s" corrupts
+// identity words such as boneless, skinless and purpose.
+Set<String> _words(String text) {
+  var normalized = text
+      .toLowerCase()
+      .replaceAll('jalapeño', 'jalapeno')
+      .replaceAll(RegExp(r'\bbbq\b|\bbarbeque\b'), 'barbecue')
+      .replaceAll(RegExp(r'\bbreadcrumbs?\b'), 'bread crumbs')
+      .replaceAll(RegExp(r'\bscallions?\b'), 'green onions')
+      .replaceAll(RegExp(r'\bchilli\b'), 'chili')
+      .replaceAll(RegExp(r'\bfresh\b'), '')
+      .replaceAllMapped(
+        RegExp(r'\bground (cumin|black pepper|white pepper|cardamom|mace)\b'),
+        (m) => m[1]!,
+      );
+  const plurals = {
+    'breasts': 'breast',
+    'thighs': 'thigh',
+    'eggs': 'egg',
+    'onions': 'onion',
+    'peppers': 'pepper',
+    'potatoes': 'potato',
+    'tomatoes': 'tomato',
+    'leaves': 'leaf',
+    'berries': 'berry',
+    'carrots': 'carrot',
+    'mushrooms': 'mushroom',
+    'cloves': 'clove',
+    'beans': 'bean',
+    'seeds': 'seed',
+    'nuts': 'nut',
+    'peas': 'pea',
+    'pieces': 'piece',
+    'crumbs': 'crumb',
+    'tortillas': 'tortilla',
+    'nuggets': 'nugget',
+    'cookies': 'cookie',
+    'crackers': 'cracker',
+    'treats': 'treat',
+    'sticks': 'stick',
+    'pounds': 'pound',
+    'ounces': 'ounce',
+    'packs': 'pack',
+    'bottles': 'bottle',
+    'cans': 'can',
+    'jars': 'jar',
+  };
+  return RegExp(r'[a-z0-9]+')
+      .allMatches(normalized)
+      .map((m) => plurals[m.group(0)!] ?? m.group(0)!)
+      .where((w) => !{'and', 'or', 'the'}.contains(w))
+      .toSet();
+}
 
 /// Conservative name matching. Suggestions always require user review.
 /// Reject unfamiliar substitutions instead of filling the list with guesses.
@@ -71,7 +114,13 @@ bool suitableProduct(String ingredient, String product) {
     'flavored',
     'seasoning',
   };
-  if (forms.any((w) => found.contains(w) && !wanted.contains(w))) return false;
+  if (forms.any(
+    (w) =>
+        found.contains(w) &&
+        !wanted.contains(w) &&
+        !(w == 'brown' && wanted.contains('egg')),
+  ))
+    return false;
   // Unknown food qualifiers are not evidence of an ingredient match. This
   // intentionally leaves unfamiliar brands/forms for manual product review.
   const neutral = {
@@ -89,6 +138,7 @@ bool suitableProduct(String ingredient, String product) {
     'pure',
     'brand',
     'farm',
+    'mccormick',
     'oz',
     'ounce',
     'lb',
@@ -149,6 +199,15 @@ bool suitableProduct(String ingredient, String product) {
       'fairlife',
     },
     'sugar': {'white', 'granulated', 'cane', 'refined', 'domino'},
+    'cumin': {'ground', 'culinary'},
+    'coriander': {'ground', 'culinary'},
+    'ginger': {'culinary'},
+    'cardamom': {'ground', 'culinary'},
+    'mace': {'ground', 'culinary'},
+    'paprika': {'culinary'},
+    'pepper': {'ground', 'coarse', 'fine', 'mccormick', 'culinary'},
+    'barbecue': {'sweet', 'baby', 'ray', 'rays', 's'},
+    'crumb': {'plain', 'dried', 'dry', 'progresso'},
     'flour': {
       'all',
       'purpose',
@@ -195,6 +254,7 @@ PriceSelection? bestDeal(
   String storeId, {
   double? pieceWeightOz,
 }) {
+  if (automaticPreflightReason(row) != null) return null;
   PriceSelection? best;
   for (final offer in offers) {
     if (offer.storeId != storeId ||
@@ -215,4 +275,84 @@ PriceSelection? bestDeal(
       best = selection;
   }
   return best;
+}
+
+/// Explain the rejected offers without describing a calculation failure as
+/// absence of an item. Manual review can still select a fixed package.
+String automaticReviewReason(
+  ShoppingRow row,
+  Iterable<ProductOffer> offers,
+  String storeId,
+) {
+  final preflight = automaticPreflightReason(row);
+  if (preflight != null) return preflight;
+  final all = offers.toList();
+  if (all.isEmpty) return 'Kroger returned no products. Try a broader search.';
+  final local = all.where((o) => o.storeId == storeId).toList();
+  if (local.isEmpty) return 'No offers for the selected store. Search again.';
+  final named = local.where((o) => suitableProduct(row.name, o.name)).toList();
+  if (named.isEmpty) {
+    return 'Products returned, but their names or food types need review. Choose a matching product.';
+  }
+  final stocked = named
+      .where(
+        (o) => !RegExp(
+          r'out.of.stock|unavailable',
+          caseSensitive: false,
+        ).hasMatch(o.availability),
+      )
+      .toList();
+  if (stocked.isEmpty)
+    return 'Matching products are marked unavailable at this store.';
+  final priced = stocked.where((o) => o.knownPrice).toList();
+  if (priced.isEmpty) return 'Matching products have no price for this store.';
+  final fixed = priced.where((o) => o.soldBy == 'UNIT').toList();
+  if (fixed.isEmpty) {
+    return priced.every((o) => o.soldBy == 'WEIGHT')
+        ? 'Matching products are sold by weight. A fixed-package total is unavailable.'
+        : 'Matching products need their package pricing basis confirmed.';
+  }
+  if (fixed.every((o) => o.normalizedAmount == null)) {
+    return 'Matching products have an unknown package size. Review the package count.';
+  }
+  return 'Matching products found, but we cannot convert the recipe units to their package size. Review the package count.';
+}
+
+/// One paced retry for a transient service failure. Authentication, configuration,
+/// request quotas and invalid searches require intervention, not more requests.
+Future<List<ProductOffer>> searchWithTransientRetry(
+  Future<List<ProductOffer>> Function() search, {
+  required bool Function() isCurrent,
+  Duration retryDelay = const Duration(milliseconds: 2200),
+}) async {
+  try {
+    return await search();
+  } on StateError catch (e) {
+    final message = e.message.toString();
+    const transient = {
+      'Kroger is temporarily unavailable.',
+      'Retailer service is unavailable. Try again.',
+      'Store service is unavailable. Check connection and retry.',
+    };
+    if (!transient.contains(message) || !isCurrent()) rethrow;
+    await Future<void>.delayed(retryDelay);
+    if (!isCurrent()) rethrow;
+    return search();
+  }
+}
+
+String? automaticPreflightReason(ShoppingRow row) {
+  if (row.quantity == null || !row.quantity!.isFinite || row.quantity! <= 0) {
+    return 'Recipe amount needs review before package quantities can be calculated.';
+  }
+  final term = productSearchTerm(row.name).toLowerCase();
+  if (RegExp(r'\bor\b').hasMatch(term)) {
+    return 'Recipe lists alternatives. Choose the ingredient you want before pricing.';
+  }
+  if (RegExp(r'\band\b').hasMatch(term) &&
+      term != 'half and half' &&
+      !term.contains('peeled and deveined shrimp')) {
+    return 'Recipe combines ingredients in one line. Split them before calculating packages.';
+  }
+  return null;
 }
