@@ -167,12 +167,24 @@ void main() {
       await navigate(tester, 'Recipes');
       await tester.enterText(find.byType(TextField), 'Soup');
       await tester.pumpAndSettle();
-      expect(find.text('Soup'), findsNWidgets(2));
       final add = tester.widget<FilledButton>(
         find.widgetWithText(FilledButton, 'Add recipe'),
       );
       expect(add.onPressed, isNull);
-      await tester.tap(find.text('Soup').last);
+      final soup = find.widgetWithText(Card, 'Soup');
+      await tester.scrollUntilVisible(
+        soup,
+        180,
+        scrollable: find
+            .descendant(
+              of: find.byKey(const PageStorageKey('recipes-scroll')),
+              matching: find.byType(Scrollable),
+            )
+            .first,
+      );
+      await tester.pumpAndSettle();
+      expect(soup, findsOneWidget);
+      await tester.tap(soup);
       await tester.pumpAndSettle();
       expect(find.text('Ingredients'), findsOneWidget);
       expect(

@@ -78,6 +78,9 @@ List<Map<String, dynamic>> changesBetween(
     );
   final list = next.list;
   final previous = old.list;
+  if (list == null && previous != null) {
+    result.add({'op': 'clearList', 'id': 'list', 'value': previous.toJson()});
+  }
   if (list != null && previous != null) {
     for (final m in list.manualItems) {
       if (!previous.manualItems.any((p) => p.id == m.id))

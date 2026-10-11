@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/planner_repository.dart';
 import 'models.dart';
+import 'month_plan.dart';
+import 'starter_recipes.dart';
 import '../shopping/shopping_engine.dart';
 import '../shopping/shopping_models.dart';
 
@@ -38,49 +40,29 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
   Future<void> load() async {
     try {
       final saved = await repository.load();
+      if (saved != null) state = AsyncValue.data(saved);
+      final recipes = loadRecipes(
+        jsonDecode(await rootBundle.loadString('assets/recipes.json')) as List,
+      );
       if (saved != null) {
-        state = AsyncValue.data(saved);
+        if (!mounted || _restoring) return;
+        final current = state.asData?.value ?? saved;
+        final upgraded = addDiscoveryStarters(current, recipes);
+        if (!identical(current, upgraded)) {
+          commitSnapshot(upgraded, mealChange: true, remember: false);
+          await _queue;
+        }
         return;
       }
-      final raw =
-          jsonDecode(await rootBundle.loadString('assets/recipes.json'))
-              as List;
-      final recipes = raw.map((value) {
-        final j = Map<String, dynamic>.from(value as Map);
-        final yield = j['yieldNote'] as String? ?? '';
-        final servings = parseBaseServings(yield);
-        return Recipe(
-          id: j['id'] as String,
-          title: j['name'] as String,
-          baseServings: servings,
-          category: j['type'] as String? ?? 'quick',
-          region: j['area'] as String? ?? '',
-          sourceUrl: j['original'] as String? ?? '',
-          incomplete: j['incomplete'] == true,
-          instructions:
-              'Open the source recipe for cooking directions. ${yield.isEmpty ? 'Original source quantities; confirm servings before scaling.' : yield}',
-          ingredients: (j['ingredients'] as List).map((value) {
-            final i = Map<String, dynamic>.from(value as Map);
-            final measure = i['measure'] as String;
-            final parsed = parseMeasure(measure);
-            return Ingredient(
-              name: i['name'] as String,
-              quantity: parsed.quantity,
-              unit: parsed.unit,
-              originalText: measure,
-            );
-          }).toList(),
-        );
-      }).toList();
-      final today = dateOnly(DateTime.now());
+      final dates = monthDates(DateTime.now());
       state = AsyncValue.data(
         PlannerSnapshot(
           recipes: {for (final r in recipes) r.id: r},
           entries: [
-            for (var i = 0; i < 28; i++)
+            for (var i = 0; i < dates.length; i++)
               PlanEntry(
-                id: 'day-$i',
-                date: DateTime(today.year, today.month, today.day + i),
+                id: 'day-${dateKey(dates[i])}',
+                date: dates[i],
                 recipeId: recipes[i % recipes.length].id,
               ),
           ],
@@ -168,19 +150,26 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
     final random = Random();
     commitSnapshot(
       s.copyWith(
-        entries: s.entries
-            .map(
-              (e) =>
-                  e.kind == EntryKind.recipe &&
-                      !e.date.isBefore(start) &&
-                      e.date.isBefore(end)
-                  ? e.copyWith(
-                      recipeId: available[random.nextInt(available.length)].id,
-                      cooked: false,
-                    )
-                  : e,
-            )
-            .toList(),
+        entries:
+            fillPlanRange(
+                  s.entries,
+                  start,
+                  days,
+                  () => available[random.nextInt(available.length)].id,
+                )
+                .map(
+                  (e) =>
+                      e.kind == EntryKind.recipe &&
+                          !e.date.isBefore(start) &&
+                          e.date.isBefore(end)
+                      ? e.copyWith(
+                          recipeId:
+                              available[random.nextInt(available.length)].id,
+                          cooked: false,
+                        )
+                      : e,
+                )
+                .toList(),
       ),
       mealChange: true,
     );
@@ -192,6 +181,12 @@ class PlannerController extends StateNotifier<AsyncValue<PlannerSnapshot>> {
       undoSnapshot = null;
       commitSnapshot(previous, mealChange: true, remember: false);
     }
+  }
+
+  void clearShoppingList() {
+    final current = state.asData?.value;
+    if (current?.list == null || !canEdit) return;
+    commitSnapshot(current!.copyWith(clearList: true));
   }
 
   void generate(DateTime start, int weeks) {

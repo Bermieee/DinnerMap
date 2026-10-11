@@ -1,6 +1,6 @@
 # DinnerMap
 
-Flutter meal planning and grocery lists for Android and web. Optional Supabase accounts and household sharing are implemented in the sharing branch; official Kroger/Walmart connections and Amazon eligibility work are the next stage.
+Flutter meal planning and grocery lists for Android and web. Optional Supabase accounts and household sharing are implemented in the sharing branch; the regional-shopping branch adds ZIP profiles and a server-side Kroger connector. Walmart and Amazon access remain pending.
 
 ## Foundation features
 
@@ -8,7 +8,7 @@ Flutter meal planning and grocery lists for Android and web. Optional Supabase a
 - 105 attributed offline recipes, recipe search, favorites, shuffle avoidance and manual recipe editing.
 - Cumulative 1–4 week shopping totals, compatible unit conversion, pounds/ounces and editable per-piece weight estimates.
 - Local saved data, checklist items, manual groceries, regeneration, TXT/CSV export and JSON backup/restore.
-- Retailer interfaces and tested lowest/highest price sorting logic; live product results and cart transfer are not connected.
+- Private ZIP/radius preferences, Kroger store discovery and store-specific searches when the backend is configured; package/unit price sorting in both directions. Cart transfer remains pending.
 
 Without backend configuration, this version runs as a **local demo** and data stays on the current browser/device. Browser storage can be cleared; export backups for important plans.
 
@@ -23,6 +23,12 @@ See [household setup](docs/household-setup.md) for migrations, free-project conf
 Version 0.3.0 adapts navigation, calendar panes, recipe cards and dialogs to available window space, safe insets, keyboard and separating folds. Tabs retain selections, searches, shopping options and scroll positions. Shared read-only mode allows browsing and exports while mutation controls stay disabled.
 
 See [layout validation](docs/adaptive-layout-validation.md) for automated evidence and remaining device checks.
+
+## Regional shopping
+
+Version 0.4.0 adds **Household → Stores & prices**. Save a US ZIP and radius, discover nearby Kroger-family locations, select a store and search products. Local mode saves device location preferences; verified configured accounts save private account preferences. Walmart and Amazon display access-pending status. Unknown quantities/prices stay unknown, and unit comparison separates weight, volume and count.
+
+The [regional setup guide](docs/regional-shopping-setup.md) describes the new migration, Edge Function and Kroger backend secrets. The existing Supabase backend and configured web app are deployed; the latest release evidence is recorded in the validation guide. See [regional validation](docs/regional-shopping-validation.md) for tests and outstanding live checks.
 
 ## Run
 
@@ -43,10 +49,14 @@ flutter run
 flutter analyze
 flutter test
 dart tool/domain_check.dart
+dart tool/month_plan_check.dart
 dart tool/storage_check.dart
 dart tool/account_check.dart
 dart tool/shared_check.dart
 dart tool/layout_check.dart
+dart tool/region_check.dart
+node --test tool/retailers/*.mjs
+deno check supabase/functions/retailers/index.ts
 flutter build web
 flutter build apk --debug
 ```
@@ -57,7 +67,7 @@ GitHub Actions validates an ephemeral PostgreSQL database, generates platform fi
 
 Recipes retain source links and original ingredient measurements. Full cooking directions are at the linked source. Most imported base serving counts are unknown: quantities stay at the original recipe yield until users confirm that count in the recipe editor. Ambiguous amounts remain visible with warnings. Volume does not convert to mass without a density. Count weights are estimates.
 
-The demo starts with 28 offline recipes, selected from the prototype's curated library, rather than fetching its online starter calendar. The exact original prototype remains in `reference/`. Review recipe redistribution rights before public release.
+New local plans cover every day of the phone's current month using offline recipes. Shuffle month fills missing days in the displayed month while preserving takeout and leftovers. The exact original prototype remains in `reference/`. Review recipe redistribution rights before public release.
 
 ## Design and plan
 
@@ -76,3 +86,7 @@ The initial local foundation passed Flutter tests and Android/web builds, and th
 Hosted Supabase Auth/Realtime, email delivery/redirects and a live two-account flow require a configured project and remain unverified. Local Flutter bootstrap was blocked by automatic approval review; validation uses isolated GitHub CI and safe standalone Dart checks.
 
 Known limitations: Physical fold transitions, keyboard behavior and printing/system sharing dialogs still need manual device verification. No live retailer prices/cart transfer or public deployment is provided.
+
+## Kroger-family stores — 0.6.3
+
+Nearby discovery includes every chain returned by the Kroger Locations API for the account ZIP and radius. Store selection and product/pricing screens preserve the actual chain and location name, including Fred Meyer or QFC where returned. Changing ZIP/radius clears the previous search and selection. This uses the existing Kroger credentials; no separate chain registration is needed. Discovery still returns up to 50 locations, and price coverage depends on the provider response.

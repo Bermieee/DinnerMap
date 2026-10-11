@@ -31,6 +31,18 @@ jobs:
         working-directory: tool/database
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+  retailers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tool/retailers/*.mjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: '2.9.6'
+      - run: deno check supabase/functions/retailers/index.ts
   checks:
     runs-on: ubuntu-latest
     steps:
@@ -46,17 +58,36 @@ jobs:
       - run: flutter analyze --no-fatal-infos
       - run: flutter test
       - run: dart tool/domain_check.dart
+      - run: dart tool/month_plan_check.dart
+      - run: dart tool/discovery_check.dart
+      - run: dart tool/discovery_web_check.dart
+      - run: dart compile js -O2 -o /tmp/discovery_web_check.js tool/discovery_web_check.dart
+      - run: node /tmp/discovery_web_check.js
       - run: dart tool/storage_check.dart
       - run: dart tool/account_check.dart
       - run: dart tool/shared_check.dart
       - run: dart tool/layout_check.dart
-      - run: flutter build web
+      - run: dart tool/region_check.dart
+      - run: dart tool/consumer_check.dart
+      - run: dart compile js -O2 -o /tmp/consumer_check.js tool/consumer_check.dart
+      - run: node /tmp/consumer_check.js
+      - run: dart tool/catalog_audit.dart --check
+      - run: dart tool/matching_check.dart
+      - run: dart compile js -O2 -o /tmp/matching_check.js tool/matching_check.dart
+      - run: node -e 'globalThis.self=globalThis;require("/tmp/matching_check.js")'
+      - run: dart tool/automatic_check.dart
+      - run: dart compile js -O2 -o /tmp/automatic_check.js tool/automatic_check.dart
+      - run: node /tmp/automatic_check.js
+      - run: dart tool/pricing_check.dart
+      - run: dart compile js -O2 -o /tmp/pricing_check.js tool/pricing_check.dart
+      - run: node /tmp/pricing_check.js
+      - run: flutter build web --dart-define-from-file=config/dinnermap-test.json
       - uses: actions/upload-artifact@v4
         with:
           name: dinnermap-web
           path: build/web
   android:
-    needs: [checks, database]
+    needs: [checks, database, retailers]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -70,7 +101,7 @@ jobs:
           channel: stable
           cache: true
       - run: bash tool/setup.sh
-      - run: flutter build apk --debug
+      - run: flutter build apk --debug --dart-define-from-file=config/dinnermap-test.json
       - uses: actions/upload-artifact@v4
         with:
           name: dinnermap-android-debug

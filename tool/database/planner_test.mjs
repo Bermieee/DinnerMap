@@ -9,6 +9,7 @@ grant usage on schema public,auth to authenticated,anon;
 insert into auth.users values ('00000000-0000-0000-0000-000000000001','a@test.invalid',now()),('00000000-0000-0000-0000-000000000002','b@test.invalid',now());`);
 await db.exec(await readFile(new URL('../../supabase/migrations/202610090001_household.sql',import.meta.url),'utf8'));
 try{await db.exec(await readFile(new URL('../../supabase/migrations/202610090002_planner.sql',import.meta.url),'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
+if(!process.env.SKIP_CLEAR_LIST_MIGRATION)await db.exec(await readFile(new URL('../../supabase/migrations/20261011001500_clear_shopping_list.sql',import.meta.url),'utf8'));
 let checks=0;
 async function q(sql,p=[]){return(await db.query(sql,p)).rows[0];}
 async function denied(sql,p=[]){await assert.rejects(db.query(sql,p));checks++;}
@@ -53,8 +54,21 @@ view=(await q('select public.read_shared_plan() as v')).v;assert.equal(view.snap
 await denied('select public.regenerate_shared_list($1,$2,$3,$4,$5,$6)',[crypto.randomUUID(),0,'2026-10-09',2,[row],[]]);
 await denied('select public.regenerate_shared_list($1,$2,$3,$4,$5,$6)',[crypto.randomUUID(),1,'2026-10-09',5,[row],[]]);
 await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'weights',id:'pieceWeights',expectedRevision:0,value:{chicken:49}}]);
+const oldList=(await q('select public.read_shared_plan() as v')).v.snapshot.list;
+await change({op:'manual',id:'clear-test',value:{id:'clear-test',name:'Milk',amount:'1 gallon'}});
+await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'clearList',id:'list',value:oldList}]);
+const beforeClear=(await q('select public.read_shared_plan() as v')).v;
+const clearId=crypto.randomUUID();
+await change({op:'clearList',id:'list',value:beforeClear.snapshot.list},clearId);
+await change({op:'clearList',id:'list',value:beforeClear.snapshot.list},clearId);checks++;
+const cleared=(await q('select public.read_shared_plan() as v')).v;
+assert.equal(cleared.snapshot.list,null);checks++;
+assert.deepEqual(cleared.snapshot.entries,beforeClear.snapshot.entries);assert.deepEqual(cleared.snapshot.recipes,beforeClear.snapshot.recipes);checks++;
+await db.exec('reset role');assert.equal((await q('select count(*)::int as n from public.shopping_items')).n,0);checks++;
+await as(1);
 await as(2);await q('select public.create_household($1)',['Other']);
 view=(await q('select public.read_shared_plan() as v')).v;
+await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'clearList',id:'list',value:beforeClear.snapshot.list}]);
 assert.equal(view.snapshot.entries.length,0);checks++;
 await denied('select public.apply_shared_change($1,$2)',[crypto.randomUUID(),{op:'entry',id:'day-1',expectedRevision:1,value:entry}]);
 if(db.connect){

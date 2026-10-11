@@ -411,6 +411,7 @@ class SharedPlannerController extends PlannerController {
       if (op == 'recipe') current = snapshot?.recipes[id]?.toJson();
       if (op == 'favorites') current = snapshot?.favorites.toList();
       if (op == 'avoided') current = snapshot?.avoided.toList();
+      if (op == 'clearList') current = snapshot?.list?.toJson();
       if (op == 'weights') current = snapshot?.pieceWeights;
       return {'record': id, 'current': current, 'proposed': c['value']};
     }).toList();
@@ -430,6 +431,7 @@ class SharedPlannerController extends PlannerController {
       !_refreshing &&
       view != null &&
       conflictChanges != null &&
+      !conflictChanges!.any((c) => c['op'] == 'clearList') &&
       pendingChanges == null &&
       pendingGeneration == null;
 

@@ -1,3 +1,4 @@
+import 'product_search.dart';
 import '../../layout/adaptive_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,10 @@ import 'shopping_models.dart';
 import 'shopping_engine.dart';
 import 'shopping_export.dart';
 import 'shopping_actions.dart';
+import 'shopping_price_screen.dart';
+import 'shopping_quote_provider.dart';
+import 'shopping_pricing.dart';
+import 'consumer_amounts.dart';
 
 class ShoppingScreen extends ConsumerStatefulWidget {
   final PlannerSnapshot snapshot;
@@ -27,6 +32,18 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
   Widget build(BuildContext context) {
     final s = widget.snapshot;
     final list = s.list;
+    final quote = ref.watch(shoppingQuoteProvider);
+    final currentRows = {
+      if (list != null)
+        for (final row in groceryRows(list)) row.key: row,
+    };
+    final selections = <String, PriceSelection>{
+      if (list != null && s.revision == list.sourceRevision)
+        for (final entry in quote.selections.entries)
+          if (currentRows[entry.key] != null &&
+              entry.value.matches(currentRows[entry.key]!, quote.storeId ?? ''))
+            entry.key: entry.value,
+    };
     final start =
         _start ??
         list?.start ??
@@ -108,6 +125,25 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
               ),
             ),
           if (list != null) ...[
+            OutlinedButton.icon(
+              onPressed: controller.canEdit
+                  ? () {
+                      controller.clearShoppingList();
+                      ref.read(shoppingQuoteProvider.notifier).clear();
+                    }
+                  : null,
+              icon: const Icon(Icons.delete_outline),
+              label: const Text('Clear grocery list'),
+            ),
+            OutlinedButton.icon(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const ShoppingPriceScreen(),
+                ),
+              ),
+              icon: const Icon(Icons.price_check),
+              label: const Text('Price this list'),
+            ),
             Text(
               'Saved list: ${dateKey(list.start)} • ${list.weeks} week(s) • ${list.rows.length + list.manualItems.length} items',
             ),
@@ -141,6 +177,7 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
                           list,
                           massUnit: unit,
                           pieceWeights: s.pieceWeights,
+                          selections: selections,
                         ),
                       ),
                     );
@@ -159,6 +196,7 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
                       list,
                       massUnit: unit,
                       pieceWeights: s.pieceWeights,
+                      selections: selections,
                     ),
                   ),
                   icon: const Icon(Icons.share),
@@ -171,6 +209,7 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
                       list,
                       massUnit: unit,
                       pieceWeights: s.pieceWeights,
+                      selections: selections,
                     ),
                   ),
                   icon: const Icon(Icons.print),
@@ -184,6 +223,7 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
                       list,
                       massUnit: unit,
                       pieceWeights: s.pieceWeights,
+                      selections: selections,
                     ),
                     'dinnermap-shopping',
                     'txt',
@@ -197,6 +237,7 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
                       list,
                       massUnit: unit,
                       pieceWeights: s.pieceWeights,
+                      selections: selections,
                     ),
                     'dinnermap-shopping',
                     'csv',
@@ -262,6 +303,7 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
                 ),
               ),
               ...group.value.map((row) {
+                final selected = selections[row.key];
                 final checked = list.checked.contains(row.key);
                 final piece = s.pieceWeights[row.key];
                 final weight = piece == null ? null : row.estimatedOz(piece);
@@ -277,15 +319,36 @@ class _ShoppingState extends ConsumerState<ShoppingScreen> {
                               : null,
                           controlAffinity: ListTileControlAffinity.leading,
                           title: Text(
-                            row.name,
+                            productSearchTerm(row.name),
                             style: TextStyle(
                               decoration: checked
                                   ? TextDecoration.lineThrough
                                   : null,
                             ),
                           ),
-                          subtitle: Text(
-                            '${rowAmount(row, unit)}${row.preparation.isEmpty ? '' : ' • ${row.preparation}'}${weight == null ? '' : '\nEstimated shopping weight: ${(unit == 'lb' ? weight / 16 : weight).toStringAsFixed(2)} $unit ($piece oz per piece)'}',
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                selected == null
+                                    ? purchaseHint(row, massUnit: unit)
+                                    : buyPackages(selected),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Needed for recipes: ${rowAmount(row, unit)}${row.preparation.isEmpty ? '' : ' • ${row.preparation}'}',
+                              ),
+                              if (selected != null)
+                                Text(
+                                  '${selected.offer.name} • estimated \$${(selected.costCents / 100).toStringAsFixed(2)}',
+                                ),
+                              if (weight != null)
+                                Text(
+                                  'Estimated shopping weight: ${(unit == 'lb' ? weight / 16 : weight).toStringAsFixed(2)} $unit ($piece oz per piece)',
+                                ),
+                            ],
                           ),
                         ),
                         if (row.quantity != null &&

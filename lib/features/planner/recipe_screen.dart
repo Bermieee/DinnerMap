@@ -5,8 +5,11 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../data/planner_repository.dart';
 import '../../layout/adaptive_page.dart';
 import '../shopping/shopping_engine.dart';
+import '../shopping/consumer_amounts.dart';
 import 'models.dart';
 import 'planner_controller.dart';
+import 'recipe_discovery.dart';
+import 'recipe_filters.dart';
 
 Future<Recipe?> chooseRecipe(
   BuildContext context,
@@ -24,33 +27,69 @@ class RecipePicker extends StatefulWidget {
 }
 
 class _PickerState extends State<RecipePicker> {
-  String search = '';
+  String search = '', region = '';
+  RecipeCollection collection = RecipeCollection.all;
+  final searchController = TextEditingController();
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final recipes = widget.snapshot.recipes.values
-        .where((r) => r.title.toLowerCase().contains(search.toLowerCase()))
-        .toList();
+    final recipes = discoverRecipes(
+      widget.snapshot.recipes.values,
+      query: search,
+      region: region,
+      collection: collection,
+    );
     return AdaptiveAlertDialog(
       title: const Text('Choose a dinner'),
       content: SizedBox(
         width: 600,
-        height: 440,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              onChanged: (v) => setState(() => search = v),
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: 'Search recipes',
-              ),
+            RecipeFilters(
+              search: searchController,
+              regions: recipeRegions(widget.snapshot.recipes.values),
+              region: region,
+              collection: collection,
+              onSearch: (v) => setState(() => search = v),
+              onRegion: (v) => setState(() => region = v),
+              onCollection: (v) => setState(() => collection = v),
+              onClear: () => setState(() {
+                searchController.clear();
+                search = '';
+                region = '';
+                collection = RecipeCollection.all;
+              }),
             ),
             const SizedBox(height: 12),
-            Expanded(
+            Text('${recipes.length} matching recipes'),
+            if (recipes.isEmpty)
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Text(
+                  'No matching recipes. Try another region or clear your filters.',
+                ),
+              ),
+            SizedBox(
+              height: 300,
               child: ListView.builder(
                 itemCount: recipes.length,
                 itemBuilder: (_, i) => ListTile(
                   title: Text(recipes[i].title),
-                  subtitle: Text(recipes[i].region),
+                  subtitle: Text(
+                    [
+                      recipes[i].region,
+                      if (showVeganLabel(recipes[i])) 'Vegan',
+                      if (inCollection(recipes[i], RecipeCollection.mealPrep))
+                        'Meal prep',
+                    ].where((s) => s.isNotEmpty).join(' • '),
+                  ),
                   trailing: const Icon(Icons.add_circle_outline),
                   onTap: () => Navigator.pop(context, recipes[i]),
                 ),
@@ -226,7 +265,8 @@ class RecipeScreen extends ConsumerStatefulWidget {
 }
 
 class _RecipesState extends ConsumerState<RecipeScreen> {
-  String search = '', category = 'all';
+  String search = '', category = 'all', region = '';
+  RecipeCollection collection = RecipeCollection.all;
   final searchController = TextEditingController();
   @override
   void dispose() {
@@ -239,14 +279,15 @@ class _RecipesState extends ConsumerState<RecipeScreen> {
   Widget build(BuildContext context) {
     final s = widget.snapshot;
     final controller = ref.read(plannerProvider.notifier);
-    final recipes = s.recipes.values
-        .where(
-          (r) =>
-              r.title.toLowerCase().contains(search.toLowerCase()) &&
-              (category == 'all' || r.category == category) &&
-              (!favorites || s.favorites.contains(r.id)),
-        )
-        .toList();
+    final recipes = discoverRecipes(
+      s.recipes.values,
+      query: search,
+      region: region,
+      collection: collection,
+      category: category,
+      favoritesOnly: favorites,
+      favorites: s.favorites,
+    );
     return AdaptivePage(
       child: ListView(
         key: const PageStorageKey('recipes-scroll'),
@@ -275,13 +316,34 @@ class _RecipesState extends ConsumerState<RecipeScreen> {
             '${s.recipes.length} source-linked recipes • original quantities preserved',
           ),
           const SizedBox(height: 16),
-          TextField(
-            controller: searchController,
-            onChanged: (v) => setState(() => search = v),
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.search),
-              hintText: 'Search your dinners',
-            ),
+          RecipeIdeas(
+            counts: {
+              for (final c in RecipeCollection.values)
+                c: s.recipes.values.where((r) => inCollection(r, c)).length,
+            },
+            selected: collection,
+            onSelected: (v) => setState(() {
+              collection = v;
+              category = 'all';
+            }),
+          ),
+          const SizedBox(height: 16),
+          RecipeFilters(
+            search: searchController,
+            regions: recipeRegions(s.recipes.values),
+            region: region,
+            collection: collection,
+            onSearch: (v) => setState(() => search = v),
+            onRegion: (v) => setState(() => region = v),
+            onCollection: (v) => setState(() => collection = v),
+            onClear: () => setState(() {
+              searchController.clear();
+              search = '';
+              region = '';
+              collection = RecipeCollection.all;
+              category = 'all';
+              favorites = false;
+            }),
           ),
           const SizedBox(height: 12),
           Wrap(
@@ -307,6 +369,7 @@ class _RecipesState extends ConsumerState<RecipeScreen> {
             ],
           ),
           const SizedBox(height: 16),
+          Text('${recipes.length} matching recipes'),
           if (recipes.isEmpty) const Text('No matching recipes.'),
           LayoutBuilder(
             builder: (context, constraints) {
@@ -341,6 +404,12 @@ class _RecipesState extends ConsumerState<RecipeScreen> {
                                   Text(
                                     '${r.region} • ${r.baseServings == null ? 'servings unknown' : 'serves ${r.baseServings}'}${s.avoided.contains(r.id) ? ' • avoided in shuffle' : ''}',
                                   ),
+                                  if (showVeganLabel(r)) const Text('Vegan'),
+                                  if (inCollection(
+                                    r,
+                                    RecipeCollection.mealPrep,
+                                  ))
+                                    const Text('Meal prep idea'),
                                   Row(
                                     children: [
                                       Icon(
@@ -411,6 +480,20 @@ Future<void> showRecipe(
                 '${recipe.region} • ${recipe.baseServings == null ? 'Original amounts: serving count unconfirmed' : 'Serves ${recipe.baseServings}'}',
               ),
               const SizedBox(height: 16),
+              if (recipeGuide(recipe) case final guide?) ...[
+                if (guide['vegan'] == true)
+                  const Text('Vegan • choose plant-based toppings'),
+                if (guide['vegetarian'] == true && guide['vegan'] != true)
+                  const Text('Vegetarian • use vegetarian cheese where listed'),
+                if ((guide['mealPrep'] as String).isNotEmpty) ...[
+                  Text(
+                    'Meal prep idea',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  Text(guide['mealPrep'] as String),
+                ],
+                const SizedBox(height: 12),
+              ],
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
@@ -471,11 +554,7 @@ Future<void> showRecipe(
                 (i) => ListTile(
                   dense: true,
                   title: Text(i.name),
-                  subtitle: Text(
-                    i.originalText.isEmpty
-                        ? '${i.quantity ?? 'Review'} ${i.unit}'
-                        : i.originalText,
-                  ),
+                  subtitle: Text(recipeIngredientAmount(i)),
                 ),
               ),
               const SizedBox(height: 20),
