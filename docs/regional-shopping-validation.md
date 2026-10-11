@@ -105,3 +105,5 @@ Known plurals and aliases replace indiscriminate suffix stripping; cooking-use s
 Every rejected row now distinguishes empty results, mismatched names, missing price, unavailable stock, variable weight, unknown package basis/size and incompatible quantities. Request failures retain the backend's reason; a temporary service failure gets one paced retry. Authentication/configuration/quota errors do not retry. Changed account/store/list or cancellation prevents accepting a late result.
 
 Native matching, automatic, consumer, pricing, domain and discovery checks passed; matching checks also compiled and passed in JavaScript. Review found and resolved curated-guide and optional-display regressions. Full CI/build/publication evidence follows after completion. No backend schema or secret changes required.
+
+Retailer-name checks also use Kroger's public product names for Original Classic BBQ Sauce (0001111015424), boneless skinless breast chunks with rib meat (0001111096912), and flour (0001111085402). Published names are evidence for matcher vocabulary, not current inventory, store price, or actual API responses.

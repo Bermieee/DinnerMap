@@ -8,8 +8,9 @@ import '../lib/features/region/region_models.dart';
 
 Future<void> main() async {
   final matches = <String, String>{
-    'boneless chicken breasts': 'Kroger Boneless Skinless Chicken Breasts',
-    'barbecue sauce': 'Kroger Original BBQ Sauce',
+    'boneless chicken breasts':
+        'Kroger® Boneless Skinless Chicken Breast Chunks with Rib Meat',
+    'barbecue sauce': 'Kroger® Original Classic BBQ Sauce',
     'black pepper': 'McCormick Pure Ground Black Pepper',
     'all-purpose flour': 'King Arthur All Purpose Unbleached Flour',
     'jalapeño peppers': 'Kroger Jalapeno Peppers',
