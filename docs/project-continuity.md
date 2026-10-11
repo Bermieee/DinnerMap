@@ -1,8 +1,14 @@
 # DinnerMap continuity recovery
 
+## Latest update — Kroger-family integration, 0.6.3+14
+
+Source `10164973ed8a6de3417ab61541286184a62f97ba` is saved on `feat/regional-shopping` in draft PR4. CI38119733338 passed110 Flutter tests, analysis, database, retailers, native/browser checks and the configured web build. The existing retailer Edge Function is now version7, ACTIVE, verify_jwt=true; anonymous POST remains401. Discovery retains local chain names from ZIP/radius results and shows the selected location in pricing. No additional chain credentials or database migration is needed.
+
+**Live web remains0.6.2:** publication is blocked by the disconnected workspace execution environment (409 environment_offline). The0.6.3 web artifact11695445029 is ready in CI38119733338; ZIP SHA256 `1c74d98f088de24a0a3a5041a784a4bf2c1942173d6dc042662a3ce0be101508`. Resume publication using the existing Sites project and tested artifact. Android is still building at this checkpoint. Do not redo Supabase setup. See regional-shopping-validation.md for exact verification and resume details.
+
 Recovered October 11, 2026, approximately 02:23 America/New_York. This note reconstructs project context from source, validation records, live read-only checks, and user reports. It does not restore missing ChatGPT messages.
 
-## Current verified checkpoint
+## Recovery checkpoint (superseded by the update above)
 
 - Runtime version: **0.6.2+13** on `feat/regional-shopping`.
 - Remote documentation head before this note: `5d516433ae55e543c9e84a1b96143d078070006d`.

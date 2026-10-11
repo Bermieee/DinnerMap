@@ -110,3 +110,18 @@ Retailer-name checks also use Kroger's public product names for Original Classic
 
 
 0.6.2 production evidence: code 3f4e242c79f6bf1bd901d9feed97f476099bee3a, CI 38100886738 (formatter/analyzer/full Flutter tests, native/JavaScript checks, catalog/curated-guide audit, web build, database, Node/Deno all passed); artifact 11687273343, ZIP SHA256 ccf43caba6c7db51fdaf9bb82f1657d604e551a3b3400fc28de3bfa5f14e6144. Source fc9d2a611d7542c2b6a75febc5919e4207723e71, deployment appgdep_6acae2efa26881919b753e39d30a6809, version appgprj_6aca85cdb0208191af6166428b56d663~appgver_a188326521a48191a0af9fec3f2c9825, terminal succeeded at https://dinnermap-web.lushsnail1.chatgpt.site. Owner-only audience retained. Android job was still building at publication; no live provider-inventory or browser QA claim.
+
+
+## Kroger-family store identities — 0.6.3+14
+
+User requested all Kroger-family chains be available only where the account ZIP/radius returns local stores. Existing discovery already had no chain filter; this change retains the API chain field, composes chain and location names without duplication, and carries the selected location into product and list-pricing labels. No nationwide chain picker or separate credentials are introduced. Searches still use the provider location ID. ZIP/radius changes clear prior locations and selection. Older responses without chain remain compatible.
+
+Two backend regressions failed before implementation because chain metadata was absent. All 17 Node retailer/handler checks and 21 standalone regional checks passed. Independent read-only review found no Critical or Important issues. Additional composed-chain widget and narrow large-text long-name coverage were suggested as Minor follow-ups; model composition and existing adaptive suites pass.
+
+Initial CI38119548630 passed Flutter tests, analysis, database and retailer checks but failed tool/matching_check.dart because its empty-result expectation still required the old Kroger wording. The updated expectation passes locally. Final code `10164973ed8a6de3417ab61541286184a62f97ba`, [CI38119733338](https://github.com/Bermieee/DinnerMap/actions/runs/38119733338), passed formatting/analysis, all110 Flutter tests, standalone/native/browser checks, full catalog audit, database, Node/Deno and configured web build. New Flutter cases verify family store identity in pricing and unavailable naming lookup without inventing a chain.
+
+Configured [web artifact11695445029](https://github.com/Bermieee/DinnerMap/actions/runs/38119733338/artifacts/11695445029), ZIP SHA256 `1c74d98f088de24a0a3a5041a784a4bf2c1942173d6dc042662a3ce0be101508`, is ready. Android is still building at this checkpoint.
+
+Backend retailers version7 deployed ACTIVE with verify_jwt=true. Fresh unauthenticated stores POST returned401. No schema migration, credentials change or user grocery mutation occurred.
+
+**Web publication blocked:** the workspace execution environment disconnected during deployment preparation. Exact executor error: environment registry409 Conflict, environment_offline, Environment is not connected. No0.6.3 Site version was saved or deployed; the live web app remains0.6.2. Resume by opening the existing Sites project `appgprj_6aca85cdb0208191af6166428b56d663`, downloading and digest-verifying the artifact above, replacing dist with its tested web assets (preserving hosting manifest and branding), pushing through the Sites source helper and deploying privately with the existing audience. Do not recreate the Site or Supabase project. No authenticated live chain inventory/pricing or interactive browser QA is claimed.
